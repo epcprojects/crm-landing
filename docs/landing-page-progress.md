@@ -229,3 +229,4 @@ Meeting link (NEXT_PUBLIC_DEMO_URL), page language (English/Urdu RTL/bilingual),
 
 ### Mockup Section 8: APPROVED by owner (2026-11-20). ALL 8 SECTIONS APPROVED. Page build complete pending the launch checklist above (meeting link, language, sign-in URL, OG image/favicon, mobile menu, a11y/Lighthouse pass, CSS prune, commit/deploy on owner's go-ahead).
 - Removed all 'ILLUSTRATION USES SAMPLE DATA' captions at owner's request (2026-11-20). Sample data is still sample; no on-page disclaimer now.
+- Problem section: shortened the chat sequence to ~2s and moved the three problems + closing line into their own scroll-reveal so nothing waits for the chat animation (owner feedback, 2026-11-20). Not yet committed.

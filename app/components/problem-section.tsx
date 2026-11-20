@@ -30,8 +30,8 @@ const chats: {
     enter: 0.1,
     waitMinutes: 25,
     messages: [
-      { from: "agent", text: "Location sent. Visit at 4 pm?", time: "3:20 pm", at: 0.5 },
-      { from: "client", text: "It’s almost 4. Should I leave to see the plot?", time: "3:52 pm", at: 1.1 },
+      { from: "agent", text: "Location sent. Visit at 4 pm?", time: "3:20 pm", at: 0.3 },
+      { from: "client", text: "It’s almost 4. Should I leave to see the plot?", time: "3:52 pm", at: 0.6 },
     ],
   },
   {
@@ -41,9 +41,9 @@ const chats: {
     enter: 0.3,
     waitMinutes: 130,
     messages: [
-      { from: "client", text: "Can you send me the payment plan?", time: "2:10 pm", at: 0.7 },
-      { from: "agent", text: "Yes, sending it today.", time: "2:35 pm", at: 1.2 },
-      { from: "client", text: "Any update on the plan?", time: "4:40 pm", at: 1.7 },
+      { from: "client", text: "Can you send me the payment plan?", time: "2:10 pm", at: 0.4 },
+      { from: "agent", text: "Yes, sending it today.", time: "2:35 pm", at: 0.7 },
+      { from: "client", text: "Any update on the plan?", time: "4:40 pm", at: 1.0 },
     ],
   },
 ];
@@ -126,11 +126,15 @@ function ChatCard({ chat }: { chat: (typeof chats)[number] }) {
 
       <p
         className="reveal mt-4 flex items-center gap-2 rounded-lg bg-[#fff4e5] px-3 py-2 text-[13px] font-bold text-[#9a4a00]"
-        style={d(chat.enter + 2.2)}
+        style={d(chat.enter + 1.2)}
       >
         <Clock />
         <span>
-          No reply for <WaitingTimer to={chat.waitMinutes} delay={(chat.enter + 2.2) * 1000} />
+          No reply for <WaitingTimer
+            to={chat.waitMinutes}
+            delay={(chat.enter + 1.2) * 1000}
+            duration={1100}
+          />
         </span>
       </p>
     </div>
@@ -165,7 +169,7 @@ export default function ProblemSection() {
         {/* the warning */}
         <p
           className="reveal mx-auto mt-10 flex w-fit items-center gap-2.5 rounded-full border border-[#f0c48a] bg-[#fff4e5] px-4 py-2 text-[13px] font-bold text-[#9a4a00]"
-          style={d(4.9)}
+          style={d(0.2)}
         >
           <span aria-hidden="true" className="relative flex size-2.5">
             <span className="warn-ping absolute inline-flex size-full rounded-full bg-[#e08a1e]" />
@@ -181,20 +185,26 @@ export default function ProblemSection() {
           ))}
         </div>
 
-        {/* what it costs */}
+      </RevealRoot>
+
+      {/* what it costs: reveals on its own as you scroll, never waits for the chats */}
+      <RevealRoot
+        className="mx-auto w-full max-w-[1120px] px-4 sm:px-8"
+        threshold={0.1}
+      >
         <ol className="mt-16 grid gap-10 lg:mt-20 lg:grid-cols-3 lg:gap-12">
           {problems.map((problem, index) => (
             <li
               key={problem.title}
               className="reveal flex gap-4 lg:flex-col lg:items-center lg:text-center"
-              style={d(5.4 + index * 0.25)}
+              style={d(index * 0.12)}
             >
               <span className="grid size-14 shrink-0 place-items-center rounded-full bg-brand/[0.08] text-brand">
                 <svg
                   aria-hidden="true"
                   viewBox="0 0 24 24"
                   className="draw size-7"
-                  style={d(5.6 + index * 0.25)}
+                  style={d(0.2 + index * 0.12)}
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="1.8"
@@ -217,7 +227,7 @@ export default function ProblemSection() {
         </ol>
 
         {/* the closing line */}
-        <div className="reveal mt-16 text-center lg:mt-20" style={d(6.4)}>
+        <div className="reveal mt-16 text-center lg:mt-20" style={d(0.4)}>
           <p className="mx-auto max-w-[26ch] text-[clamp(1.5rem,2.8vw,2.2rem)] font-extrabold leading-tight tracking-[-0.02em] text-balance">
             Busy isn&rsquo;t the same as{" "}
             <span className="text-brand">moving forward.</span>
