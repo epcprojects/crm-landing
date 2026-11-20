@@ -28,7 +28,7 @@ export default function FinalCtaSection() {
         className="pointer-events-none absolute left-1/2 top-0 h-[34rem] w-[60rem] max-w-none -translate-x-1/2 bg-[radial-gradient(closest-side,rgba(120,104,238,0.38),transparent)]"
       />
       <RevealRoot
-        className="relative mx-auto w-full max-w-7xl px-5 pb-48 pt-24 text-center sm:px-10 sm:pb-56 sm:pt-28 lg:pb-64 lg:pt-32"
+        className="relative mx-auto w-full max-w-7xl px-5 pb-40 pt-16 text-center sm:px-10 sm:pb-56 sm:pt-28 lg:pb-64 lg:pt-32"
         threshold={0.3}
       >
         <p

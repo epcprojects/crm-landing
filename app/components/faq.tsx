@@ -30,7 +30,7 @@ function Plus({ open }: { open: boolean }) {
   return (
     <span
       aria-hidden="true"
-      className={`grid size-8 shrink-0 place-items-center rounded-full border transition-colors duration-300 ${
+      className={`grid size-7 shrink-0 place-items-center rounded-full border sm:size-8 transition-colors duration-300 ${
         open ? "border-brand bg-brand text-white" : "border-black/15 text-ink/70"
       }`}
     >
@@ -59,7 +59,7 @@ export default function Faq() {
                 aria-expanded={isOpen}
                 aria-controls={`faq-a-${index}`}
                 onClick={() => setOpen(isOpen ? null : index)}
-                className="flex min-h-14 w-full items-center justify-between gap-4 py-4 text-left text-[17px] font-extrabold tracking-[-0.015em]"
+                className="flex min-h-12 w-full items-center justify-between gap-4 py-3 text-left text-[16px] font-extrabold tracking-[-0.015em] sm:min-h-14 sm:py-4 sm:text-[17px]"
               >
                 {item.q}
                 <Plus open={isOpen} />
@@ -73,7 +73,7 @@ export default function Faq() {
               style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
             >
               <div className="overflow-hidden">
-                <p className="max-w-[40rem] pb-5 text-base leading-7 text-body">
+                <p className="max-w-[40rem] pb-4 text-[15px] leading-6 text-body sm:pb-5 sm:text-base sm:leading-7">
                   {item.a}
                 </p>
               </div>

@@ -213,12 +213,12 @@ export default function ClientFile() {
 
   return (
     <div
-      className="reveal mt-12 lg:mt-14"
+      className="reveal mt-8 sm:mt-12 lg:mt-14"
       style={{ "--d": "0.2s" } as CSSProperties}
     >
       <div className="overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_44px_80px_-36px_rgba(40,30,120,0.38)]">
         {/* window bar */}
-        <div className="relative flex items-center gap-2 border-b border-black/[0.07] bg-[#f7f7fc] px-4 py-3">
+        <div className="relative flex items-center gap-2 border-b border-black/[0.07] bg-[#f7f7fc] px-4 py-2.5 sm:py-3">
           {[0, 1, 2].map((dot) => (
             <span
               key={dot}
@@ -273,7 +273,7 @@ export default function ClientFile() {
             <div
               role="group"
               aria-label="Choose a client to open"
-              className="relative flex gap-1 overflow-x-auto p-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:flex-col lg:overflow-visible lg:px-3 lg:pb-4 lg:pt-1"
+              className="relative flex gap-1 overflow-x-auto px-3 py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:flex-col lg:overflow-visible lg:px-3 lg:pb-4 lg:pt-1"
             >
               {clients.map((item, index) => {
                 const active = index === selected;
@@ -287,12 +287,12 @@ export default function ClientFile() {
                     type="button"
                     aria-pressed={active}
                     onClick={() => open(index)}
-                    className={`flex min-h-11 shrink-0 items-center gap-3 rounded-xl p-2.5 text-left transition-colors ${
+                    className={`flex min-h-11 shrink-0 items-center gap-2.5 rounded-xl p-2 text-left transition-colors sm:gap-3 sm:p-2.5 ${
                       active ? "bg-brand/[0.08]" : "hover:bg-black/[0.03]"
                     }`}
                   >
                     <span
-                      className={`grid size-10 shrink-0 place-items-center rounded-full text-[14px] font-bold transition-colors ${
+                      className={`grid size-8 shrink-0 place-items-center rounded-full text-[13px] font-bold transition-colors sm:size-10 sm:text-[14px] ${
                         active
                           ? "bg-brand text-white"
                           : "bg-[#e4e0ff] text-[#2f2496]"
@@ -344,7 +344,7 @@ export default function ClientFile() {
           {/* the file */}
           <div key={client.id} className="min-w-0">
             {/* top bar */}
-            <div className="thread-in flex items-center justify-between gap-3 border-b border-black/[0.07] px-5 py-3 sm:px-7">
+            <div className="thread-in hidden items-center justify-between gap-3 border-b border-black/[0.07] px-5 py-3 sm:flex sm:px-7">
               <p className="flex items-center gap-1.5 text-[13px] text-ink/60">
                 Clients
                 <CaretRight aria-hidden="true" weight="bold" className="size-3" />
@@ -366,7 +366,7 @@ export default function ClientFile() {
               </div>
             </div>
 
-            <div className="p-5 sm:p-7">
+            <div className="p-4 sm:p-7">
               {/* 1 the client */}
               <div className="relative">
                 <Marker n={1} className="absolute right-0 top-0" />
@@ -374,12 +374,12 @@ export default function ClientFile() {
                   className="thread-in flex items-center gap-4"
                   style={{ animationDelay: "60ms" }}
                 >
-                  <span className="grid size-16 shrink-0 place-items-center rounded-full bg-[#e4e0ff] text-[22px] font-extrabold text-[#2f2496]">
+                  <span className="grid size-12 shrink-0 place-items-center rounded-full bg-[#e4e0ff] text-[18px] font-extrabold text-[#2f2496] sm:size-16 sm:text-[22px]">
                     {initials(client.name)}
                   </span>
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-3">
-                      <h3 className="text-[26px] font-extrabold leading-none tracking-[-0.025em]">
+                      <h3 className="text-[22px] font-extrabold leading-none tracking-[-0.025em] sm:text-[26px]">
                         {client.name}
                       </h3>
                       <span
@@ -395,7 +395,7 @@ export default function ClientFile() {
                 </div>
 
                 <dl
-                  className="thread-in mt-5 grid grid-cols-2 gap-4 sm:grid-cols-4"
+                  className="thread-in mt-4 grid grid-cols-2 gap-2.5 sm:mt-5 sm:grid-cols-4 sm:gap-4"
                   style={{ animationDelay: "120ms" }}
                 >
                   {(
@@ -408,15 +408,15 @@ export default function ClientFile() {
                   ).map(([FactIcon, label, value]) => (
                     <div
                       key={label}
-                      className="flex items-center gap-3 rounded-xl bg-[#f7f7fc] px-3.5 py-3"
+                      className="flex items-center gap-2.5 rounded-xl bg-[#f7f7fc] px-3 py-2.5 sm:gap-3 sm:px-3.5 sm:py-3"
                     >
                       <FactIcon
                         aria-hidden="true"
-                        className="size-5 shrink-0 text-brand"
+                        className="size-[18px] shrink-0 text-brand sm:size-5"
                       />
                       <div className="min-w-0">
                         <dt className="text-[11px] text-ink/55">{label}</dt>
-                        <dd className="text-[14px] font-bold leading-snug">{value}</dd>
+                        <dd className="text-[13px] font-bold leading-snug sm:text-[14px]">{value}</dd>
                       </div>
                     </div>
                   ))}
@@ -424,11 +424,11 @@ export default function ClientFile() {
               </div>
 
               {/* tabs */}
-              <div className="mt-6 flex gap-6 border-b border-black/[0.08] text-[14px] font-bold">
+              <div className="mt-5 flex gap-5 overflow-x-auto border-b border-black/[0.08] text-[14px] font-bold [scrollbar-width:none] sm:mt-6 sm:gap-6 [&::-webkit-scrollbar]:hidden">
                 {tabs.map(([label, count], index) => (
                   <span
                     key={label}
-                    className={`-mb-px flex items-center gap-2 border-b-2 pb-3 ${
+                    className={`-mb-px flex shrink-0 items-center gap-2 border-b-2 pb-2.5 sm:pb-3 ${
                       index === 0
                         ? "border-brand text-ink"
                         : "border-transparent text-ink/50"
@@ -444,14 +444,14 @@ export default function ClientFile() {
                 ))}
               </div>
 
-              <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_16rem] lg:gap-8">
+              <div className="mt-4 grid gap-4 sm:mt-6 sm:gap-6 lg:grid-cols-[minmax(0,1fr)_16rem] lg:gap-8">
                 {/* 2 the conversation */}
-                <div className="relative rounded-2xl bg-[#f6f5fc] p-4 sm:p-5">
+                <div className="relative rounded-2xl bg-[#f6f5fc] p-3 sm:p-5">
                   <Marker n={2} className="absolute -right-2 -top-2" />
                   <p className="mx-auto w-fit rounded-full bg-white px-3 py-1 text-[11px] font-bold text-ink/55">
                     Today
                   </p>
-                  <ul className="mt-4 space-y-3">
+                  <ul className="mt-3 space-y-2.5 sm:mt-4 sm:space-y-3">
                     {client.thread.map((message, index) => (
                       <li
                         key={message.text}
@@ -475,7 +475,7 @@ export default function ClientFile() {
                       </li>
                     ))}
                   </ul>
-                  <div className="mt-4 flex items-center gap-2 rounded-xl bg-white px-3.5 py-2.5 text-[13px] text-ink/50">
+                  <div className="mt-3 flex items-center gap-2 rounded-xl bg-white px-3 py-2 text-[13px] text-ink/50 sm:mt-4 sm:px-3.5 sm:py-2.5">
                     <span className="flex-1">Write a reply…</span>
                     <span className="grid size-8 place-items-center rounded-full bg-brand text-white">
                       <PaperPlaneRight
@@ -522,7 +522,7 @@ export default function ClientFile() {
                     </span>
                   </div>
 
-                  <ol className="mt-5 space-y-3.5 border-l border-black/10 pl-4">
+                  <ol className="mt-5 hidden space-y-3.5 border-l border-black/10 pl-4 sm:block">
                     {client.history.map(([event, when], index) => (
                       <li
                         key={event}

@@ -206,10 +206,10 @@ export default function DeviceSync() {
 
   return (
     <div
-      className="reveal mt-12 lg:mt-16"
+      className="reveal mt-8 sm:mt-12 lg:mt-16"
       style={{ "--d": "0.2s" } as CSSProperties}
     >
-      <div className="flex flex-col items-center gap-6 lg:flex-row lg:items-center lg:gap-0">
+      <div className="flex flex-col items-center gap-6 lg:flex-row lg:items-center lg:justify-center lg:gap-0">
         <div className="w-full max-w-[640px] lg:flex-1">
           <Laptop step={step} />
         </div>

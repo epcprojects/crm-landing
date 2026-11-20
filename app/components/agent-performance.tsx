@@ -73,21 +73,21 @@ export default function AgentPerformance() {
 
   return (
     <div
-      className="reveal mt-12 lg:mt-14"
+      className="reveal mt-8 sm:mt-12 lg:mt-14"
       style={{ "--d": "0.2s" } as CSSProperties}
     >
       <div className="overflow-hidden rounded-2xl border border-black/10 bg-white">
         {/* window bar and period */}
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-black/[0.07] bg-[#f7f7fc] px-4 py-3">
+        <div className="flex items-center justify-between gap-3 border-b border-black/[0.07] bg-[#f7f7fc] px-3 py-2.5 sm:px-4 sm:py-3">
           <div className="flex items-center gap-2">
             {[0, 1, 2].map((dot) => (
               <span
                 key={dot}
                 aria-hidden="true"
-                className="size-2.5 rounded-full bg-black/15"
+                className="hidden size-2.5 rounded-full bg-black/15 sm:block"
               />
             ))}
-            <span className="ml-3 text-[13px] font-bold text-ink/70">
+            <span className="text-[13px] font-bold text-ink/70 sm:ml-3">
               Agent performance
             </span>
           </div>
@@ -107,7 +107,7 @@ export default function AgentPerformance() {
                 type="button"
                 aria-pressed={period === value}
                 onClick={() => setPeriod(value)}
-                className={`min-h-9 rounded-full px-4 text-[13px] font-bold transition-colors ${
+                className={`min-h-9 rounded-full px-3 text-[12px] font-bold transition-colors sm:px-4 sm:text-[13px] ${
                   period === value
                     ? "bg-white text-ink"
                     : "text-ink/60 hover:text-ink"
@@ -124,7 +124,7 @@ export default function AgentPerformance() {
           {summary.map((item, index) => (
             <div
               key={item.label}
-              className="flex flex-col-reverse justify-end px-4 py-6 sm:px-8 sm:py-8"
+              className="flex flex-col-reverse justify-end px-3 py-4 sm:px-8 sm:py-8"
             >
               <dt className="mt-1.5 text-[13px] leading-snug text-body sm:text-[15px]">
                 {item.label}
@@ -154,13 +154,13 @@ export default function AgentPerformance() {
             return (
               <li
                 key={row.name}
-                className={`grid items-center gap-x-6 gap-y-3 border-b border-black/[0.07] px-4 py-5 last:border-b-0 sm:px-8 lg:grid-cols-[10rem_minmax(0,1fr)_14rem] ${
+                className={`grid items-center gap-x-6 gap-y-2.5 border-b border-black/[0.07] px-4 py-4 last:border-b-0 sm:px-8 sm:py-5 lg:grid-cols-[10rem_minmax(0,1fr)_14rem] ${
                   weak ? "bg-[#fff8ee]" : ""
                 }`}
               >
                 <div className="flex items-center gap-3">
                   <span
-                    className={`grid size-10 place-items-center rounded-full text-[14px] font-bold ${
+                    className={`grid size-9 place-items-center rounded-full text-[14px] font-bold sm:size-10 ${
                       weak ? "bg-[#ffe3bd] text-[#8a4300]" : "bg-[#e4e0ff] text-[#2f2496]"
                     }`}
                   >
@@ -196,15 +196,15 @@ export default function AgentPerformance() {
                   </p>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 text-left lg:text-right">
-                  <p>
-                    <span className="block text-[12px] text-ink/60">Lost</span>
+                <div className="flex gap-6 text-left lg:grid lg:grid-cols-2 lg:gap-4 lg:text-right">
+                  <p className="flex items-baseline gap-1.5 lg:block">
+                    <span className="text-[12px] text-ink/60 lg:block">Lost</span>
                     <span className="text-[16px] font-extrabold">{row.lost}</span>
                   </p>
-                  <p>
-                    <span className="block text-[12px] text-ink/60">First reply</span>
+                  <p className="flex items-baseline gap-1.5 lg:block">
+                    <span className="text-[12px] text-ink/60 lg:block">First reply</span>
                     <span
-                      className={`text-[16px] font-extrabold ${
+                      className={`text-[15px] font-extrabold lg:text-[16px] ${
                         slow ? "text-[#b45a00]" : ""
                       }`}
                     >

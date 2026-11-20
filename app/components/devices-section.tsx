@@ -22,7 +22,7 @@ export default function DevicesSection() {
     <section
       id="devices"
       aria-labelledby="devices-heading"
-      className="relative scroll-mt-16 border-t border-black/10 bg-white py-20 text-ink sm:py-24 lg:py-28"
+      className="relative scroll-mt-16 border-t border-black/10 bg-white py-12 text-ink sm:py-24 lg:py-28"
     >
       <RevealRoot
         className="mx-auto w-full max-w-7xl px-5 sm:px-10"
@@ -49,7 +49,7 @@ export default function DevicesSection() {
 
         <DeviceSync />
 
-        <ul className="mt-12 grid gap-8 lg:mt-14 lg:grid-cols-3 lg:gap-12">
+        <ul className="mt-8 grid gap-5 sm:mt-12 sm:gap-8 lg:mt-14 lg:grid-cols-3 lg:gap-12">
           {points.map((point, index) => (
             <li
               key={point.title}

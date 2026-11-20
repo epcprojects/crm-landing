@@ -102,7 +102,7 @@ type Step = { text: string; meta: string; done?: boolean; fresh?: boolean };
 function StepRow({ step }: { step: Step }) {
   return (
     <li
-      className={`${step.fresh ? "step-in" : ""} flex items-start gap-3 py-3.5`}
+      className={`${step.fresh ? "step-in" : ""} flex items-start gap-3 py-3 sm:py-3.5`}
     >
       <span
         aria-hidden="true"
@@ -185,13 +185,13 @@ export default function ConversationDemo() {
 
   return (
     <div
-      className="reveal mt-12 grid gap-6 lg:mt-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-8"
+      className="reveal mt-8 grid gap-5 sm:mt-12 sm:gap-6 lg:mt-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-8"
       style={{ "--d": "0.2s" } as React.CSSProperties}
     >
       {/* what was discussed */}
       <div className="overflow-hidden rounded-2xl border border-black/10 bg-white">
         <WindowBar title="Conversation · Sara" />
-        <div className="flex items-center gap-3 border-b border-black/[0.07] px-5 py-3">
+        <div className="flex items-center gap-3 border-b border-black/[0.07] px-4 py-2.5 sm:px-5 sm:py-3">
           <span className="grid size-9 place-items-center rounded-full bg-[#e4e0ff] text-[13px] font-bold text-[#2f2496]">
             S
           </span>
@@ -201,7 +201,7 @@ export default function ConversationDemo() {
           </div>
         </div>
         <div
-          className={`flex h-[420px] flex-col justify-end gap-3 overflow-hidden px-5 py-5 transition-opacity duration-500 [mask-image:linear-gradient(to_bottom,transparent,black_14%)] ${
+          className={`flex h-[330px] flex-col justify-end gap-2.5 overflow-hidden px-4 py-4 sm:h-[420px] sm:gap-3 sm:px-5 sm:py-5 transition-opacity duration-500 [mask-image:linear-gradient(to_bottom,transparent,black_14%)] ${
             fading ? "opacity-0" : "opacity-100"
           }`}
         >
@@ -234,7 +234,7 @@ export default function ConversationDemo() {
       {/* what happens next */}
       <div className="overflow-hidden rounded-2xl border border-black/10 bg-white">
         <WindowBar title="Next steps" />
-        <div className="flex items-center justify-between border-b border-black/[0.07] px-5 py-3">
+        <div className="flex items-center justify-between border-b border-black/[0.07] px-4 py-2.5 sm:px-5 sm:py-3">
           <p className="text-[15px] font-extrabold">Everything coming up</p>
           <p
             key={open}
@@ -244,7 +244,7 @@ export default function ConversationDemo() {
           </p>
         </div>
         <ul
-          className={`min-h-[330px] divide-y divide-black/[0.07] px-5 transition-opacity duration-500 ${
+          className={`min-h-[250px] divide-y divide-black/[0.07] px-4 sm:min-h-[330px] sm:px-5 transition-opacity duration-500 ${
             fading ? "opacity-0" : "opacity-100"
           }`}
         >

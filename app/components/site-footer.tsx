@@ -11,7 +11,7 @@ const links = [
 export default function SiteFooter() {
   return (
     <footer className="bg-night text-white">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 border-t border-white/10 px-4 py-10 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
+      <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-5 border-t border-white/10 px-5 py-8 sm:gap-8 sm:px-10 sm:py-10 lg:flex-row lg:justify-between">
         <div className="flex items-center gap-3">
           <Image
             src="/endpoint-leads-reversed.svg"
@@ -20,15 +20,9 @@ export default function SiteFooter() {
             height={708}
             className="h-11 w-auto"
           />
-          <span
-            aria-hidden="true"
-            className="border-l border-white/20 pl-3 font-label text-xs tracking-[0.14em] text-white/60"
-          >
-            by EPC
-          </span>
         </div>
 
-        <nav aria-label="Footer" className="flex flex-wrap gap-x-2 gap-y-1">
+        <nav aria-label="Footer" className="flex flex-wrap justify-center gap-x-2 gap-y-1">
           {links.map((link) => (
             <a
               key={link.href}
@@ -46,8 +40,8 @@ export default function SiteFooter() {
           </a>
         </nav>
 
-        <p className="text-sm text-white/60">
-          © 2026 Endpoint Leads by EPC
+        <p className="text-center text-sm text-white/60">
+          © 2026 Endpoint Leads
         </p>
       </div>
     </footer>

@@ -33,7 +33,7 @@ export default function HowItWorksSection() {
     <section
       id="how-it-works"
       aria-labelledby="how-heading"
-      className="relative scroll-mt-16 border-t border-black/10 bg-surface py-20 text-ink sm:py-24 lg:py-28"
+      className="relative scroll-mt-16 border-t border-black/10 bg-surface py-12 text-ink sm:py-24 lg:py-28"
     >
       <RevealRoot
         className="mx-auto w-full max-w-7xl px-5 sm:px-10"
@@ -55,7 +55,7 @@ export default function HowItWorksSection() {
           </h2>
         </div>
 
-        <ol className="relative mt-14 grid gap-10 lg:mt-16 lg:grid-cols-3 lg:gap-10">
+        <ol className="relative mt-8 grid gap-7 sm:mt-14 sm:gap-10 lg:mt-16 lg:grid-cols-3 lg:gap-10">
           {/* the line that connects the steps */}
           <span
             aria-hidden="true"
@@ -63,7 +63,7 @@ export default function HowItWorksSection() {
           />
           <span
             aria-hidden="true"
-            className="absolute bottom-6 left-6 top-6 w-px bg-brand/25 lg:hidden"
+            className="absolute bottom-5 left-5 top-5 w-px bg-brand/25 lg:hidden"
           />
           {steps.map((step, index) => (
             <li
@@ -71,17 +71,17 @@ export default function HowItWorksSection() {
               className="reveal relative flex gap-5 lg:flex-col lg:items-center lg:gap-0 lg:text-center"
               style={d(0.3 + index * 0.35)}
             >
-              <span className="relative z-10 grid size-12 shrink-0 place-items-center rounded-full bg-brand text-[17px] font-extrabold text-white ring-8 ring-surface">
+              <span className="relative z-10 grid size-10 shrink-0 place-items-center rounded-full bg-brand text-[15px] font-extrabold text-white ring-4 ring-surface sm:size-12 sm:text-[17px] sm:ring-8">
                 {index + 1}
               </span>
               <div className="lg:mt-6">
-                <h3 className="text-xl font-extrabold tracking-[-0.015em]">
+                <h3 className="text-[18px] font-extrabold tracking-[-0.015em] sm:text-xl">
                   {step.title}
                 </h3>
-                <p className="mt-2 max-w-[22rem] text-base leading-7 text-body lg:mx-auto">
+                <p className="mt-1.5 max-w-[22rem] text-[15px] leading-6 text-body sm:mt-2 sm:text-base sm:leading-7 lg:mx-auto">
                   {step.line}
                 </p>
-                <p className="mt-4 inline-flex rounded-full border border-brand/20 bg-white px-3.5 py-1.5 text-[13px] font-bold text-brand">
+                <p className="mt-3 inline-flex rounded-full border border-brand/20 bg-white px-3 py-1 text-[12px] font-bold text-brand sm:mt-4 sm:px-3.5 sm:py-1.5 sm:text-[13px]">
                   {step.chip}
                 </p>
               </div>
@@ -90,7 +90,7 @@ export default function HowItWorksSection() {
         </ol>
 
         {/* questions */}
-        <div className="mt-24 grid gap-10 lg:mt-32 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
+        <div className="mt-12 grid gap-8 sm:mt-24 sm:gap-10 lg:mt-32 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
           <div className="reveal" style={d(0.4)}>
             <p className="flex items-center gap-3 font-label text-xs font-medium tracking-[0.2em] text-brand">
               <span aria-hidden="true" className="h-px w-8 bg-brand" />
@@ -99,12 +99,12 @@ export default function HowItWorksSection() {
             <h2 className="mt-5 text-[clamp(1.9rem,3.4vw,2.8rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-balance">
               Questions, answered.
             </h2>
-            <p className="mt-4 max-w-[22rem] text-base leading-7 text-body">
+            <p className="mt-3 max-w-[22rem] text-[15px] leading-6 text-body sm:mt-4 sm:text-base sm:leading-7">
               Something else on your mind? Ask us in a free meeting.
             </p>
             <a
               href={siteConfig.demoHref}
-              className="group mt-6 inline-flex min-h-12 items-center gap-2.5 rounded-full border border-brand/30 bg-white px-6 text-[15px] font-bold text-brand transition-colors hover:border-brand"
+              className="group mt-5 inline-flex min-h-12 sm:mt-6 items-center gap-2.5 rounded-full border border-brand/30 bg-white px-6 text-[15px] font-bold text-brand transition-colors hover:border-brand"
             >
               Book a free meeting
               <span

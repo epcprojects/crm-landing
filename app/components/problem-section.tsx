@@ -136,7 +136,7 @@ export default function ProblemSection() {
     <section
       id="problem"
       aria-labelledby="problem-heading"
-      className="relative scroll-mt-16 overflow-hidden bg-gradient-to-b from-white via-white to-[#f8f7ff] pb-24 pt-20 text-ink sm:pb-28 sm:pt-24 lg:pb-32 lg:pt-28"
+      className="relative scroll-mt-16 overflow-hidden bg-gradient-to-b from-white via-white to-[#f8f7ff] pb-16 pt-6 text-ink sm:pb-28 sm:pt-24 lg:pb-32 lg:pt-28"
     >
       <RevealRoot
         className="problem-stage mx-auto w-full max-w-7xl px-5 sm:px-10"
@@ -153,7 +153,7 @@ export default function ProblemSection() {
             <span className="block text-ink/90">Your office is busy.</span>
             <span className="block text-brand">
               But are your clients{" "}
-              <span className="underline-draw">moving forward?</span>
+              <span>moving forward?</span>
             </span>
           </h2>
           <p className="mx-auto mt-6 max-w-[34rem] text-[17px] leading-[1.75] text-body sm:text-lg">
@@ -164,7 +164,7 @@ export default function ProblemSection() {
 
         {/* the warning */}
         <p
-          className="reveal mx-auto mt-12 flex w-fit items-center gap-2.5 rounded-full border border-[#f0c48a] bg-[#fff4e5] px-4 py-2 text-[13px] font-bold text-[#9a4a00]"
+          className="reveal mx-auto mt-8 sm:mt-12 flex w-fit items-center gap-2.5 rounded-full border border-[#f0c48a] bg-[#fff4e5] px-4 py-2 text-[13px] font-bold text-[#9a4a00]"
           style={d(0.2)}
         >
           <span aria-hidden="true" className="relative flex size-2.5">
@@ -193,26 +193,26 @@ export default function ProblemSection() {
         className="mx-auto w-full max-w-7xl px-5 sm:px-10"
         threshold={0.1}
       >
-        <ol className="mt-20 grid gap-10 lg:mt-28 lg:grid-cols-3 lg:gap-0 lg:divide-x lg:divide-black/10">
+        <ol className="mt-8 grid gap-6 sm:mt-16 lg:mt-28 lg:grid-cols-3 lg:gap-0 lg:divide-x lg:divide-black/10">
           {problems.map((problem, index) => (
             <li
               key={problem.title}
-              className="reveal flex gap-4 lg:flex-col lg:items-center lg:px-10 lg:text-center"
+              className="reveal flex items-start gap-4 lg:flex-col lg:items-center lg:px-10 lg:text-center"
               style={d(index * 0.12)}
             >
-              <span className="grid size-14 shrink-0 place-items-center rounded-full bg-brand/[0.09] text-brand">
+              <span className="grid size-12 shrink-0 place-items-center rounded-full bg-brand/[0.09] text-brand sm:size-14">
                 <problem.Icon
                   aria-hidden="true"
                   weight="bold"
-                  className="icon-pop size-7"
+                  className="icon-pop size-6 sm:size-7"
                   style={d(0.2 + index * 0.12)}
                 />
               </span>
               <div>
-                <h3 className="text-xl font-extrabold tracking-[-0.02em]">
+                <h3 className="text-[18px] font-extrabold tracking-[-0.02em] sm:text-xl">
                   {problem.title}
                 </h3>
-                <p className="mt-2.5 max-w-[22rem] text-base leading-7 text-body">
+                <p className="mt-1.5 max-w-[22rem] text-[15px] leading-6 text-body sm:mt-2.5 sm:text-base sm:leading-7">
                   {problem.line}
                 </p>
               </div>
@@ -221,14 +221,14 @@ export default function ProblemSection() {
         </ol>
 
         {/* the closing line */}
-        <div className="reveal mt-20 text-center lg:mt-28" style={d(0.4)}>
+        <div className="reveal mt-10 text-center sm:mt-16 lg:mt-28" style={d(0.4)}>
           <p className="mx-auto max-w-[24ch] text-[clamp(1.6rem,3vw,2.4rem)] font-extrabold leading-[1.15] tracking-[-0.03em] text-balance">
             Busy isn&rsquo;t the same as{" "}
             <span className="text-brand">moving forward.</span>
           </p>
           <a
             href="#client-file"
-            className="group mt-8 inline-flex min-h-14 items-center justify-center gap-3 rounded-full border border-black/10 bg-white py-2 pl-7 pr-2.5 text-[16px] font-bold text-ink transition-all hover:-translate-y-0.5 hover:border-brand/40 hover:text-brand active:translate-y-0"
+            className="group mt-6 inline-flex min-h-14 sm:mt-8 items-center justify-center gap-3 rounded-full border border-black/10 bg-white py-2 pl-7 pr-2.5 text-[16px] font-bold text-ink transition-all hover:-translate-y-0.5 hover:border-brand/40 hover:text-brand active:translate-y-0"
           >
             See how Endpoint Leads fixes it
             <span

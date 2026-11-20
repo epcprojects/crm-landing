@@ -6,7 +6,7 @@ export default function AgentScorecardSection() {
     <section
       id="agents"
       aria-labelledby="agents-heading"
-      className="relative scroll-mt-16 border-t border-black/10 bg-surface py-20 text-ink sm:py-24 lg:py-28"
+      className="relative scroll-mt-16 border-t border-black/10 bg-surface py-12 text-ink sm:py-24 lg:py-28"
     >
       <RevealRoot
         className="mx-auto w-full max-w-7xl px-5 sm:px-10"
@@ -20,10 +20,10 @@ export default function AgentScorecardSection() {
           </p>
           <h2
             id="agents-heading"
-            className="mx-auto mt-6 max-w-[24ch] text-[clamp(2.1rem,4.4vw,3.6rem)] font-extrabold leading-[1.06] tracking-[-0.03em] text-balance"
+            className="mx-auto mt-5 text-[clamp(1.6rem,4.4vw,3.6rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-balance sm:mt-6 sm:max-w-[24ch]"
           >
-            <span className="block">See which agents are closing deals</span>
-            <span className="block text-brand">and which aren&rsquo;t.</span>
+            <span className="sm:block">See which agents are closing deals </span>
+            <span className="text-brand sm:block">and which aren&rsquo;t.</span>
           </h2>
           <p className="mx-auto mt-5 max-w-[34rem] text-base leading-7 text-body sm:text-lg sm:leading-8">
             Closed and lost deals and first-reply time for every agent, so you

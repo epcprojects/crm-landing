@@ -19,11 +19,11 @@ export default function Hero() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="hero-wash relative flex flex-col justify-center overflow-hidden pb-36 pt-36 text-ink sm:pb-40 sm:pt-40 lg:min-h-[900px] lg:pb-52 lg:pt-48"
+      className="hero-wash relative flex flex-col justify-center overflow-hidden pb-20 pt-24 text-ink sm:pb-40 sm:pt-40 lg:min-h-[900px] lg:pb-52 lg:pt-48"
     >
       <Skyline />
-      <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-16 px-5 sm:px-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-10 xl:gap-14">
-        <div>
+      <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-16 px-5 sm:px-10 lg:grid-cols-2 lg:gap-10 xl:gap-14">
+        <div className="text-center lg:text-left">
           <p className="rise font-label text-xs font-medium tracking-[0.2em] text-brand">
             REAL ESTATE CLIENT &amp; AGENT MANAGEMENT
           </p>
@@ -46,13 +46,13 @@ export default function Hero() {
             )}
             <span className="line-mask">
               <span className="line-in" style={{ animationDelay: "210ms" }}>
-                <span className="underline-draw text-brand">In one place.</span>
+                <span className="text-brand">In one place.</span>
               </span>
             </span>
           </h1>
 
           <p
-            className="rise mt-8 max-w-[31rem] text-[17px] leading-[1.75] text-body sm:text-lg"
+            className="rise mx-auto mt-7 max-w-[31rem] text-[17px] leading-[1.75] text-body sm:text-lg lg:mx-0 lg:mt-8"
             style={{ animationDelay: "120ms" }}
           >
             Manage your real estate clients and agents from one workspace. See{" "}
@@ -71,17 +71,17 @@ export default function Hero() {
           </p>
 
           <div
-            className="rise mt-10 flex flex-col items-stretch gap-3.5 sm:flex-row sm:items-center"
+            className="rise mt-8 flex flex-col items-stretch gap-3.5 sm:flex-row sm:items-center sm:justify-center lg:mt-10 lg:justify-start"
             style={{ animationDelay: "180ms" }}
           >
             <a
               href={siteConfig.demoHref}
-              className="group inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-gradient-to-b from-[#5848e6] to-[#4030c9] py-2 pl-8 pr-2.5 text-[16px] font-bold text-white shadow-[0_10px_24px_-8px_rgba(73,57,210,0.65),inset_0_1px_0_rgba(255,255,255,0.28)] transition-all hover:-translate-y-0.5 hover:shadow-[0_14px_28px_-8px_rgba(73,57,210,0.7),inset_0_1px_0_rgba(255,255,255,0.28)] active:translate-y-0"
+              className="group inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-gradient-to-b from-[#5848e6] to-[#4030c9] px-6 py-2 sm:pl-8 sm:pr-2.5 text-[16px] font-bold text-white shadow-[0_10px_24px_-8px_rgba(73,57,210,0.65),inset_0_1px_0_rgba(255,255,255,0.28)] transition-all hover:-translate-y-0.5 hover:shadow-[0_14px_28px_-8px_rgba(73,57,210,0.7),inset_0_1px_0_rgba(255,255,255,0.28)] active:translate-y-0"
             >
               Book a free meeting
               <span
                 aria-hidden="true"
-                className="grid size-10 place-items-center rounded-full bg-white/20 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:bg-white/30"
+                className="hidden size-10 place-items-center rounded-full bg-white/20 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:bg-white/30 sm:grid"
               >
                 <ArrowRight weight="bold" className="size-[18px]" />
               </span>
@@ -100,11 +100,11 @@ export default function Hero() {
           </div>
 
           <ul
-            className="rise mt-10 grid max-w-[31rem] grid-cols-3 gap-4 border-t border-black/10 pt-7 text-[14px] font-semibold leading-snug text-ink/80 sm:gap-6"
+            className="rise mx-auto mt-8 grid max-w-[31rem] grid-cols-3 lg:mx-0 lg:mt-10 gap-4 border-t border-black/10 pt-7 text-[14px] font-semibold leading-snug text-ink/80 sm:gap-6"
             style={{ animationDelay: "240ms" }}
           >
             {chips.map(({ label, Icon }) => (
-              <li key={label} className="flex flex-col items-start gap-3">
+              <li key={label} className="flex flex-col items-center gap-3 lg:items-start">
                 <span className="grid size-10 place-items-center rounded-full bg-brand/10 text-brand">
                   <Icon aria-hidden="true" weight="bold" className="size-5" />
                 </span>
@@ -114,7 +114,7 @@ export default function Hero() {
           </ul>
         </div>
 
-        <div id="product" className="scroll-mt-28 lg:-mr-6 xl:-mr-12">
+        <div id="product" className="min-w-0 scroll-mt-28">
           <DeviceMockup />
         </div>
       </div>

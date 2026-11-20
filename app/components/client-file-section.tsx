@@ -22,7 +22,7 @@ export default function ClientFileSection() {
     <section
       id="client-file"
       aria-labelledby="client-file-heading"
-      className="relative scroll-mt-16 border-t border-black/10 bg-surface py-20 text-ink sm:py-24 lg:py-28"
+      className="relative scroll-mt-16 border-t border-black/10 bg-surface py-12 text-ink sm:py-24 lg:py-28"
     >
       <RevealRoot
         className="mx-auto w-full max-w-7xl px-5 sm:px-10"
@@ -48,7 +48,7 @@ export default function ClientFileSection() {
 
         <ClientFile />
 
-        <ol className="mt-14 grid gap-8 lg:mt-16 lg:grid-cols-3 lg:gap-12">
+        <ol className="mt-8 grid gap-5 sm:mt-14 sm:gap-8 lg:mt-16 lg:grid-cols-3 lg:gap-12">
           {points.map((point, index) => (
             <li
               key={point.title}

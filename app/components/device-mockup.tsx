@@ -602,7 +602,7 @@ export default function DeviceMockup() {
   return (
     <div
       ref={root}
-      className="relative mx-auto w-full max-w-[720px] pb-6 lg:max-w-none lg:pb-12"
+      className="relative mx-auto w-full max-w-[720px] pb-0 sm:pb-6 lg:max-w-none lg:pb-12"
     >
       <p className="sr-only">
         Illustration of the product: a client list on a laptop and a client
@@ -610,12 +610,12 @@ export default function DeviceMockup() {
       </p>
       <div aria-hidden="true">
         {/* the laptop shows from md up; phones see only the phone */}
-        <div className="device-rise hidden md:block md:w-[calc(100%-2rem)] lg:-ml-6 lg:w-[calc(100%-1rem)] xl:-ml-6 xl:w-[calc(100%+1rem)]">
+        <div className="device-rise hidden md:block md:w-[calc(100%-2rem)] lg:w-full">
           <div className="parallax-laptop">
             <Laptop done={done} />
           </div>
         </div>
-        <div className="phone-in md:absolute md:-bottom-4 md:right-0">
+        <div className="phone-in md:absolute md:-bottom-4 md:-right-5">
           <div className="origin-bottom-right md:scale-[0.86]">
             <div className="parallax-phone">
               <div className="phone-float">

@@ -6,7 +6,7 @@ export default function ConversationSection() {
     <section
       id="conversations"
       aria-labelledby="conversations-heading"
-      className="relative scroll-mt-16 border-t border-black/10 bg-white py-20 text-ink sm:py-24 lg:py-28"
+      className="relative scroll-mt-16 border-t border-black/10 bg-white py-12 text-ink sm:py-24 lg:py-28"
     >
       <RevealRoot
         className="mx-auto w-full max-w-7xl px-5 sm:px-10"
@@ -20,7 +20,7 @@ export default function ConversationSection() {
           </p>
           <h2
             id="conversations-heading"
-            className="mx-auto mt-6 max-w-[22ch] text-[clamp(2.1rem,4.4vw,3.6rem)] font-extrabold leading-[1.06] tracking-[-0.03em] text-balance"
+            className="mx-auto mt-5 text-[clamp(1.62rem,4.4vw,3.6rem)] font-extrabold leading-[1.08] tracking-[-0.03em] sm:mt-6 sm:max-w-[22ch] sm:text-balance"
           >
             <span className="block">Know what was discussed.</span>
             <span className="block text-brand">Know what happens next.</span>
