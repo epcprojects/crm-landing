@@ -9,7 +9,7 @@ export default function AgentScorecardSection() {
       className="relative scroll-mt-16 border-t border-black/10 bg-surface py-20 text-ink sm:py-24 lg:py-28"
     >
       <RevealRoot
-        className="mx-auto w-full max-w-[1120px] px-4 sm:px-8"
+        className="mx-auto w-full max-w-7xl px-5 sm:px-10"
         threshold={0.2}
       >
         <div className="text-center">

@@ -136,29 +136,35 @@ export default function ProblemSection() {
     <section
       id="problem"
       aria-labelledby="problem-heading"
-      className="relative scroll-mt-16 bg-white pb-24 pt-8 text-ink sm:pb-28 lg:pb-32"
+      className="relative scroll-mt-16 overflow-hidden bg-gradient-to-b from-white via-white to-[#f8f7ff] pb-24 pt-20 text-ink sm:pb-28 sm:pt-24 lg:pb-32 lg:pt-28"
     >
-      <RevealRoot className="problem-stage mx-auto w-full max-w-[1120px] px-4 sm:px-8">
+      <RevealRoot
+        className="problem-stage mx-auto w-full max-w-7xl px-5 sm:px-10"
+        threshold={0.1}
+      >
         <div className="text-center">
-          <p className="inline-flex items-center gap-3 font-label text-xs font-medium tracking-[0.2em] text-brand">
-            <span aria-hidden="true" className="h-px w-8 bg-brand" />
+          <p className="font-label text-xs font-medium tracking-[0.2em] text-brand">
             THE PROBLEM
-            <span aria-hidden="true" className="h-px w-8 bg-brand" />
           </p>
           <h2
             id="problem-heading"
-            className="mx-auto mt-6 max-w-[26ch] text-[clamp(2.1rem,4.4vw,3.6rem)] font-extrabold leading-[1.06] tracking-[-0.03em] text-balance"
+            className="mx-auto mt-5 max-w-[26ch] text-[clamp(2.05rem,4.4vw,3.75rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-balance"
           >
-            <span className="block">Your office is busy.</span>
+            <span className="block text-ink/90">Your office is busy.</span>
             <span className="block text-brand">
-              But are your clients moving forward?
+              But are your clients{" "}
+              <span className="underline-draw">moving forward?</span>
             </span>
           </h2>
+          <p className="mx-auto mt-6 max-w-[34rem] text-[17px] leading-[1.75] text-body sm:text-lg">
+            Messages pile up, follow-ups slip, and nobody can say who is
+            waiting on whom.
+          </p>
         </div>
 
         {/* the warning */}
         <p
-          className="reveal mx-auto mt-10 flex w-fit items-center gap-2.5 rounded-full border border-[#f0c48a] bg-[#fff4e5] px-4 py-2 text-[13px] font-bold text-[#9a4a00]"
+          className="reveal mx-auto mt-12 flex w-fit items-center gap-2.5 rounded-full border border-[#f0c48a] bg-[#fff4e5] px-4 py-2 text-[13px] font-bold text-[#9a4a00]"
           style={d(0.2)}
         >
           <span aria-hidden="true" className="relative flex size-2.5">
@@ -169,27 +175,32 @@ export default function ProblemSection() {
         </p>
 
         {/* two conversations nobody has answered */}
-        <div className="mt-6 flex flex-col items-center gap-6 lg:flex-row lg:items-start lg:justify-center lg:gap-10">
-          {chats.map((chat) => (
-            <ChatCard key={chat.name} chat={chat} />
-          ))}
+        <div className="relative mt-8">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute left-1/2 top-1/2 h-[26rem] w-[44rem] max-w-full -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(closest-side,rgba(120,104,238,0.13),transparent)]"
+          />
+          <div className="relative flex flex-col items-center gap-6 lg:flex-row lg:items-start lg:justify-center lg:gap-10">
+            {chats.map((chat) => (
+              <ChatCard key={chat.name} chat={chat} />
+            ))}
+          </div>
         </div>
-
       </RevealRoot>
 
       {/* what it costs: reveals on its own as you scroll, never waits for the chats */}
       <RevealRoot
-        className="mx-auto w-full max-w-[1120px] px-4 sm:px-8"
+        className="mx-auto w-full max-w-7xl px-5 sm:px-10"
         threshold={0.1}
       >
-        <ol className="mt-16 grid gap-10 lg:mt-20 lg:grid-cols-3 lg:gap-12">
+        <ol className="mt-20 grid gap-10 lg:mt-28 lg:grid-cols-3 lg:gap-0 lg:divide-x lg:divide-black/10">
           {problems.map((problem, index) => (
             <li
               key={problem.title}
-              className="reveal flex gap-4 lg:flex-col lg:items-center lg:text-center"
+              className="reveal flex gap-4 lg:flex-col lg:items-center lg:px-10 lg:text-center"
               style={d(index * 0.12)}
             >
-              <span className="grid size-14 shrink-0 place-items-center rounded-full bg-brand/[0.08] text-brand">
+              <span className="grid size-14 shrink-0 place-items-center rounded-full bg-brand/[0.09] text-brand">
                 <problem.Icon
                   aria-hidden="true"
                   weight="bold"
@@ -198,10 +209,10 @@ export default function ProblemSection() {
                 />
               </span>
               <div>
-                <h3 className="text-xl font-extrabold tracking-[-0.015em]">
+                <h3 className="text-xl font-extrabold tracking-[-0.02em]">
                   {problem.title}
                 </h3>
-                <p className="mt-2 max-w-[22rem] text-base leading-7 text-body">
+                <p className="mt-2.5 max-w-[22rem] text-base leading-7 text-body">
                   {problem.line}
                 </p>
               </div>
@@ -210,21 +221,21 @@ export default function ProblemSection() {
         </ol>
 
         {/* the closing line */}
-        <div className="reveal mt-16 text-center lg:mt-20" style={d(0.4)}>
-          <p className="mx-auto max-w-[26ch] text-[clamp(1.5rem,2.8vw,2.2rem)] font-extrabold leading-tight tracking-[-0.02em] text-balance">
+        <div className="reveal mt-20 text-center lg:mt-28" style={d(0.4)}>
+          <p className="mx-auto max-w-[24ch] text-[clamp(1.6rem,3vw,2.4rem)] font-extrabold leading-[1.15] tracking-[-0.03em] text-balance">
             Busy isn&rsquo;t the same as{" "}
             <span className="text-brand">moving forward.</span>
           </p>
           <a
             href="#client-file"
-            className="group mt-5 inline-flex min-h-11 items-center gap-2 rounded-sm text-[15px] font-semibold text-ink/90 transition-colors hover:text-ink"
+            className="group mt-8 inline-flex min-h-14 items-center justify-center gap-3 rounded-full border border-black/10 bg-white py-2 pl-7 pr-2.5 text-[16px] font-bold text-ink transition-all hover:-translate-y-0.5 hover:border-brand/40 hover:text-brand active:translate-y-0"
           >
             See how Endpoint Leads fixes it
             <span
               aria-hidden="true"
-              className="text-brand transition-transform group-hover:translate-y-0.5"
+              className="grid size-10 place-items-center rounded-full bg-brand/10 text-brand transition-transform duration-300 group-hover:translate-y-0.5"
             >
-              <ArrowDown weight="bold" className="size-4" />
+              <ArrowDown weight="bold" className="size-[18px]" />
             </span>
           </a>
         </div>

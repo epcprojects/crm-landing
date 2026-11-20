@@ -22,7 +22,7 @@ export default function Hero() {
       className="hero-wash relative flex flex-col justify-center overflow-hidden pb-36 pt-36 text-ink sm:pb-40 sm:pt-40 lg:min-h-[900px] lg:pb-52 lg:pt-48"
     >
       <Skyline />
-      <div className="relative z-10 mx-auto grid w-full max-w-[1360px] items-center gap-16 px-5 sm:px-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-10 xl:gap-14">
+      <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-16 px-5 sm:px-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-10 xl:gap-14">
         <div>
           <p className="rise font-label text-xs font-medium tracking-[0.2em] text-brand">
             REAL ESTATE CLIENT &amp; AGENT MANAGEMENT
@@ -30,7 +30,7 @@ export default function Hero() {
 
           <h1
             id="hero-heading"
-            className="mt-5 text-[clamp(2.05rem,4.1vw,3.75rem)] font-extrabold leading-[1.04] tracking-[-0.035em]"
+            className="mt-5 text-[clamp(2.05rem,3.7vw,3.4rem)] font-extrabold leading-[1.04] tracking-[-0.035em]"
           >
             {["Every client.", "Every conversation.", "Every next step."].map(
               (line, index) => (

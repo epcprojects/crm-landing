@@ -4,7 +4,27 @@
 // until the visitor clicks for themselves. All names, times and messages are sample data.
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { Cursor } from "@phosphor-icons/react/dist/ssr";
+import {
+  Briefcase,
+  Buildings,
+  CalendarPlus,
+  CaretRight,
+  ChartBar,
+  ChatCircle,
+  Check,
+  Clock,
+  Cursor,
+  GearSix,
+  ListChecks,
+  MagnifyingGlass,
+  MapPin,
+  Megaphone,
+  PaperPlaneRight,
+  Phone,
+  SquaresFour,
+  UserCircle,
+  Users,
+} from "@phosphor-icons/react/dist/ssr";
 import { useSeen } from "./reveal-root";
 
 type Message = { who: string; mine: boolean; text: string; time: string };
@@ -112,9 +132,29 @@ const clients: Client[] = [
 
 const initials = (name: string) => name[0];
 
-function Marker({ n }: { n: number }) {
+// What the client list shows beside each name.
+const listMeta: Record<string, { time: string; unread?: number }> = {
+  usman: { time: "3:55 pm", unread: 1 },
+  sara: { time: "3:05 pm" },
+  bilal: { time: "11:42 am", unread: 2 },
+  hina: { time: "10:20 am", unread: 1 },
+};
+
+const rail = [SquaresFour, Users, ChatCircle, ListChecks, Briefcase, ChartBar];
+const tabs: [string, string?][] = [
+  ["Conversation", "3"],
+  ["Activity"],
+  ["Notes"],
+  ["Files"],
+];
+
+// A small numbered pin that ties a part of the screen to the points below it.
+function Marker({ n, className = "" }: { n: number; className?: string }) {
   return (
-    <span className="grid size-5 shrink-0 place-items-center rounded-full bg-brand font-label text-xs font-medium text-white">
+    <span
+      aria-hidden="true"
+      className={`grid size-6 shrink-0 place-items-center rounded-full bg-brand font-label text-xs font-medium text-white ring-4 ring-white ${className}`}
+    >
       {n}
     </span>
   );
@@ -176,9 +216,9 @@ export default function ClientFile() {
       className="reveal mt-12 lg:mt-14"
       style={{ "--d": "0.2s" } as CSSProperties}
     >
-      <div className="overflow-hidden rounded-2xl border border-black/10 bg-white">
+      <div className="overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_44px_80px_-36px_rgba(40,30,120,0.38)]">
         {/* window bar */}
-        <div className="flex items-center gap-2 border-b border-black/[0.07] bg-[#f7f7fc] px-4 py-3">
+        <div className="relative flex items-center gap-2 border-b border-black/[0.07] bg-[#f7f7fc] px-4 py-3">
           {[0, 1, 2].map((dot) => (
             <span
               key={dot}
@@ -186,19 +226,58 @@ export default function ClientFile() {
               className="size-2.5 rounded-full bg-black/15"
             />
           ))}
-          <span className="ml-3 text-[13px] font-bold text-ink/70">Clients</span>
+          <span className="absolute left-1/2 -translate-x-1/2 text-[13px] font-bold text-ink/60">
+            Endpoint<span className="text-brand">Leads</span>
+          </span>
         </div>
 
-        <div className="grid grid-cols-[minmax(0,1fr)] lg:grid-cols-[16rem_minmax(0,1fr)]">
+        <div className="grid grid-cols-[minmax(0,1fr)] lg:grid-cols-[4.5rem_17rem_minmax(0,1fr)]">
+          {/* app rail */}
+          <div className="hidden flex-col items-center gap-1.5 border-r border-black/[0.07] bg-[#f7f7fc] py-4 lg:flex">
+            <span className="mb-3 grid size-9 place-items-center rounded-xl bg-brand text-[15px] font-extrabold text-white">
+              E
+            </span>
+            {rail.map((RailIcon, index) => (
+              <span
+                key={index}
+                className={`grid size-10 place-items-center rounded-xl ${
+                  index === 1 ? "bg-brand/10 text-brand" : "text-ink/50"
+                }`}
+              >
+                <RailIcon
+                  aria-hidden="true"
+                  weight={index === 1 ? "fill" : "regular"}
+                  className="size-5"
+                />
+              </span>
+            ))}
+            <span className="mt-auto grid size-10 place-items-center rounded-xl text-ink/50">
+              <GearSix aria-hidden="true" className="size-5" />
+            </span>
+          </div>
+
           {/* the list */}
           <div className="relative border-b border-black/[0.07] lg:border-b-0 lg:border-r">
+            <div className="hidden items-center justify-between px-5 pb-1 pt-5 lg:flex">
+              <p className="text-[17px] font-extrabold tracking-[-0.02em]">Clients</p>
+              <span className="rounded-full bg-black/[0.06] px-2.5 py-0.5 text-[12px] font-bold text-ink/65">
+                28
+              </span>
+            </div>
+            <div className="hidden px-5 pb-2 pt-2 lg:block">
+              <div className="flex items-center gap-2 rounded-lg bg-[#f3f3f7] px-3 py-2 text-[13px] text-ink/50">
+                <MagnifyingGlass aria-hidden="true" className="size-4 shrink-0" />
+                Search clients
+              </div>
+            </div>
             <div
               role="group"
               aria-label="Choose a client to open"
-              className="relative flex gap-1 overflow-x-auto p-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:flex-col lg:overflow-visible lg:p-3"
+              className="relative flex gap-1 overflow-x-auto p-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:flex-col lg:overflow-visible lg:px-3 lg:pb-4 lg:pt-1"
             >
               {clients.map((item, index) => {
                 const active = index === selected;
+                const meta = listMeta[item.id];
                 return (
                   <button
                     key={item.id}
@@ -213,18 +292,32 @@ export default function ClientFile() {
                     }`}
                   >
                     <span
-                      className={`grid size-9 shrink-0 place-items-center rounded-full text-[13px] font-bold ${
-                        active ? "bg-brand text-white" : "bg-[#e4e0ff] text-[#2f2496]"
-                      } transition-colors`}
+                      className={`grid size-10 shrink-0 place-items-center rounded-full text-[14px] font-bold transition-colors ${
+                        active
+                          ? "bg-brand text-white"
+                          : "bg-[#e4e0ff] text-[#2f2496]"
+                      }`}
                     >
                       {initials(item.name)}
                     </span>
-                    <span className="min-w-0">
-                      <span className="block text-[14px] font-extrabold leading-tight">
-                        {item.name}
+                    <span className="min-w-0 flex-1">
+                      <span className="flex items-center justify-between gap-2">
+                        <span className="text-[14px] font-extrabold leading-tight">
+                          {item.name}
+                        </span>
+                        <span className="hidden text-[11px] text-ink/55 lg:block">
+                          {meta.time}
+                        </span>
                       </span>
-                      <span className="hidden truncate text-[12px] text-ink/60 lg:block">
-                        {item.interest}
+                      <span className="mt-0.5 hidden items-center justify-between gap-2 lg:flex">
+                        <span className="truncate text-[12px] text-ink/60">
+                          {item.interest}
+                        </span>
+                        {meta.unread && (
+                          <span className="grid size-[18px] shrink-0 place-items-center rounded-full bg-brand text-[10px] font-bold text-white">
+                            {meta.unread}
+                          </span>
+                        )}
                       </span>
                     </span>
                   </button>
@@ -249,114 +342,203 @@ export default function ClientFile() {
           </div>
 
           {/* the file */}
-          <div key={client.id} className="min-w-0 p-5 sm:p-7">
-            {/* 1 the client */}
-            <div className="flex flex-wrap items-start gap-4">
-              <span className="thread-in grid size-14 shrink-0 place-items-center rounded-full bg-[#e4e0ff] text-xl font-extrabold text-[#2f2496]">
-                {initials(client.name)}
-              </span>
-              <div className="thread-in min-w-0 flex-1" style={{ animationDelay: "60ms" }}>
-                <p className="flex items-center gap-2 font-label text-xs tracking-[0.16em] text-brand">
-                  <Marker n={1} />
-                  THE CLIENT
-                </p>
-                <div className="mt-2 flex flex-wrap items-center gap-3">
-                  <h3 className="text-2xl font-extrabold tracking-[-0.02em]">
-                    {client.name}
-                  </h3>
+          <div key={client.id} className="min-w-0">
+            {/* top bar */}
+            <div className="thread-in flex items-center justify-between gap-3 border-b border-black/[0.07] px-5 py-3 sm:px-7">
+              <p className="flex items-center gap-1.5 text-[13px] text-ink/60">
+                Clients
+                <CaretRight aria-hidden="true" weight="bold" className="size-3" />
+                <span className="font-bold text-ink">{client.name}</span>
+              </p>
+              <div className="flex items-center gap-2">
+                {[Phone, ChatCircle].map((ActionIcon, index) => (
                   <span
-                    className={`rounded-full px-3 py-1 text-[12px] font-bold ${client.tone}`}
+                    key={index}
+                    className="hidden size-9 place-items-center rounded-lg border border-black/10 text-ink/65 sm:grid"
                   >
-                    {client.status}
+                    <ActionIcon aria-hidden="true" className="size-[18px]" />
                   </span>
-                </div>
+                ))}
+                <span className="inline-flex items-center gap-1.5 rounded-lg bg-brand px-3.5 py-2 text-[13px] font-bold text-white">
+                  <CalendarPlus aria-hidden="true" weight="bold" className="size-4" />
+                  Schedule visit
+                </span>
               </div>
             </div>
 
-            <dl
-              className="thread-in mt-5 grid grid-cols-2 gap-x-6 gap-y-4 border-y border-black/[0.07] py-4 sm:grid-cols-4"
-              style={{ animationDelay: "120ms" }}
-            >
-              {[
-                ["Interested in", client.interest],
-                ["City", client.city],
-                ["Source", client.source],
-                ["Owner", client.owner],
-              ].map(([label, value]) => (
-                <div key={label}>
-                  <dt className="text-[12px] text-ink/60">{label}</dt>
-                  <dd className="mt-0.5 text-[15px] font-bold">{value}</dd>
-                </div>
-              ))}
-            </dl>
-
-            <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,1fr)_15rem] lg:gap-10">
-              {/* 2 the conversation */}
-              <div>
-                <p className="flex items-center gap-2 font-label text-xs tracking-[0.16em] text-brand">
-                  <Marker n={2} />
-                  THE CONVERSATION
-                </p>
-                <ul className="mt-4 space-y-3">
-                  {client.thread.map((message, index) => (
-                    <li
-                      key={message.text}
-                      className={`thread-in flex flex-col ${
-                        message.mine ? "items-end" : "items-start"
-                      }`}
-                      style={{ animationDelay: `${200 + index * 140}ms` }}
-                    >
-                      <p
-                        className={`max-w-[85%] px-3.5 py-2 text-[14px] leading-snug ${
-                          message.mine
-                            ? "rounded-2xl rounded-tr-sm bg-brand text-white"
-                            : "rounded-2xl rounded-tl-sm bg-[#f1f1f4] text-ink"
-                        }`}
+            <div className="p-5 sm:p-7">
+              {/* 1 the client */}
+              <div className="relative">
+                <Marker n={1} className="absolute right-0 top-0" />
+                <div
+                  className="thread-in flex items-center gap-4"
+                  style={{ animationDelay: "60ms" }}
+                >
+                  <span className="grid size-16 shrink-0 place-items-center rounded-full bg-[#e4e0ff] text-[22px] font-extrabold text-[#2f2496]">
+                    {initials(client.name)}
+                  </span>
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-3">
+                      <h3 className="text-[26px] font-extrabold leading-none tracking-[-0.025em]">
+                        {client.name}
+                      </h3>
+                      <span
+                        className={`rounded-full px-3 py-1 text-[12px] font-bold ${client.tone}`}
                       >
-                        {message.text}
-                      </p>
-                      <span className="mt-1 text-[12px] text-ink/60">
-                        {message.who} · {message.time}
+                        {client.status}
                       </span>
-                    </li>
+                    </div>
+                    <p className="mt-2 text-[13px] text-ink/60">
+                      {client.city} · Owner {client.owner}
+                    </p>
+                  </div>
+                </div>
+
+                <dl
+                  className="thread-in mt-5 grid grid-cols-2 gap-4 sm:grid-cols-4"
+                  style={{ animationDelay: "120ms" }}
+                >
+                  {(
+                    [
+                      [Buildings, "Interested in", client.interest],
+                      [MapPin, "City", client.city],
+                      [Megaphone, "Source", client.source],
+                      [UserCircle, "Owner", client.owner],
+                    ] as const
+                  ).map(([FactIcon, label, value]) => (
+                    <div
+                      key={label}
+                      className="flex items-center gap-3 rounded-xl bg-[#f7f7fc] px-3.5 py-3"
+                    >
+                      <FactIcon
+                        aria-hidden="true"
+                        className="size-5 shrink-0 text-brand"
+                      />
+                      <div className="min-w-0">
+                        <dt className="text-[11px] text-ink/55">{label}</dt>
+                        <dd className="text-[14px] font-bold leading-snug">{value}</dd>
+                      </div>
+                    </div>
                   ))}
-                </ul>
+                </dl>
               </div>
 
-              {/* 3 the next step, and what happened so far */}
-              <div>
-                <p className="flex items-center gap-2 font-label text-xs tracking-[0.16em] text-brand">
-                  <Marker n={3} />
-                  THE NEXT STEP
-                </p>
-                <div
-                  className="thread-in mt-4 rounded-xl border border-brand/20 bg-brand/[0.05] p-4"
-                  style={{ animationDelay: "420ms" }}
-                >
-                  <p className="text-[15px] font-extrabold leading-snug">
-                    {client.next.text}
+              {/* tabs */}
+              <div className="mt-6 flex gap-6 border-b border-black/[0.08] text-[14px] font-bold">
+                {tabs.map(([label, count], index) => (
+                  <span
+                    key={label}
+                    className={`-mb-px flex items-center gap-2 border-b-2 pb-3 ${
+                      index === 0
+                        ? "border-brand text-ink"
+                        : "border-transparent text-ink/50"
+                    }`}
+                  >
+                    {label}
+                    {count && (
+                      <span className="rounded-full bg-brand/10 px-2 py-0.5 text-[11px] text-brand">
+                        {count}
+                      </span>
+                    )}
+                  </span>
+                ))}
+              </div>
+
+              <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_16rem] lg:gap-8">
+                {/* 2 the conversation */}
+                <div className="relative rounded-2xl bg-[#f6f5fc] p-4 sm:p-5">
+                  <Marker n={2} className="absolute -right-2 -top-2" />
+                  <p className="mx-auto w-fit rounded-full bg-white px-3 py-1 text-[11px] font-bold text-ink/55">
+                    Today
                   </p>
-                  <p className="mt-1.5 text-[13px] text-ink/65">
-                    {client.owner} · {client.next.due}
-                  </p>
+                  <ul className="mt-4 space-y-3">
+                    {client.thread.map((message, index) => (
+                      <li
+                        key={message.text}
+                        className={`thread-in flex flex-col ${
+                          message.mine ? "items-end" : "items-start"
+                        }`}
+                        style={{ animationDelay: `${200 + index * 140}ms` }}
+                      >
+                        <p
+                          className={`max-w-[85%] px-3.5 py-2 text-[14px] leading-snug ${
+                            message.mine
+                              ? "rounded-[18px] rounded-br-md bg-brand text-white"
+                              : "rounded-[18px] rounded-bl-md bg-white text-ink"
+                          }`}
+                        >
+                          {message.text}
+                        </p>
+                        <span className="mt-1 px-1 text-[12px] text-ink/60">
+                          {message.who} · {message.time}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-4 flex items-center gap-2 rounded-xl bg-white px-3.5 py-2.5 text-[13px] text-ink/50">
+                    <span className="flex-1">Write a reply…</span>
+                    <span className="grid size-8 place-items-center rounded-full bg-brand text-white">
+                      <PaperPlaneRight
+                        aria-hidden="true"
+                        weight="fill"
+                        className="size-4"
+                      />
+                    </span>
+                  </div>
                 </div>
 
-                <ol className="mt-5 space-y-3 border-l border-black/10 pl-4">
-                  {client.history.map(([event, when], index) => (
-                    <li
-                      key={event}
-                      className="thread-in relative"
-                      style={{ animationDelay: `${520 + index * 100}ms` }}
-                    >
+                {/* 3 the next step, and what happened so far */}
+                <div>
+                  <div
+                    className="thread-in relative rounded-2xl border border-brand/20 bg-brand/[0.05] p-4"
+                    style={{ animationDelay: "420ms" }}
+                  >
+                    <Marker n={3} className="absolute -right-2 -top-2" />
+                    <p className="font-label text-[11px] tracking-[0.14em] text-brand">
+                      NEXT STEP
+                    </p>
+                    <p className="mt-2 flex items-start gap-2.5 text-[15px] font-extrabold leading-snug">
                       <span
                         aria-hidden="true"
-                        className="absolute -left-[1.3rem] top-1.5 size-2 rounded-full bg-brand/60"
+                        className="mt-0.5 size-5 shrink-0 rounded-full border-2 border-brand/40 bg-white"
                       />
-                      <p className="text-[13px] font-bold">{event}</p>
-                      <p className="text-[12px] text-ink/60">{when}</p>
-                    </li>
-                  ))}
-                </ol>
+                      {client.next.text}
+                    </p>
+                    <p className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[12px] text-ink/65">
+                      <span className="inline-flex items-center gap-1.5">
+                        <span className="grid size-5 place-items-center rounded-full bg-[#e4e0ff] text-[10px] font-bold text-[#2f2496]">
+                          {client.owner[0]}
+                        </span>
+                        {client.owner}
+                      </span>
+                      <span className="inline-flex items-center gap-1 rounded-full bg-white px-2 py-0.5 font-bold text-[#9a4a00]">
+                        <Clock aria-hidden="true" weight="bold" className="size-3.5" />
+                        {client.next.due}
+                      </span>
+                    </p>
+                    <span className="mt-4 flex h-9 items-center justify-center gap-1.5 rounded-lg bg-brand text-[13px] font-bold text-white">
+                      <Check aria-hidden="true" weight="bold" className="size-4" />
+                      Mark as done
+                    </span>
+                  </div>
+
+                  <ol className="mt-5 space-y-3.5 border-l border-black/10 pl-4">
+                    {client.history.map(([event, when], index) => (
+                      <li
+                        key={event}
+                        className="thread-in relative"
+                        style={{ animationDelay: `${520 + index * 100}ms` }}
+                      >
+                        <span
+                          aria-hidden="true"
+                          className="absolute -left-[1.3rem] top-1.5 size-2 rounded-full bg-brand/60"
+                        />
+                        <p className="text-[13px] font-bold">{event}</p>
+                        <p className="text-[12px] text-ink/60">{when}</p>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
               </div>
             </div>
           </div>

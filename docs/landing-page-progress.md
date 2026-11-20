@@ -238,3 +238,8 @@ Meeting link (NEXT_PUBLIC_DEMO_URL), page language (English/Urdu RTL/bilingual),
 - ALL icons now come from Phosphor (`@phosphor-icons/react`, imported from `/dist/ssr`; installed at owner's request). Problem-section icons now spring in (icon-pop) instead of line-drawing because Phosphor icons are filled shapes. Only the skyline art and logos remain custom SVG.
 - Hero eyebrow: pill removed; now the same plain mono label style as every other section's label (owner: make it balanced with the whole page).
 - Removed 'by EPC' from the header (still in the footer).
+
+### Owner-requested pass (2026-11-20), NOT yet committed
+- All sections and the header now share one container: `max-w-7xl` with `px-5 sm:px-10` (header pill edges line up with section content). Hero H1 reduced slightly (max 3.4rem) to fit the narrower hero grid.
+- Problem section: heading restyled like the hero (tight tracking, marker highlight on "moving forward?", short supporting line), more top/bottom spacing, soft glow behind the cards, three problems separated by hairlines on desktop, closing line with a pill button. The original chat cards were KEPT (a phone-frame version was tried and rejected by the owner; `phone-frame.tsx` deleted).
+- Client file (section 3) illustration rebuilt as a realistic app screen: app rail with logo mark, client list with search/times/unread badges (cursor demo and switching kept), breadcrumb + action buttons + "Schedule visit", profile header with status pill and fact tiles with Phosphor icons, tabs, chat panel with day pill and composer, next-step card with "Mark as done", history timeline. Numbered pins 1-3 tie it to the three points below. Mobile: client chips scroll sideways, panels stack.
