@@ -1,6 +1,7 @@
 // Mockup section 8: the closing call to action, on a dark night skyline.
 
 import type { CSSProperties } from "react";
+import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { siteConfig } from "../site-config";
 import RevealRoot from "./reveal-root";
 import Skyline from "./skyline";
@@ -64,7 +65,7 @@ export default function FinalCtaSection() {
               aria-hidden="true"
               className="text-brand transition-transform group-hover:translate-x-0.5"
             >
-              →
+              <ArrowRight weight="bold" className="size-[18px]" />
             </span>
           </a>
         </div>

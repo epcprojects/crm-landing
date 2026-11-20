@@ -1,6 +1,7 @@
 // Mockup section 7: how it works, then the questions people ask.
 
 import type { CSSProperties } from "react";
+import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { siteConfig } from "../site-config";
 import Faq from "./faq";
 import RevealRoot from "./reveal-root";
@@ -110,7 +111,7 @@ export default function HowItWorksSection() {
                 aria-hidden="true"
                 className="transition-transform group-hover:translate-x-0.5"
               >
-                →
+                <ArrowRight weight="bold" className="size-[18px]" />
               </span>
             </a>
           </div>

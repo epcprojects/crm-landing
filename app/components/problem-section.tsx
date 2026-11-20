@@ -1,6 +1,14 @@
 // Mockup section 2. Chat names, messages and times are sample data.
 
 import type { CSSProperties } from "react";
+import {
+  ArrowDown,
+  ChatCircleDots,
+  ClockCountdown,
+  Question,
+  TrendDown,
+} from "@phosphor-icons/react/dist/ssr";
+import type { Icon as PhosphorIcon } from "@phosphor-icons/react";
 import RevealRoot from "./reveal-root";
 import WaitingTimer from "./waiting-timer";
 
@@ -48,41 +56,23 @@ const chats: {
   },
 ];
 
-const problems: { title: string; line: string; path: string }[] = [
+const problems: { title: string; line: string; Icon: PhosphorIcon }[] = [
   {
     title: "Clients wait for answers",
     line: "A client asks a question and nobody is sure whose job it is to reply.",
-    path: "M4 5h16v11H9l-5 4zM8.5 10.5h.01M12 10.5h.01M15.5 10.5h.01",
+    Icon: ChatCircleDots,
   },
   {
     title: "Nobody sees what’s next",
     line: "Follow-ups live in chats and in people’s heads, not in one place.",
-    path: "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM9.6 9.2a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1.1.9-1.1 1.7M12 16.6h.01",
+    Icon: Question,
   },
   {
     title: "Deals quietly slip away",
     line: "Interested clients go cold, and the deal is lost before anyone notices.",
-    path: "M3 7l6 6 4-4 8 8M21 11v6h-6",
+    Icon: TrendDown,
   },
 ];
-
-function Clock() {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 24 24"
-      className="size-4 shrink-0"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <circle cx="12" cy="12" r="9" />
-      <path className="clock-hand" d="M12 12V7.5" />
-    </svg>
-  );
-}
 
 function ChatCard({ chat }: { chat: (typeof chats)[number] }) {
   return (
@@ -128,7 +118,7 @@ function ChatCard({ chat }: { chat: (typeof chats)[number] }) {
         className="reveal mt-4 flex items-center gap-2 rounded-lg bg-[#fff4e5] px-3 py-2 text-[13px] font-bold text-[#9a4a00]"
         style={d(chat.enter + 1.2)}
       >
-        <Clock />
+        <ClockCountdown aria-hidden="true" weight="bold" className="size-4 shrink-0" />
         <span>
           No reply for <WaitingTimer
             to={chat.waitMinutes}
@@ -200,19 +190,12 @@ export default function ProblemSection() {
               style={d(index * 0.12)}
             >
               <span className="grid size-14 shrink-0 place-items-center rounded-full bg-brand/[0.08] text-brand">
-                <svg
+                <problem.Icon
                   aria-hidden="true"
-                  viewBox="0 0 24 24"
-                  className="draw size-7"
+                  weight="bold"
+                  className="icon-pop size-7"
                   style={d(0.2 + index * 0.12)}
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d={problem.path} pathLength={1} />
-                </svg>
+                />
               </span>
               <div>
                 <h3 className="text-xl font-extrabold tracking-[-0.015em]">
@@ -241,7 +224,7 @@ export default function ProblemSection() {
               aria-hidden="true"
               className="text-brand transition-transform group-hover:translate-y-0.5"
             >
-              ↓
+              <ArrowDown weight="bold" className="size-4" />
             </span>
           </a>
         </div>

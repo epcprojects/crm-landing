@@ -4,6 +4,7 @@
 // manager's laptop updates at once. All names and times are sample data.
 
 import { useEffect, useState, type CSSProperties } from "react";
+import { Check as CheckIcon } from "@phosphor-icons/react/dist/ssr";
 import { useSeen } from "./reveal-root";
 
 // 0 idle · 1 finger taps · 2 phone done + sync · 3 laptop updates + toast
@@ -19,20 +20,7 @@ const TIMELINE: [number, number][] = [
 const LOOP_GAP = 500;
 
 function Check({ className = "size-3" }: { className?: string }) {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 16 16"
-      className={className}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.4"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M3.5 8.5l3 3 6-7" />
-    </svg>
-  );
+  return <CheckIcon aria-hidden="true" weight="bold" className={className} />;
 }
 
 const rows = [

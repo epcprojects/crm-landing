@@ -73,9 +73,9 @@ a[href],
   animation: line-up 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* Hairline that draws itself under a phrase */
+/* A soft marker stroke that draws itself behind a phrase */
 .underline-draw {
-  background: linear-gradient(var(--brand), var(--brand)) no-repeat 0 94% / 0% 0.07em;
+  background: linear-gradient(rgba(142, 130, 245, 0.34), rgba(142, 130, 245, 0.34)) no-repeat 0 88% / 0% 0.3em;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
   animation: draw-line 700ms 550ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
@@ -105,7 +105,7 @@ a[href],
 
 @keyframes draw-line {
   to {
-    background-size: 100% 0.07em;
+    background-size: 100% 0.3em;
   }
 }
 @keyframes line-up {
@@ -350,6 +350,21 @@ a[href],
     transform: scale(1.5);
   }
 }
+/* Icons spring in */
+.icon-pop {
+  opacity: 0;
+  transform: scale(0.5);
+}
+.reveal-root[data-seen="true"] .icon-pop {
+  animation: icon-pop 650ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation-delay: var(--d, 0s);
+}
+@keyframes icon-pop {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
 /* A waiting clock and a warning that pings */
 .clock-hand {
   transform-origin: 12px 12px;
@@ -537,7 +552,7 @@ a[href],
   }
   .underline-draw {
     animation: none;
-    background-size: 100% 0.07em;
+    background-size: 100% 0.3em;
   }
   .device-rise,
   .phone-in,
@@ -564,9 +579,10 @@ a[href],
     opacity: 1;
     animation: none;
   }
-  .draw path,
-  .reveal-root[data-seen="true"] .draw path {
-    stroke-dashoffset: 0;
+  .icon-pop,
+  .reveal-root[data-seen="true"] .icon-pop {
+    opacity: 1;
+    transform: none;
     animation: none;
   }
   .line-grow,

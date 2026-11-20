@@ -230,3 +230,11 @@ Meeting link (NEXT_PUBLIC_DEMO_URL), page language (English/Urdu RTL/bilingual),
 ### Mockup Section 8: APPROVED by owner (2026-11-20). ALL 8 SECTIONS APPROVED. Page build complete pending the launch checklist above (meeting link, language, sign-in URL, OG image/favicon, mobile menu, a11y/Lighthouse pass, CSS prune, commit/deploy on owner's go-ahead).
 - Removed all 'ILLUSTRATION USES SAMPLE DATA' captions at owner's request (2026-11-20). Sample data is still sample; no on-page disclaimer now.
 - Problem section: shortened the chat sequence to ~2s and moved the three problems + closing line into their own scroll-reveal so nothing waits for the chat animation (owner feedback, 2026-11-20). Not yet committed.
+
+### Owner-requested polish pass (2026-11-20), NOT yet committed
+- Hero illustration rebuilt to look like a real product shot: scaled 16:10 laptop (camera, base notch, glass glare, soft shadows) showing a Clients table (status/interested-in/owner/last message) and a realistic app shell (sidebar, search, bell, user card); iPhone-style phone (dynamic island, status bar, side buttons, composer, home bar) at 0.86 scale. Story loop kept (Usman's status flips to "Visit confirmed", bell badge appears). Laptop enlarged; label rule removed.
+- Hero text: eyebrow pill with pinging dot, tighter H1 with soft marker highlight on "In one place.", subhead with bold key phrases, gradient primary button with arrow chip, white secondary button with play icon, three feature icons in an even row. Phones: smaller H1/eyebrow tracking so nothing wraps awkwardly.
+- Header enlarged (taller pill, logo h-14, 16px links, bigger CTA); hero top padding increased to match.
+- ALL icons now come from Phosphor (`@phosphor-icons/react`, imported from `/dist/ssr`; installed at owner's request). Problem-section icons now spring in (icon-pop) instead of line-drawing because Phosphor icons are filled shapes. Only the skyline art and logos remain custom SVG.
+- Hero eyebrow: pill removed; now the same plain mono label style as every other section's label (owner: make it balanced with the whole page).
+- Removed 'by EPC' from the header (still in the footer).

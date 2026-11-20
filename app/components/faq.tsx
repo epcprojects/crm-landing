@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Minus, Plus as PlusIcon } from "@phosphor-icons/react/dist/ssr";
 
 const items = [
   {
@@ -33,15 +34,11 @@ function Plus({ open }: { open: boolean }) {
         open ? "border-brand bg-brand text-white" : "border-black/15 text-ink/70"
       }`}
     >
-      <svg viewBox="0 0 16 16" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-        <path d="M3 8h10" />
-        <path
-          d="M8 3v10"
-          className={`origin-center transition-transform duration-300 motion-reduce:transition-none ${
-            open ? "scale-y-0" : "scale-y-100"
-          }`}
-        />
-      </svg>
+      {open ? (
+        <Minus aria-hidden="true" weight="bold" className="size-3.5" />
+      ) : (
+        <PlusIcon aria-hidden="true" weight="bold" className="size-3.5" />
+      )}
     </span>
   );
 }

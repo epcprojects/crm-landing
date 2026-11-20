@@ -4,6 +4,7 @@
 // until the visitor clicks for themselves. All names, times and messages are sample data.
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { Cursor } from "@phosphor-icons/react/dist/ssr";
 import { useSeen } from "./reveal-root";
 
 type Message = { who: string; mine: boolean; text: string; time: string };
@@ -120,19 +121,7 @@ function Marker({ n }: { n: number }) {
 }
 
 function Pointer() {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 24 24"
-      className="size-6"
-      fill="#0f0f13"
-      stroke="#ffffff"
-      strokeWidth="1.5"
-      strokeLinejoin="round"
-    >
-      <path d="M5 3l14 8-6 1.8L9.8 19z" />
-    </svg>
-  );
+  return <Cursor aria-hidden="true" weight="fill" className="size-6 text-ink" />;
 }
 
 export default function ClientFile() {
