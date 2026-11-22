@@ -257,3 +257,69 @@ Meeting link (NEXT_PUBLIC_DEMO_URL), page language (English/Urdu RTL/bilingual),
 - Marker highlight under 'In one place.' (hero) and 'moving forward?' (problem) removed on ALL screen sizes; the .underline-draw CSS and keyframes were deleted. Not yet committed.
 - Desktop and mobile section: the laptop + SYNCED link + phone group is now centred under the heading on desktop (lg:justify-center). Not yet committed.
 - Hero is now an equal two-column grid (lg:grid-cols-2, columns 572px each at 1440). The device mockup fills its own column (laptop 100% width, phone overlapping the right edge by 20px); the old right-edge bleed and negative margins were removed. Not yet committed.
+
+## Conversation-first rebuild (2026-11-21), NOT yet committed
+Built from the approved "Final" board on the design canvas (Mobbin research, Reviews 1 to 4). It replaces the page above.
+
+### Page order
+1. Announcement bar and header (Features, How it works, 60-second check, FAQ, Talk to us, Book a demo, Sign in).
+2. Hero (centred): online badge, WhatsApp +92 number field, and the `product-shot.tsx` illustration.
+3. Customer logo strip (`logo-strip.tsx`). It is OFF (`SHOW_LOGOS = false`) until we have real agency logos.
+4. Problem: 4 cards.
+5. Features (`features-section.tsx`): three tabs you can try.
+   - Client vs staff-only chat.
+   - Overdue next steps.
+   - Who sees what.
+6. How it works (`how-it-works.tsx`): Talk, Set up, Run.
+7. "How would you like to start?" (`start-picker.tsx`, `#start`):
+   - Demo: a Calendly embed when `NEXT_PUBLIC_CALENDLY_URL` is set. Without it, the visitor picks a day and time and the request goes by WhatsApp.
+   - Quick question: question chips with a message preview, opened in WhatsApp.
+   - Already a client: a support form, sent by WhatsApp.
+8. 60-second check (`fit-check.tsx`, `#check`): 6 statements and a live result in 3 tiers. The number field opens the sheet.
+9. FAQ: 5 questions.
+10. Footer: WhatsApp us, Book on Calendly, Product links and Company links.
+11. A floating WhatsApp button and the talk-to-us sheet (`contact.tsx`). The sheet asks for team size and topics, then opens WhatsApp with the answers.
+
+### Removed
+- Old sections: client-file, conversation, agent scorecard, devices, old how-it-works and final CTA.
+- Their helpers: device-mockup, device-sync, skyline, waiting-timer, reveal-root.
+- `siteConfig.demoHref`.
+
+### Settings (env vars)
+- `NEXT_PUBLIC_WHATSAPP_NUMBER`: without it, wa.me links open WhatsApp with no recipient.
+- `NEXT_PUBLIC_CALENDLY_URL`
+- `NEXT_PUBLIC_REPLY_TIME` (default "15 min")
+- `NEXT_PUBLIC_CITY`
+- `NEXT_PUBLIC_SIGN_IN_URL`
+
+### Placeholders still open
+- Footer Company links (About EPC, Privacy, Terms) point to `#`.
+- Social links are not shown yet.
+- No founder details, support email or office address, as the owner asked.
+
+### Hero side cards (2026-11-21)
+- The empty space on both sides of the centred hero now holds six small, tilted, slowly drifting cards (`hero-side-cards.tsx`).
+- Mobbin references: Buy Me a Coffee, Gumloop, Miro and Delphi.
+- Read in order, the cards tell one story:
+  - a WhatsApp enquiry arrives;
+  - it gets assigned to Zoya;
+  - the team talks in the staff-only chat;
+  - today's next steps get ticked off;
+  - a late step is caught;
+  - a deal closes.
+- They replace the two old pills, "Ali replied to Usman" and "Maha closed a deal".
+- They show only from 1280px wide. They are decorative and hidden from screen readers, and the drift stops when the visitor prefers reduced motion.
+- Every card stays at least 24px clear of the text and the product shot at 1280 and 1440 wide.
+
+### Hero background pattern (2026-11-21)
+- The hero now has a faint, brand-tinted 48px grid (`.hero-grid`) that fades out toward the edges and the bottom.
+- Seven softly filled cells in brand, lavender, green and amber sit on grid squares.
+- Mobbin references: Reducto and Ada for the grid with coloured cells, Clerk for the fade.
+- Phones: the hero's top padding went from 160px to 200px, because the three-line announcement bar was overlapping the "online" badge by 12px.
+
+### Checks
+- Lint and build pass.
+- Checked in the browser at 1440 and 375 wide:
+  - All sections are in order, nothing overflows sideways, and the console is clean.
+  - The hero number opens the sheet, Send opens WhatsApp with the answers, and Escape closes it.
+  - The tabs, "Give to", the role switch and the check tiers all work.

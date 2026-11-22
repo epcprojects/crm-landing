@@ -1,29 +1,30 @@
-import AgentScorecardSection from "./components/agent-scorecard-section";
-import ClientFileSection from "./components/client-file-section";
-import ConversationSection from "./components/conversation-section";
-import DevicesSection from "./components/devices-section";
-import FinalCtaSection from "./components/final-cta-section";
+import ContactProvider from "./components/contact";
+import Faq from "./components/faq";
+import FeaturesSection from "./components/features-section";
+import FitCheck from "./components/fit-check";
 import Hero from "./components/hero";
-import HowItWorksSection from "./components/how-it-works-section";
+import HowItWorks from "./components/how-it-works";
+import LogoStrip from "./components/logo-strip";
 import ProblemSection from "./components/problem-section";
 import SiteFooter from "./components/site-footer";
 import SiteHeader from "./components/site-header";
+import StartPicker from "./components/start-picker";
 
 export default function HomePage() {
   return (
-    <>
+    <ContactProvider>
       <SiteHeader />
       <main>
         <Hero />
+        <LogoStrip />
         <ProblemSection />
-        <ClientFileSection />
-        <ConversationSection />
-        <AgentScorecardSection />
-        <DevicesSection />
-        <HowItWorksSection />
-        <FinalCtaSection />
+        <FeaturesSection />
+        <HowItWorks />
+        <StartPicker />
+        <FitCheck />
+        <Faq />
       </main>
       <SiteFooter />
-    </>
+    </ContactProvider>
   );
 }

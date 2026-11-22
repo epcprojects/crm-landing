@@ -4,13 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, CaretRight, List, X } from "@phosphor-icons/react/dist/ssr";
-import { siteConfig } from "../site-config";
+import { siteConfig, whatsappLink } from "../site-config";
 
 const links = [
-  { label: "Platform", href: "#product" },
-  { label: "Features", href: "#client-file" },
-  { label: "Agent performance", href: "#agents" },
-  { label: "How it works", href: "#how-it-works" },
+  { label: "Features", href: "#features" },
+  { label: "How it works", href: "#how" },
+  { label: "60-second check", href: "#check" },
+  { label: "FAQ", href: "#faq" },
 ];
 
 export default function SiteHeader() {
@@ -51,8 +51,27 @@ export default function SiteHeader() {
   }, [open]);
 
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-0 z-50 pt-3 sm:pt-5">
-      <div className="mx-auto w-full max-w-7xl px-5 sm:px-10">
+    <header className="pointer-events-none fixed inset-x-0 top-0 z-50">
+      {/* announcement: folds away once you scroll */}
+      <div
+        className={`pointer-events-auto overflow-hidden bg-ink text-white transition-[max-height,opacity] duration-300 ${
+          scrolled ? "max-h-0 opacity-0" : "max-h-24 opacity-100"
+        }`}
+      >
+        <p className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-2.5 gap-y-1 px-5 py-2.5 text-center text-[13px] sm:text-[14px]">
+          <span aria-hidden="true" className="size-2 rounded-full bg-[#25a35a]" />
+          Now onboarding real estate offices in {siteConfig.city}.
+          <a
+            href={whatsappLink("Hi Endpoint Leads, I saw your website.")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-bold text-[#c9c3ff] hover:text-white"
+          >
+            Message us on WhatsApp →
+          </a>
+        </p>
+      </div>
+      <div className="mx-auto w-full max-w-7xl px-5 pt-3 sm:px-10 sm:pt-4">
         <div
           className={`pointer-events-auto flex w-full items-center justify-between gap-2 rounded-full border bg-white/85 py-2 pl-4 pr-2 backdrop-blur-xl transition-[border-color,background-color] duration-300 sm:gap-4 sm:pl-8 sm:pr-2.5 ${
             scrolled ? "border-black/10 bg-white/90" : "border-black/[0.06]"
@@ -90,10 +109,18 @@ export default function SiteHeader() {
 
           <div className="flex items-center gap-2">
             <a
-              href={siteConfig.demoHref}
+              href={whatsappLink("Hi Endpoint Leads, I have a question.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden min-h-12 items-center whitespace-nowrap rounded-full border border-black/12 px-5 text-[15px] font-bold text-ink transition-colors hover:border-brand/40 hover:text-brand xl:inline-flex"
+            >
+              Talk to us
+            </a>
+            <a
+              href="#start"
               className="hidden min-h-14 items-center whitespace-nowrap rounded-full bg-brand px-8 text-[16px] font-bold text-white transition-colors hover:bg-brand-hover sm:inline-flex"
             >
-              Book a free meeting
+              Book a demo
             </a>
             <button
               ref={menuButton}
@@ -177,11 +204,11 @@ export default function SiteHeader() {
           </nav>
 
           <a
-            href={siteConfig.demoHref}
+            href="#start"
             onClick={() => setOpen(false)}
             className="group inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-gradient-to-b from-[#5848e6] to-[#4030c9] px-8 text-[16px] font-bold text-white shadow-[0_10px_24px_-8px_rgba(73,57,210,0.65),inset_0_1px_0_rgba(255,255,255,0.28)]"
           >
-            Book a free meeting
+            Book a demo
             <ArrowRight aria-hidden="true" weight="bold" className="size-[18px]" />
           </a>
         </div>
