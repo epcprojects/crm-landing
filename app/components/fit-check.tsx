@@ -28,12 +28,12 @@ export default function FitCheck() {
   const tier = tiers.find((t) => count <= t.max) ?? tiers[2];
 
   return (
-    <section id="check" aria-labelledby="check-heading" className="scroll-mt-24 bg-night text-white">
-      <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 py-16 sm:px-10 sm:py-24 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
+    <section id="check" aria-labelledby="check-heading" className="scroll-mt-24 bg-surface px-3 pb-4 sm:px-6 sm:pb-6">
+      <div className="dark-panel mx-auto grid w-full max-w-[1360px] gap-10 rounded-[28px] px-5 py-14 text-white sm:rounded-[40px] sm:px-12 sm:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14 lg:px-16">
         <div className="flex flex-col gap-6">
-          <div className="flex flex-col gap-3">
-            <p className="font-label text-xs font-medium tracking-[0.2em] text-accent">60-SECOND CHECK</p>
-            <h2 id="check-heading" className="text-[clamp(1.9rem,4vw,3rem)] font-extrabold leading-[1.05] tracking-[-0.03em]">
+          <div className="flex flex-col gap-5">
+            <p className="eyebrow eyebrow-dark">60-SECOND CHECK</p>
+            <h2 id="check-heading" className="text-[clamp(2rem,4.2vw,3.25rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-balance">
               Is your office losing clients?
             </h2>
             <p className="text-[16px] text-white/70">Tick everything that sounds like your office.</p>
@@ -68,7 +68,7 @@ export default function FitCheck() {
           </ul>
         </div>
 
-        <div className="flex flex-col gap-5 self-start rounded-3xl bg-white p-6 text-ink sm:p-8 lg:sticky lg:top-28">
+        <div className="flex flex-col gap-5 self-start rounded-[28px] bg-white p-6 text-ink sm:p-8 lg:sticky lg:top-28">
           <div aria-live="polite" className="flex flex-col gap-4">
             <span className={`self-start rounded-full px-3 py-1 text-[13px] font-extrabold ${tier.tone}`}>
               {count} of {statements.length} ticked

@@ -73,8 +73,8 @@ export default function SiteHeader() {
       </div>
       <div className="mx-auto w-full max-w-7xl px-5 pt-3 sm:px-10 sm:pt-4">
         <div
-          className={`pointer-events-auto flex w-full items-center justify-between gap-2 rounded-full border bg-white/85 py-2 pl-4 pr-2 backdrop-blur-xl transition-[border-color,background-color] duration-300 sm:gap-4 sm:pl-8 sm:pr-2.5 ${
-            scrolled ? "border-black/10 bg-white/90" : "border-black/[0.06]"
+          className={`pointer-events-auto flex w-full items-center justify-between gap-2 rounded-full border bg-white/80 py-1.5 pl-4 pr-1.5 backdrop-blur-xl transition-[border-color,background-color] duration-300 sm:gap-4 sm:pl-7 sm:pr-2 ${
+            scrolled ? "border-[#e7e7ef] bg-white/95 shadow-[0_8px_24px_-16px_rgba(21,21,27,0.25)]" : "border-[#e7e7ef]"
           }`}
         >
           <Link
@@ -88,7 +88,7 @@ export default function SiteHeader() {
               width={1656}
               height={708}
               priority
-              className="h-12 w-auto sm:h-14"
+              className="h-11 w-auto sm:h-12"
             />
           </Link>
 
@@ -100,7 +100,7 @@ export default function SiteHeader() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="inline-flex min-h-12 items-center rounded-full px-5 text-[16px] font-semibold text-ink/80 transition-colors hover:bg-brand/[0.07] hover:text-ink"
+                className="inline-flex min-h-11 items-center rounded-full px-4 text-[15px] font-semibold text-ink/70 transition-colors hover:bg-brand/[0.06] hover:text-ink"
               >
                 {link.label}
               </Link>
@@ -112,13 +112,13 @@ export default function SiteHeader() {
               href={whatsappLink("Hi Endpoint Leads, I have a question.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden min-h-12 items-center whitespace-nowrap rounded-full border border-black/12 px-5 text-[15px] font-bold text-ink transition-colors hover:border-brand/40 hover:text-brand xl:inline-flex"
+              className="hidden min-h-11 items-center whitespace-nowrap rounded-full px-4 text-[15px] font-semibold text-ink/70 transition-colors hover:bg-brand/[0.06] hover:text-ink xl:inline-flex"
             >
               Talk to us
             </a>
             <Link
               href="/#start"
-              className="hidden min-h-14 items-center whitespace-nowrap rounded-full bg-brand px-8 text-[16px] font-bold text-white transition-colors hover:bg-brand-hover sm:inline-flex"
+              className="hidden min-h-12 items-center whitespace-nowrap rounded-full bg-brand px-6 text-[15px] font-bold text-white transition-colors hover:bg-brand-hover sm:inline-flex"
             >
               Book your free demo
             </Link>
@@ -129,7 +129,7 @@ export default function SiteHeader() {
               aria-expanded={open}
               aria-controls="site-sheet"
               onClick={() => setOpen(true)}
-              className="grid size-12 shrink-0 place-items-center rounded-full border border-black/10 bg-white text-ink transition-colors hover:border-brand/40 hover:text-brand sm:size-14 lg:hidden"
+              className="grid size-12 shrink-0 place-items-center rounded-full border border-black/10 bg-white text-ink transition-colors hover:border-brand/40 hover:text-brand lg:hidden"
             >
               <List aria-hidden="true" weight="bold" className="size-6 sm:size-7" />
             </button>

@@ -24,7 +24,7 @@ const groups = [
 
 export default function SiteFooter() {
   return (
-    <footer className="bg-night text-white">
+    <footer className="dark-panel rounded-t-[28px] text-white sm:rounded-t-[40px]">
       <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 py-14 sm:px-10 sm:py-16 lg:grid-cols-[1.4fr_1fr_1fr]">
         <div className="flex flex-col gap-5">
           <Image src="/endpoint-leads-reversed.svg" alt={siteConfig.name} width={1656} height={708} className="h-11 w-auto self-start" />

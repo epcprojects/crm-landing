@@ -66,7 +66,7 @@ const spots: Spot[] = [
     ),
   },
   {
-    pos: "left-4 top-[700px]",
+    pos: "-left-10 bottom-[110px]",
     tilt: "-rotate-2",
     delay: 550,
     float: "side-float-a",
@@ -131,7 +131,7 @@ const spots: Spot[] = [
     ),
   },
   {
-    pos: "right-4 top-[720px]",
+    pos: "-right-10 top-[44%]",
     tilt: "rotate-2",
     delay: 600,
     float: "side-float-b",
@@ -157,16 +157,29 @@ const spots: Spot[] = [
   },
 ];
 
-export default function HeroSideCards() {
+// Two groups. "text" cards sit in the empty space beside the headline and the
+// number field. "stage" cards hang over the edges of the dashboard panel, so
+// they are placed relative to that panel and move with it.
+const groups = { text: [0, 1, 3, 4], stage: [2, 5] } as const;
+
+export default function HeroSideCards({ group }: { group: keyof typeof groups }) {
   return (
-    <div aria-hidden="true" className="pointer-events-none absolute inset-x-5 top-0 hidden sm:inset-x-10 xl:block">
-      {spots.map((s, i) => (
-        <div key={i} className={`rise absolute ${s.pos}`} style={{ animationDelay: `${s.delay}ms` }}>
-          <div className={s.float}>
-            <div className={s.tilt}>{s.children}</div>
+    <div
+      aria-hidden="true"
+      className={`pointer-events-none absolute hidden xl:block ${
+        group === "text" ? "inset-x-5 top-0 sm:inset-x-10" : "inset-0"
+      }`}
+    >
+      {groups[group].map((i) => {
+        const s = spots[i];
+        return (
+          <div key={i} className={`rise absolute ${s.pos}`} style={{ animationDelay: `${s.delay}ms` }}>
+            <div className={s.float}>
+              <div className={s.tilt}>{s.children}</div>
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

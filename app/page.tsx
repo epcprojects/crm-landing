@@ -1,10 +1,12 @@
 import ContactProvider from "./components/contact";
 import Faq from "./components/faq";
+import FeatureBento from "./components/feature-bento";
 import FeaturesSection from "./components/features-section";
 import FitCheck from "./components/fit-check";
 import Hero from "./components/hero";
 import HowItWorks from "./components/how-it-works";
 import LogoStrip from "./components/logo-strip";
+import ProductShowcase from "./components/product-showcase";
 import ProblemSection from "./components/problem-section";
 import SiteFooter from "./components/site-footer";
 import SiteHeader from "./components/site-header";
@@ -16,8 +18,10 @@ export default function HomePage() {
       <SiteHeader />
       <main>
         <Hero />
+        <ProductShowcase />
         <LogoStrip />
         <ProblemSection />
+        <FeatureBento />
         <FeaturesSection />
         <HowItWorks />
         <StartPicker />

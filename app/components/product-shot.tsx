@@ -102,22 +102,23 @@ function Shot() {
   );
 }
 
-export default function ProductShot() {
+/** `maxWidth` is how wide the shot may grow; it is drawn at 640 and scaled. */
+export default function ProductShot({ maxWidth = W }: { maxWidth?: number }) {
   const box = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
 
   useLayoutEffect(() => {
     const el = box.current;
     if (!el) return;
-    const measure = () => setScale(Math.min(1, el.clientWidth / W));
+    const measure = () => setScale(Math.min(maxWidth, el.clientWidth) / W);
     measure();
     const observer = new ResizeObserver(measure);
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [maxWidth]);
 
   return (
-    <div ref={box} className="mx-auto w-full max-w-[640px]" style={{ height: H * scale }}>
+    <div ref={box} className="mx-auto w-full" style={{ maxWidth, height: H * scale }}>
       <div aria-hidden="true" style={{ width: W, height: H, transform: `scale(${scale})`, transformOrigin: "top left" }}>
         <Shot />
       </div>

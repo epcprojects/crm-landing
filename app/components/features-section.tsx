@@ -26,7 +26,7 @@ function ChatDemo() {
   const [staff, setStaff] = useState(false);
   const messages = staff ? staffChat : clientChat;
   return (
-    <div className="grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
+    <div className="hero-stage grid items-center gap-10 rounded-[28px] border border-[#e7e7ef] p-5 sm:rounded-[36px] sm:p-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14 lg:p-14">
       <div className="flex flex-col gap-5">
         <h3 className="text-[clamp(1.75rem,3.2vw,2.5rem)] font-extrabold leading-[1.08] tracking-[-0.03em]">
           Talk to the client. Talk about the client.
@@ -111,7 +111,7 @@ function OverdueDemo() {
   const late = steps.filter((s) => s.late && !status[s.id]).length;
   const handled = Object.keys(status).length;
   return (
-    <div className="grid items-center gap-10 rounded-3xl bg-night p-6 text-white sm:p-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
+    <div className="dark-panel grid items-center gap-10 rounded-[28px] p-6 text-white sm:rounded-[36px] sm:p-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14 lg:p-14">
       <div className="flex flex-col gap-5">
         <h3 className="text-[clamp(1.75rem,3.2vw,2.5rem)] font-extrabold leading-[1.08] tracking-[-0.03em]">
           See what&rsquo;s late before a client notices.
@@ -193,7 +193,7 @@ function AccessDemo() {
   const visible = (c: (typeof clients)[number]) =>
     role === 0 ? true : role === 1 ? c.owner === "Ali" : c.name === "Usman Tariq";
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-8 rounded-[28px] border border-[#e7e7ef] bg-white p-5 sm:rounded-[36px] sm:p-10 lg:p-14">
       <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
         <div className="flex max-w-[620px] flex-col gap-4">
           <h3 className="text-[clamp(1.75rem,3.2vw,2.5rem)] font-extrabold leading-[1.08] tracking-[-0.03em]">
@@ -276,13 +276,13 @@ export default function FeaturesSection() {
   return (
     <section id="features" aria-labelledby="features-heading" className="scroll-mt-24 bg-surface">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-5 py-16 sm:px-10 sm:py-24">
-        <div className="flex flex-col items-center gap-3 text-center">
-          <p className="font-label text-xs font-medium tracking-[0.2em] text-brand">TRY IT HERE</p>
-          <h2 id="features-heading" className="text-[clamp(1.9rem,4vw,3rem)] font-extrabold leading-[1.05] tracking-[-0.03em]">
+        <div className="flex flex-col items-center gap-5 text-center">
+          <p className="eyebrow">TRY IT HERE</p>
+          <h2 id="features-heading" className="text-[clamp(2rem,4.2vw,3.25rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-balance">
             See how it works. Click around.
           </h2>
         </div>
-        <div role="tablist" aria-label="Pick a feature" className="flex flex-wrap justify-center gap-2">
+        <div role="tablist" aria-label="Pick a feature" className="mx-auto flex w-fit max-w-full flex-wrap justify-center gap-1 rounded-[20px] border border-[#e7e7ef] bg-white p-1">
           {tabs.map((t, i) => (
             <button
               key={t.label}
@@ -291,8 +291,8 @@ export default function FeaturesSection() {
               aria-selected={i === tab}
               aria-controls="feature-panel"
               onClick={() => setTab(i)}
-              className={`min-h-12 rounded-full px-5 text-[15px] font-bold transition-colors ${
-                i === tab ? "bg-brand text-white" : "border border-black/12 bg-white text-ink hover:border-brand/40"
+              className={`min-h-11 rounded-2xl px-5 text-[15px] font-bold transition-colors ${
+                i === tab ? "bg-brand text-white" : "text-body hover:bg-brand/[0.06] hover:text-ink"
               }`}
             >
               {t.label}

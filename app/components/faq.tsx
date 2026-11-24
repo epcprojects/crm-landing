@@ -44,18 +44,23 @@ export default function Faq() {
 
   return (
     <section id="faq" aria-labelledby="faq-heading" className="scroll-mt-24 bg-white">
-      <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 py-16 sm:px-10 sm:py-24 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-        <div className="flex flex-col gap-3">
-          <p className="font-label text-xs font-medium tracking-[0.2em] text-brand">FAQ</p>
-          <h2 id="faq-heading" className="text-[clamp(1.9rem,4vw,3rem)] font-extrabold leading-[1.05] tracking-[-0.03em]">
+      <div className="mx-auto flex w-full max-w-[54rem] flex-col gap-10 px-5 py-16 sm:gap-12 sm:px-10 sm:py-24">
+        <div className="flex flex-col items-center gap-5 text-center">
+          <p className="eyebrow">FAQ</p>
+          <h2 id="faq-heading" className="text-[clamp(2rem,4.2vw,3.25rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-balance">
             Questions offices ask us.
           </h2>
         </div>
-        <div className="divide-y divide-black/10 border-y border-black/10">
+        <div className="flex flex-col gap-3">
           {items.map((item, index) => {
             const isOpen = open === index;
             return (
-              <div key={item.q}>
+              <div
+                key={item.q}
+                className={`rounded-[20px] border px-5 transition-colors duration-300 sm:px-6 ${
+                  isOpen ? "border-brand/25 bg-[#f2f0ff]" : "border-[#e7e7ef] bg-surface"
+                }`}
+              >
                 <h3>
                   <button
                     type="button"
