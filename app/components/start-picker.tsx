@@ -160,12 +160,12 @@ function SupportPanel() {
 export default function StartPicker() {
   const [route, setRoute] = useState<Route>("demo");
   return (
-    <section id="start" aria-labelledby="start-heading" className="scroll-mt-24 bg-surface">
+    <section id="start" aria-labelledby="start-heading" className="scroll-mt-24 bg-white">
       <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 py-16 sm:px-10 sm:py-24 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-5">
             <p className="eyebrow">GET STARTED</p>
-            <h2 id="start-heading" className="text-[clamp(2rem,4.2vw,3.25rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-balance">
+            <h2 id="start-heading" className="text-[clamp(1.9rem,3.4vw,2.5rem)] leading-[1.3] text-balance">
               How would you like to start?
             </h2>
           </div>
@@ -179,10 +179,10 @@ export default function StartPicker() {
                   role="radio"
                   aria-checked={on}
                   onClick={() => setRoute(r.id)}
-                  className={`flex items-start gap-3.5 rounded-[22px] p-5 text-left transition-[border-color,background-color,box-shadow] ${
+                  className={`flex items-start gap-3.5 rounded-2xl p-5 text-left transition-[border-color,background-color,box-shadow] ${
                     on
                       ? "border-2 border-brand bg-[#f6f5ff] shadow-[0_16px_32px_-20px_rgba(73,57,210,0.5)]"
-                      : "border border-black/10 bg-white hover:border-brand/40"
+                      : "border border-transparent bg-surface hover:border-brand/30"
                   }`}
                 >
                   <span
@@ -204,7 +204,7 @@ export default function StartPicker() {
             })}
           </div>
         </div>
-        <div key={route} className="thread-in self-start rounded-[28px] border border-[#e7e7ef] bg-white p-6 shadow-[0_32px_64px_-48px_rgba(40,30,120,0.4)] sm:p-9">
+        <div key={route} className="thread-in self-start ds-card bg-white p-6 shadow-[0_32px_64px_-48px_rgba(40,30,120,0.4)] sm:p-9">
           {route === "demo" && <DemoPanel />}
           {route === "whatsapp" && <QuestionPanel />}
           {route === "support" && <SupportPanel />}

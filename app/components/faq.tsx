@@ -44,10 +44,10 @@ export default function Faq() {
 
   return (
     <section id="faq" aria-labelledby="faq-heading" className="scroll-mt-24 bg-white">
-      <div className="mx-auto flex w-full max-w-[54rem] flex-col gap-10 px-5 py-16 sm:gap-12 sm:px-10 sm:py-24">
-        <div className="flex flex-col items-center gap-5 text-center">
+      <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 pb-4 pt-16 sm:px-10 sm:pb-6 sm:pt-24 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+        <div className="flex flex-col gap-4 self-start">
           <p className="eyebrow">FAQ</p>
-          <h2 id="faq-heading" className="text-[clamp(2rem,4.2vw,3.25rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-balance">
+          <h2 id="faq-heading" className="text-[clamp(1.9rem,3.4vw,2.5rem)] leading-[1.3] text-balance">
             Questions offices ask us.
           </h2>
         </div>
@@ -57,8 +57,8 @@ export default function Faq() {
             return (
               <div
                 key={item.q}
-                className={`rounded-[20px] border px-5 transition-colors duration-300 sm:px-6 ${
-                  isOpen ? "border-brand/25 bg-[#f2f0ff]" : "border-[#e7e7ef] bg-surface"
+                className={`rounded-2xl border px-5 transition-colors duration-300 sm:px-6 ${
+                  isOpen ? "border-[#dcd7ff] bg-white shadow-[0_20px_40px_-28px_rgba(60,45,170,0.6)]" : "border-[#eceef4] bg-[#f9f9fd]"
                 }`}
               >
                 <h3>

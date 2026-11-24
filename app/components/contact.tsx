@@ -290,7 +290,7 @@ export function PhoneCapture({
         event.preventDefault();
         openSheet(phone.trim());
       }}
-      className={`flex w-full flex-col gap-2 rounded-[22px] border p-2 sm:flex-row sm:rounded-full ${
+      className={`flex w-full flex-col gap-2 rounded-2xl border p-1.5 sm:flex-row ${
         tone === "dark"
           ? "border-black/10 bg-white"
           : "border-black/10 bg-white shadow-[0_20px_40px_-24px_rgba(40,30,120,0.35)]"
@@ -311,7 +311,7 @@ export function PhoneCapture({
       </label>
       <button
         type="submit"
-        className="inline-flex min-h-13 items-center justify-center rounded-full bg-brand px-6 text-[15px] font-bold text-white transition-colors hover:bg-brand-hover"
+        className="inline-flex min-h-12 items-center justify-center bg-brand px-5 text-[15px] font-semibold text-white transition-colors hover:bg-brand-hover"
       >
         {cta}
       </button>

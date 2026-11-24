@@ -71,12 +71,13 @@ export default function SiteHeader() {
           </a>
         </p>
       </div>
-      <div className="mx-auto w-full max-w-7xl px-5 pt-3 sm:px-10 sm:pt-4">
-        <div
-          className={`pointer-events-auto flex w-full items-center justify-between gap-2 rounded-full border bg-white/80 py-1.5 pl-4 pr-1.5 backdrop-blur-xl transition-[border-color,background-color] duration-300 sm:gap-4 sm:pl-7 sm:pr-2 ${
-            scrolled ? "border-[#e7e7ef] bg-white/95 shadow-[0_8px_24px_-16px_rgba(21,21,27,0.25)]" : "border-[#e7e7ef]"
-          }`}
-        >
+      {/* a plain full-width bar: logo left, links centred, two buttons right */}
+      <div
+        className={`pointer-events-auto w-full border-b bg-white/90 backdrop-blur-xl transition-[border-color,box-shadow] duration-300 ${
+          scrolled ? "border-[#eceef4] shadow-[0_8px_24px_-20px_rgba(21,21,27,0.35)]" : "border-transparent"
+        }`}
+      >
+        <div className="mx-auto grid h-16 w-full max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-4 px-5 sm:h-[72px] sm:px-10">
           <Link
             href="/"
             aria-label={`${siteConfig.name} home`}
@@ -88,37 +89,37 @@ export default function SiteHeader() {
               width={1656}
               height={708}
               priority
-              className="h-11 w-auto sm:h-12"
+              className="h-10 w-auto sm:h-11"
             />
           </Link>
 
           <nav
             aria-label="Primary"
-            className="hidden items-center gap-1.5 lg:flex"
+            className="hidden items-center justify-center gap-2 lg:flex"
           >
             {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="inline-flex min-h-11 items-center rounded-full px-4 text-[15px] font-semibold text-ink/70 transition-colors hover:bg-brand/[0.06] hover:text-ink"
+                className="inline-flex min-h-10 items-center rounded-xl px-4 text-[16px] text-ink transition-colors hover:bg-black/[0.04]"
               >
                 {link.label}
               </Link>
             ))}
           </nav>
 
-          <div className="flex items-center gap-2">
+          <div className="col-start-3 flex items-center justify-end gap-2.5">
             <a
               href={whatsappLink("Hi Endpoint Leads, I have a question.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden min-h-11 items-center whitespace-nowrap rounded-full px-4 text-[15px] font-semibold text-ink/70 transition-colors hover:bg-brand/[0.06] hover:text-ink xl:inline-flex"
+              className="btn-ghost hidden h-[42px] items-center whitespace-nowrap px-4 text-[15px] font-medium text-ink sm:inline-flex"
             >
               Talk to us
             </a>
             <Link
               href="/#start"
-              className="hidden min-h-12 items-center whitespace-nowrap rounded-full bg-brand px-6 text-[15px] font-bold text-white transition-colors hover:bg-brand-hover sm:inline-flex"
+              className="hidden h-[42px] items-center whitespace-nowrap bg-brand px-4 text-[15px] font-medium text-white transition-colors hover:bg-brand-hover sm:inline-flex"
             >
               Book your free demo
             </Link>
@@ -129,7 +130,7 @@ export default function SiteHeader() {
               aria-expanded={open}
               aria-controls="site-sheet"
               onClick={() => setOpen(true)}
-              className="grid size-12 shrink-0 place-items-center rounded-full border border-black/10 bg-white text-ink transition-colors hover:border-brand/40 hover:text-brand lg:hidden"
+              className="btn-ghost grid size-[42px] shrink-0 place-items-center text-ink lg:hidden"
             >
               <List aria-hidden="true" weight="bold" className="size-6 sm:size-7" />
             </button>

@@ -7,6 +7,7 @@
 
 import { useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import {
+  CaretRight,
   ChartLineUp,
   Check,
   Clock,
@@ -265,6 +266,8 @@ const tabs: {
   icon: typeof UsersThree;
   line: string;
   active: string;
+  tile: string;
+  points: [string, string][];
   alt: string;
   screen: ReactNode;
 }[] = [
@@ -274,6 +277,12 @@ const tabs: {
     icon: UsersThree,
     line: "Every client's details, conversation, assigned agent and follow-ups on one screen.",
     active: "Clients",
+    tile: "from-[#8274f7] to-[#4333cc]",
+    points: [
+      ["One file per client", "Details, assigned agent and source in one place."],
+      ["The whole conversation", "Read what was said and what was promised."],
+      ["Follow-ups with dates", "Every next step has an owner and a due time."],
+    ],
     alt: "The client screen: a client list, and one client's details, conversation and follow-ups.",
     screen: <ClientsScreen />,
   },
@@ -283,6 +292,12 @@ const tabs: {
     icon: IdentificationBadge,
     line: "See each agent's clients, closed deals, reply speed and missed follow-ups without asking for updates.",
     active: "Agents",
+    tile: "from-[#3fcf8e] to-[#17834d]",
+    points: [
+      ["Closed deals per agent", "See who is closing this month."],
+      ["First reply time", "Spot slow replies before clients go cold."],
+      ["Overdue follow-ups", "Late next steps are flagged by agent."],
+    ],
     alt: "The agents screen: each agent's clients, closed deals, first reply time and overdue follow-ups, with recent activity.",
     screen: <AgentsScreen />,
   },
@@ -292,6 +307,12 @@ const tabs: {
     icon: ChartLineUp,
     line: "Open leads, closed deals and reply times for the whole business, at a glance.",
     active: "Dashboard",
+    tile: "from-[#ffc24a] to-[#e08a1e]",
+    points: [
+      ["Totals at a glance", "Open leads, closed deals and reply time."],
+      ["Leads by stage", "See where clients sit in the pipeline."],
+      ["Week by week", "Track deals closed over the month."],
+    ],
     alt: "The dashboard: four totals, leads by stage and deals closed per week.",
     screen: <AnalyticsScreen />,
   },
@@ -301,6 +322,7 @@ export default function ProductShowcase() {
   const [active, setActive] = useState(0);
   const buttons = useRef<(HTMLButtonElement | null)[]>([]);
   const tab = tabs[active];
+  const TabIcon = tab.icon;
 
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     const moves: Record<string, number> = {
@@ -317,27 +339,50 @@ export default function ProductShowcase() {
   };
 
   return (
-    <section id="platform" aria-labelledby="platform-heading" className="scroll-mt-24 bg-white">
-      <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-8 px-5 py-16 sm:gap-10 sm:px-10 sm:py-24">
-        <div className="flex max-w-[44rem] flex-col items-center gap-4 text-center">
-          <p className="eyebrow">THE PLATFORM</p>
-          <h2
-            id="platform-heading"
-            className="text-[clamp(2rem,4.2vw,3.25rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-balance"
-          >
+    <section
+      id="platform"
+      aria-labelledby="platform-heading"
+      className="relative scroll-mt-16 overflow-hidden bg-[linear-gradient(180deg,#f1efff_0,#f1efff_760px,#ffffff_1180px)]"
+    >
+      {/* the brand shape: a narrow neck under the hero beam that opens into a dome */}
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 1440 760"
+        preserveAspectRatio="none"
+        className="absolute left-1/2 top-0 h-[760px] w-[max(1440px,100vw)] -translate-x-1/2"
+      >
+        <defs>
+          <linearGradient id="dome" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stopColor="#4333cc" />
+            <stop offset="0.3" stopColor="#5343de" />
+            <stop offset="0.58" stopColor="#8a7ef6" />
+            <stop offset="0.84" stopColor="#d9d4ff" />
+            <stop offset="1" stopColor="#f1efff" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M712 0 H728 V40 C728 130 860 198 1150 240 C1290 260 1390 292 1440 324 V760 H0 V324 C50 292 150 260 290 240 C580 198 712 130 712 40 Z"
+          fill="url(#dome)"
+        />
+      </svg>
+
+      <div className="relative mx-auto flex w-full max-w-7xl flex-col items-center px-5 pb-16 pt-44 sm:px-10 sm:pb-24 sm:pt-[232px]">
+        <div className="flex max-w-[40rem] flex-col items-center gap-4 text-center text-white">
+          <h2 id="platform-heading" className="text-[clamp(2.1rem,4vw,3rem)] leading-[1.3] text-balance">
             See how it works for your real estate business.
           </h2>
-          <p className="max-w-[36rem] text-[16px] leading-relaxed text-body text-pretty sm:text-[18px]">
+          <p className="max-w-[33rem] text-[17px] leading-[1.4] text-white text-pretty sm:text-[18px]">
             Manage your clients, monitor your agents, and understand your
             business performance from one unified platform.
           </p>
         </div>
 
+        {/* the tab bar: one white tray, each tab with its coloured tile and its name */}
         <div
           role="tablist"
           aria-label="Parts of the platform"
           onKeyDown={onKeyDown}
-          className="grid w-full max-w-[46rem] grid-cols-3 gap-1 rounded-[20px] border border-[#e7e7ef] bg-[#f8f8fc] p-1"
+          className="mt-12 grid w-full max-w-[720px] grid-cols-3 gap-1.5 rounded-[24px] bg-white p-2 shadow-[0_24px_48px_-24px_rgba(40,30,120,0.6)] sm:mt-14"
         >
           {tabs.map((item, index) => {
             const on = index === active;
@@ -355,59 +400,88 @@ export default function ProductShowcase() {
                 aria-controls="platform-panel"
                 tabIndex={on ? 0 : -1}
                 onClick={() => setActive(index)}
-                className={`flex min-h-12 flex-col items-center justify-center gap-1 rounded-2xl px-2 py-2 text-center text-[12px] font-bold leading-tight transition-colors duration-200 sm:flex-row sm:gap-2 sm:px-4 sm:text-[15px] ${
-                  on ? "bg-brand text-white" : "text-body hover:bg-brand/[0.06] hover:text-ink"
+                className={`group flex flex-col items-center gap-2 rounded-[18px] px-2 py-3 text-center text-[13px] font-semibold leading-tight transition-colors duration-200 sm:flex-row sm:gap-3 sm:px-3.5 sm:py-2.5 sm:text-left sm:text-[15px] ${
+                  on ? "bg-[#f2f0ff] text-ink shadow-[inset_0_0_0_1px_rgba(102,87,240,0.28)]" : "text-body hover:bg-[#f6f6fa] hover:text-ink"
                 }`}
               >
-                <Icon aria-hidden="true" weight={on ? "fill" : "bold"} className="size-5 flex-none" />
+                <span
+                  className={`grid size-11 flex-none place-items-center rounded-[13px] bg-gradient-to-b text-white shadow-[inset_0_1.5px_0_rgba(255,255,255,0.45),0_8px_16px_-8px_rgba(21,21,27,0.5)] transition-transform duration-200 motion-reduce:transition-none ${item.tile} ${
+                    on ? "" : "opacity-90 group-hover:-translate-y-0.5"
+                  }`}
+                >
+                  <Icon aria-hidden="true" weight="fill" className="size-6" />
+                </span>
                 {item.label}
               </button>
             );
           })}
         </div>
 
+        {/* one card: text and button on the left, the screen on the right, three points along the bottom */}
         <div
           id="platform-panel"
           role="tabpanel"
           aria-labelledby={`platform-tab-${tab.id}`}
-          className="flex w-full max-w-[1120px] flex-col items-center gap-6"
+          className="mt-10 w-full overflow-hidden rounded-[24px] border border-[#e6e8f0] bg-[#f8f9fd] sm:mt-12"
         >
-          <p key={`line-${tab.id}`} className="thread-in max-w-[38rem] text-center text-[15px] font-semibold text-ink sm:text-[16px]">
-            {tab.line}
-          </p>
-          <div className="hero-stage w-full rounded-[24px] border border-[#e7e7ef] p-3 sm:rounded-[36px] sm:p-8 lg:p-12">
-            <div className="flex flex-col overflow-hidden rounded-2xl border border-black/10 bg-white text-left text-ink shadow-[0_40px_80px_-48px_rgba(40,30,120,0.45)]">
-              <div aria-hidden="true" className="flex items-center gap-1.5 border-b border-black/[0.06] bg-surface px-3.5 py-2.5">
-                <span className="size-2.5 rounded-full bg-[#ff5f57]" />
-                <span className="size-2.5 rounded-full bg-[#febc2e]" />
-                <span className="size-2.5 rounded-full bg-[#28c840]" />
-                <span className="ml-2.5 text-[12px] font-bold text-body">
-                  Endpoint<span className="text-brand">Leads</span>
-                </span>
-              </div>
-              <div className="flex min-h-[380px]">
-                <div
-                  aria-hidden="true"
-                  className="hidden w-[150px] flex-none flex-col gap-1 border-r border-black/[0.06] px-2.5 py-3 text-[12px] font-semibold text-body lg:flex"
-                >
-                  {nav.map((item) => (
-                    <span
-                      key={item}
-                      className={`rounded-lg px-2.5 py-1.5 transition-colors ${
-                        item === tab.active ? "bg-[#efedff] text-brand" : ""
-                      }`}
-                    >
-                      {item}
-                    </span>
-                  ))}
+          <div className="grid lg:grid-cols-[0.34fr_1fr]">
+            <div key={`line-${tab.id}`} className="thread-in flex flex-col gap-4 p-6 sm:p-10 lg:py-16 lg:pl-16 lg:pr-6">
+              <span className={`grid size-12 place-items-center rounded-[14px] bg-gradient-to-b text-white shadow-[inset_0_1.5px_0_rgba(255,255,255,0.45)] ${tab.tile}`}>
+                <TabIcon aria-hidden="true" weight="fill" className="size-7" />
+              </span>
+              <p className="mt-3 text-[24px] font-semibold leading-tight tracking-[-0.02em]">{tab.label}</p>
+              <p className="text-[17px] leading-[1.45] text-ink/80">{tab.line}</p>
+              <a
+                href="#start"
+                className="mt-2 inline-flex h-[42px] items-center gap-1.5 self-start bg-brand px-4 text-[16px] font-medium text-white transition-colors hover:bg-brand-hover"
+              >
+                Book your free demo
+                <CaretRight aria-hidden="true" weight="bold" className="size-3.5" />
+              </a>
+            </div>
+            {/* the app window runs off the right edge of the card */}
+            <div className="pl-5 sm:pl-10 lg:pl-4 lg:pt-10">
+              <div className="flex h-full flex-col overflow-hidden rounded-tl-[16px] border-l border-t border-[#e3e5ee] bg-white text-left text-ink shadow-[0_30px_60px_-40px_rgba(40,30,120,0.45)]">
+                <div aria-hidden="true" className="flex items-center gap-1.5 border-b border-black/[0.06] bg-surface px-3.5 py-2.5">
+                  <span className="size-2.5 rounded-full bg-[#ff5f57]" />
+                  <span className="size-2.5 rounded-full bg-[#febc2e]" />
+                  <span className="size-2.5 rounded-full bg-[#28c840]" />
+                  <span className="ml-2.5 text-[12px] font-bold text-body">
+                    Endpoint<span className="text-brand">Leads</span>
+                  </span>
                 </div>
-                <div key={`screen-${tab.id}`} aria-hidden="true" className="thread-in flex min-w-0 flex-1 flex-col">
-                  {tab.screen}
+                <div className="flex min-h-[420px] flex-1">
+                  <div
+                    aria-hidden="true"
+                    className="hidden w-[150px] flex-none flex-col gap-1 border-r border-black/[0.06] px-2.5 py-3 text-[12px] font-semibold text-body lg:flex"
+                  >
+                    {nav.map((item) => (
+                      <span
+                        key={item}
+                        className={`rounded-lg px-2.5 py-1.5 transition-colors ${
+                          item === tab.active ? "bg-[#efedff] text-brand" : ""
+                        }`}
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                  <div key={`screen-${tab.id}`} aria-hidden="true" className="thread-in flex min-w-0 flex-1 flex-col">
+                    {tab.screen}
+                  </div>
+                  <p className="sr-only">{tab.alt}</p>
                 </div>
-                <p className="sr-only">{tab.alt}</p>
               </div>
             </div>
           </div>
+          <ul key={`points-${tab.id}`} className="thread-in grid gap-6 border-t border-[#e6e8f0] bg-white p-6 sm:grid-cols-3 sm:p-10 lg:px-16">
+            {tab.points.map(([title, line]) => (
+              <li key={title}>
+                <p className="text-[16px] font-semibold tracking-[-0.01em]">{title}</p>
+                <p className="mt-1.5 text-[14px] leading-relaxed text-body">{line}</p>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>

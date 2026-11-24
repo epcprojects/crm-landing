@@ -696,3 +696,202 @@ a[href],
     #101014;
 }
 
+
+/* ---------------------------------------------------------------------
+   "Sky" look: soft lavender skies, lighter headline weight, glossy buttons
+   --------------------------------------------------------------------- */
+main h1,
+main h2 {
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+main h3 {
+  font-weight: 700;
+}
+
+a.bg-brand,
+button.bg-brand {
+  background-image: linear-gradient(180deg, #6657f0 0%, #4333cc 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.32),
+    0 10px 22px -12px rgba(73, 57, 210, 0.75);
+}
+a.bg-brand:hover,
+button.bg-brand:hover {
+  background-image: linear-gradient(180deg, #5848e4 0%, #3a2bbd 100%);
+}
+
+/* Sky that fades down into the page (hero) */
+.sky {
+  background:
+    radial-gradient(70% 55% at 50% -5%, #b9aeff 0%, rgba(185, 174, 255, 0) 70%),
+    linear-gradient(180deg, #cfc7ff 0%, #e4e0ff 36%, #f5f3ff 70%, #ffffff 100%);
+}
+/* Sky that rises from the page (footer) */
+.sky-bottom {
+  background:
+    radial-gradient(70% 60% at 50% 105%, #b9aeff 0%, rgba(185, 174, 255, 0) 70%),
+    linear-gradient(180deg, #ffffff 0%, #f1eeff 30%, #dcd6ff 70%, #cbc3ff 100%);
+}
+/* Two soft beams of light from the top corners */
+.sky-rays {
+  background:
+    linear-gradient(118deg, transparent 18%, rgba(255, 255, 255, 0.55) 30%, transparent 42%),
+    linear-gradient(62deg, transparent 58%, rgba(255, 255, 255, 0.5) 70%, transparent 82%);
+  mask-image: linear-gradient(180deg, #000 0%, transparent 78%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 78%);
+}
+.cloud {
+  position: absolute;
+  border-radius: 999px;
+  background: #fff;
+  filter: blur(26px);
+}
+/* Frosted white surface that sits on a sky */
+.glass {
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.62);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 30px 60px -36px rgba(60, 45, 170, 0.45);
+}
+/* Soft white card with no hard border */
+.card-soft {
+  background: #fff;
+  box-shadow:
+    0 0 0 1px rgba(21, 21, 27, 0.05),
+    0 24px 48px -32px rgba(40, 30, 120, 0.28);
+}
+
+
+/* ---------------------------------------------------------------------
+   Reference-style system: 12px buttons, light cards, arcs and light bars
+   --------------------------------------------------------------------- */
+main h1,
+main h2 {
+  letter-spacing: -0.02em;
+}
+a.bg-brand,
+button.bg-brand {
+  border-radius: 12px;
+  background-image: linear-gradient(180deg, #6657f0 0%, #4333cc 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 1px 2px rgba(21, 21, 27, 0.25);
+}
+.btn-ghost {
+  border: 1px solid #e3e4ea;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #ffffff 0%, #f4f5f8 100%);
+  box-shadow: 0 1px 2px rgba(21, 21, 27, 0.06);
+  transition: border-color 150ms;
+}
+.btn-ghost:hover {
+  border-color: #cfd1da;
+}
+.eyebrow {
+  border-color: #e3e4ea;
+  box-shadow: 0 1px 2px rgba(21, 21, 27, 0.05);
+  padding: 7px 14px;
+  font-family: var(--font-plus-jakarta), sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+}
+.eyebrow-dark {
+  color: #fff;
+}
+/* light card used across sections */
+.ds-card {
+  border: 1px solid #eceef4;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #f9f9fd 0%, #f3f3fb 100%);
+}
+/* the brand dome behind the product section heading */
+.ds-arc {
+  position: relative;
+  background: linear-gradient(180deg, #ffffff 0, #ffffff 300px, #f0eeff 620px, #f6f5ff 100%);
+}
+.ds-arc::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: max(1700px, 150vw);
+  height: 640px;
+  transform: translateX(-50%);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  background: linear-gradient(180deg, #4333cc 0%, #5646e2 34%, #9f95fa 66%, #e3dfff 90%, #f0eeff 100%);
+}
+/* vertical bars of light behind a centred block */
+.ds-bars {
+  background:
+    linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0) 22%, rgba(255, 255, 255, 0) 70%, #fff 100%),
+    repeating-linear-gradient(90deg, rgba(102, 87, 240, 0) 0 34px, rgba(102, 87, 240, 0.16) 34px 70px),
+    radial-gradient(60% 70% at 50% 50%, #ffffff 0%, #ffffff 38%, #d9d4ff 100%);
+}
+/* a cone of light falling from the top of a section */
+.ds-cone {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0) 55%, #fff 100%),
+    conic-gradient(from 180deg at 50% 0%, #f1efff 0deg, #f1efff 148deg, #ffffff 150deg, #ffffff 210deg, #f1efff 212deg, #f1efff 360deg);
+}
+/* the closing brand field that holds the footer */
+.ds-ground {
+  background: linear-gradient(180deg, #ffffff 0%, #b5acff 16%, #6f60f5 46%, #4939d2 100%);
+}
+
+/* softer light bars: clear in the middle, glowing at the sides */
+.ds-bars {
+  background:
+    radial-gradient(46% 62% at 50% 50%, #ffffff 0%, #ffffff 48%, rgba(255, 255, 255, 0) 100%),
+    linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0) 24%, rgba(255, 255, 255, 0) 72%, #fff 100%),
+    repeating-linear-gradient(90deg, rgba(102, 87, 240, 0) 0, rgba(102, 87, 240, 0.2) 32px, rgba(102, 87, 240, 0) 64px),
+    linear-gradient(90deg, #cfc8ff 0%, #f1efff 30%, #f1efff 70%, #cfc8ff 100%);
+}
+/* reach the deep brand colour before the footer text starts */
+.ds-ground {
+  background: linear-gradient(180deg, #ffffff 0, #b5acff 56px, #5f50ec 132px, #4939d2 100%);
+}
+
+/* a long, gentle rise from the white FAQ section into the brand colour */
+.ds-ground {
+  background: linear-gradient(
+    180deg,
+    #ffffff 0,
+    #faf9ff 70px,
+    #eeebff 140px,
+    #d6d0ff 210px,
+    #aca2fb 280px,
+    #7f72f3 350px,
+    #5f50e6 430px,
+    #4939d2 100%
+  );
+}
+
+
+/* Hero card stream: each row drifts left to right at a steady pace and loops.
+   The track holds the list four times, so sliding by half is seamless. */
+.stream-track {
+  animation: stream 48s linear infinite;
+  will-change: transform;
+}
+@keyframes stream {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stream-track {
+    animation: none;
+    transform: translateX(-25%);
+  }
+}
+
+
+

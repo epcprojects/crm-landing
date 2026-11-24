@@ -274,11 +274,11 @@ export default function FeaturesSection() {
   const [tab, setTab] = useState(0);
   const Demo = tabs[tab].Demo;
   return (
-    <section id="features" aria-labelledby="features-heading" className="scroll-mt-24 bg-surface">
+    <section id="features" aria-labelledby="features-heading" className="scroll-mt-20 bg-white">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-5 py-16 sm:px-10 sm:py-24">
         <div className="flex flex-col items-center gap-5 text-center">
           <p className="eyebrow">TRY IT HERE</p>
-          <h2 id="features-heading" className="text-[clamp(2rem,4.2vw,3.25rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-balance">
+          <h2 id="features-heading" className="text-[clamp(1.9rem,3.4vw,2.5rem)] leading-[1.3] text-balance">
             See how it works. Click around.
           </h2>
         </div>
