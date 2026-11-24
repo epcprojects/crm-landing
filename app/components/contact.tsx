@@ -3,7 +3,6 @@
 // Everything that turns a visitor into a conversation:
 // - ContactProvider: lets any section open the talk-to-us sheet
 // - ContactSheet: two optional questions, then a WhatsApp message with the answers
-// - WhatsAppFloat: the button that stays in the corner while you scroll
 
 import {
   createContext,
@@ -242,24 +241,6 @@ function ContactSheet({
   );
 }
 
-export function WhatsAppFloat() {
-  return (
-    <a
-      href={whatsappLink("Hi Endpoint Leads, I have a question.")}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Message us on WhatsApp"
-      className="fixed bottom-5 right-5 z-40 inline-flex min-h-14 items-center gap-2.5 rounded-full bg-[#25a35a] py-2 pl-2 pr-5 text-[15px] font-bold text-white shadow-[0_16px_32px_-12px_rgba(37,163,90,0.7)] transition-transform hover:-translate-y-0.5 sm:bottom-6 sm:right-6"
-    >
-      <span className="grid size-10 place-items-center rounded-full bg-white/20">
-        <WhatsappLogo aria-hidden="true" weight="fill" className="size-6" />
-      </span>
-      <span className="hidden sm:inline">WhatsApp us</span>
-      <span className="sm:hidden">Chat</span>
-    </a>
-  );
-}
-
 export default function ContactProvider({ children }: { children: ReactNode }) {
   const [sheet, setSheet] = useState<{ phone: string } | null>(null);
   const openSheet = useCallback((phone = "") => setSheet({ phone }), []);
@@ -268,7 +249,6 @@ export default function ContactProvider({ children }: { children: ReactNode }) {
   return (
     <ContactContext.Provider value={{ openSheet }}>
       {children}
-      <WhatsAppFloat />
       {sheet && <ContactSheet phone={sheet.phone} onClose={close} />}
     </ContactContext.Provider>
   );

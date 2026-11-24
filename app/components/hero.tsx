@@ -1,4 +1,5 @@
 import { SealPercent } from "@phosphor-icons/react/dist/ssr";
+import DemoEnquiryForm from "./demo-enquiry-form";
 import HeroActions from "./hero-actions";
 import HeroStream from "./hero-stream";
 
@@ -37,6 +38,7 @@ export default function Hero() {
         <div className="rise mt-8" style={{ animationDelay: "180ms" }}>
           <HeroActions />
         </div>
+        <DemoEnquiryForm />
       </div>
       <HeroStream />
     </section>

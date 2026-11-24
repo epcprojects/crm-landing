@@ -109,14 +109,6 @@ export default function SiteHeader() {
           </nav>
 
           <div className="col-start-3 flex items-center justify-end gap-2.5">
-            <a
-              href={whatsappLink("Hi Endpoint Leads, I have a question.")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-ghost hidden h-[42px] items-center whitespace-nowrap px-4 text-[15px] font-medium text-ink sm:inline-flex"
-            >
-              Talk to us
-            </a>
             <Link
               href="/#start"
               className="hidden h-[42px] items-center whitespace-nowrap bg-brand px-4 text-[15px] font-medium text-white transition-colors hover:bg-brand-hover sm:inline-flex"
