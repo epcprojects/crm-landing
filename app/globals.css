@@ -53,6 +53,24 @@ a[href],
   outline-offset: 3px;
 }
 
+.legal-toc {
+  scrollbar-color: rgba(15, 15, 19, 0.28) transparent;
+  scrollbar-width: thin;
+}
+
+.legal-toc::-webkit-scrollbar {
+  width: 4px;
+}
+
+.legal-toc::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.legal-toc::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(15, 15, 19, 0.28);
+}
+
 /* Hero: pale lavender wash fading to white at the skyline */
 .hero-wash {
   background:

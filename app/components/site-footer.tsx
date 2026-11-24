@@ -1,23 +1,23 @@
 import Image from "next/image";
+import Link from "next/link";
 import { siteConfig, whatsappLink } from "../site-config";
 
 const groups = [
   {
     title: "Product",
     links: [
-      { label: "Features", href: "#features" },
-      { label: "How it works", href: "#how" },
-      { label: "60-second check", href: "#check" },
+      { label: "Features", href: "/#features" },
+      { label: "How it works", href: "/#how" },
+      { label: "60-second check", href: "/#check" },
       { label: "Sign in", href: siteConfig.signInHref },
     ],
   },
   {
-    // [placeholder] point these at the real pages once they exist
-    title: "Company",
+    title: "Legal",
     links: [
-      { label: "About EPC", href: "#" },
-      { label: "Privacy", href: "#" },
-      { label: "Terms", href: "#" },
+      { label: "Privacy policy", href: "/privacy-policy" },
+      { label: "Automation terms", href: "/policy-for-automation" },
+      { label: "Data deletion", href: "/user-data-deletion-request" },
     ],
   },
 ];
@@ -40,21 +40,21 @@ export default function SiteFooter() {
             >
               WhatsApp us
             </a>
-            <a
-              href="#start"
+            <Link
+              href="/#start"
               className="inline-flex min-h-12 items-center rounded-full border border-white/20 px-5 text-[14px] font-bold text-white transition-colors hover:border-white/50"
             >
               Book on Calendly
-            </a>
+            </Link>
           </div>
         </div>
         {groups.map((group) => (
           <nav key={group.title} aria-label={group.title} className="flex flex-col gap-2">
             <p className="font-label text-xs font-medium tracking-[0.2em] text-white/50">{group.title.toUpperCase()}</p>
             {group.links.map((link) => (
-              <a key={link.label} href={link.href} className="inline-flex min-h-10 items-center self-start text-[15px] font-semibold text-white/75 transition-colors hover:text-white">
+              <Link key={link.label} href={link.href} className="inline-flex min-h-10 items-center self-start text-[15px] font-semibold text-white/75 transition-colors hover:text-white">
                 {link.label}
-              </a>
+              </Link>
             ))}
           </nav>
         ))}

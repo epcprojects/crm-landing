@@ -7,10 +7,10 @@ import { ArrowRight, CaretRight, List, X } from "@phosphor-icons/react/dist/ssr"
 import { siteConfig, whatsappLink } from "../site-config";
 
 const links = [
-  { label: "Features", href: "#features" },
-  { label: "How it works", href: "#how" },
-  { label: "60-second check", href: "#check" },
-  { label: "FAQ", href: "#faq" },
+  { label: "Features", href: "/#features" },
+  { label: "How it works", href: "/#how" },
+  { label: "60-second check", href: "/#check" },
+  { label: "FAQ", href: "/#faq" },
 ];
 
 export default function SiteHeader() {
@@ -97,13 +97,13 @@ export default function SiteHeader() {
             className="hidden items-center gap-1.5 lg:flex"
           >
             {links.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 className="inline-flex min-h-12 items-center rounded-full px-5 text-[16px] font-semibold text-ink/80 transition-colors hover:bg-brand/[0.07] hover:text-ink"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </nav>
 
@@ -116,12 +116,12 @@ export default function SiteHeader() {
             >
               Talk to us
             </a>
-            <a
-              href="#start"
+            <Link
+              href="/#start"
               className="hidden min-h-14 items-center whitespace-nowrap rounded-full bg-brand px-8 text-[16px] font-bold text-white transition-colors hover:bg-brand-hover sm:inline-flex"
             >
               Book a demo
-            </a>
+            </Link>
             <button
               ref={menuButton}
               type="button"
@@ -186,7 +186,7 @@ export default function SiteHeader() {
             <ul className="divide-y divide-black/[0.07] border-y border-black/[0.07]">
               {links.map((link) => (
                 <li key={link.href}>
-                  <a
+                  <Link
                     href={link.href}
                     onClick={() => setOpen(false)}
                     className="flex min-h-14 items-center justify-between text-[18px] font-bold tracking-[-0.01em] text-ink transition-colors hover:text-brand"
@@ -197,20 +197,20 @@ export default function SiteHeader() {
                       weight="bold"
                       className="size-4 text-ink/40"
                     />
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
           </nav>
 
-          <a
-            href="#start"
+          <Link
+            href="/#start"
             onClick={() => setOpen(false)}
             className="group inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-gradient-to-b from-[#5848e6] to-[#4030c9] px-8 text-[16px] font-bold text-white shadow-[0_10px_24px_-8px_rgba(73,57,210,0.65),inset_0_1px_0_rgba(255,255,255,0.28)]"
           >
             Book a demo
             <ArrowRight aria-hidden="true" weight="bold" className="size-[18px]" />
-          </a>
+          </Link>
         </div>
       </div>
     </header>
