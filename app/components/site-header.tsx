@@ -120,7 +120,7 @@ export default function SiteHeader() {
               href="/#start"
               className="hidden min-h-14 items-center whitespace-nowrap rounded-full bg-brand px-8 text-[16px] font-bold text-white transition-colors hover:bg-brand-hover sm:inline-flex"
             >
-              Book a demo
+              Book your free demo
             </Link>
             <button
               ref={menuButton}
@@ -208,7 +208,7 @@ export default function SiteHeader() {
             onClick={() => setOpen(false)}
             className="group inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-gradient-to-b from-[#5848e6] to-[#4030c9] px-8 text-[16px] font-bold text-white shadow-[0_10px_24px_-8px_rgba(73,57,210,0.65),inset_0_1px_0_rgba(255,255,255,0.28)]"
           >
-            Book a demo
+            Book your free demo
             <ArrowRight aria-hidden="true" weight="bold" className="size-[18px]" />
           </Link>
         </div>

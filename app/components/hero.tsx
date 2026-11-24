@@ -39,12 +39,12 @@ export default function Hero() {
           >
             <span className="line-mask">
               <span className="line-in text-ink/90">
-                Every client. Every conversation.
+                Manage your complete real estate business
               </span>
             </span>
             <span className="line-mask">
               <span className="line-in text-brand" style={{ animationDelay: "90ms" }}>
-                In one place.
+                from one place.
               </span>
             </span>
           </h1>
@@ -52,8 +52,9 @@ export default function Hero() {
             className="rise max-w-[36rem] text-[17px] leading-[1.7] text-body sm:text-[19px]"
             style={{ animationDelay: "120ms" }}
           >
-            The CRM for real estate offices. Leave your WhatsApp number and
-            we&rsquo;ll show you Endpoint Leads with your own office in mind.
+            A solution that gives you complete transparency and control over
+            your real estate business, helping you scale your business in less
+            time.
           </p>
           <div className="rise w-full max-w-[560px]" style={{ animationDelay: "180ms" }}>
             <PhoneCapture cta="Get a WhatsApp demo" />
@@ -67,6 +68,10 @@ export default function Hero() {
         </div>
 
         <div className="frame-in relative w-full max-w-[980px]">
+          <p className="mb-8 text-center text-[17px] font-semibold text-ink sm:text-[19px]">
+            <strong className="font-extrabold text-brand">Save 25%</strong> on
+            your purchase before 31 December 2026.
+          </p>
           <ProductShot />
         </div>
         <HeroSideCards />
