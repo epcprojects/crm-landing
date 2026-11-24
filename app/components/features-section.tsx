@@ -279,7 +279,7 @@ export default function FeaturesSection() {
         <div className="flex flex-col items-center gap-5 text-center">
           <p className="eyebrow">TRY IT HERE</p>
           <h2 id="features-heading" className="text-[clamp(1.9rem,3.4vw,2.5rem)] leading-[1.3] text-balance">
-            See how it works. Click around.
+            See how it works. <span className="serif">Click around.</span>
           </h2>
         </div>
         <div role="tablist" aria-label="Pick a feature" className="mx-auto flex w-fit max-w-full flex-wrap justify-center gap-1 rounded-[20px] border border-[#e7e7ef] bg-white p-1">

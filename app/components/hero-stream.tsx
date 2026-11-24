@@ -107,7 +107,7 @@ function StatTile({ stat }: { stat: Stat }) {
 /** The three rows. `blank` draws every card as a placeholder. */
 function Rows({ blank }: { blank?: boolean }) {
   return (
-    <div className="absolute inset-x-0 top-6 flex flex-col gap-10 sm:top-7 sm:gap-11">
+    <div className="absolute inset-x-0 top-[76px] flex flex-col gap-8">
       {rows.map((row, i) => (
         <div key={i} className={`relative h-[76px] ${row.tilt}`}>
           {/* the list is laid out four times; the track slides by half its width and loops */}
@@ -128,7 +128,7 @@ function Rows({ blank }: { blank?: boolean }) {
 
 export default function HeroStream() {
   return (
-    <div aria-hidden="true" className="relative mt-6 h-[400px] w-full overflow-hidden sm:mt-8 sm:h-[450px]">
+    <div aria-hidden="true" className="relative mt-6 h-[390px] w-full overflow-hidden sm:mt-8 sm:h-[445px]">
       {/* a soft grey field behind the cards: centred low and faded out at the
           top and bottom so it has no edge where it meets the white hero */}
       <div className="absolute inset-0 bg-[radial-gradient(55%_50%_at_50%_58%,#f1f2f7_0%,rgba(241,242,247,0)_100%)] [mask-image:linear-gradient(180deg,transparent_0%,#000_38%,#000_78%,transparent_100%)]" />
@@ -142,10 +142,7 @@ export default function HeroStream() {
         <Rows />
       </div>
 
-      {/* fade both edges into the page */}
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,#fff_0%,rgba(255,255,255,0)_18%,rgba(255,255,255,0)_84%,#fff_100%)]" />
-      {/* fade the top into the white hero and the bottom into the lavender of the next section */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-10 bg-gradient-to-b from-white to-transparent" />
+      {/* fade the bottom into the lavender of the next section */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-b from-transparent to-[#f1efff]" />
 
       {/* the beam: fades in at the top and runs straight into the next section.
@@ -155,7 +152,7 @@ export default function HeroStream() {
       <div className="absolute left-1/2 top-0 h-full w-[max(16px,1.1111vw)] -translate-x-1/2 bg-[linear-gradient(180deg,rgba(102,87,240,0)_0%,#6657f0_22%,#4333cc_100%)]" />
 
       {/* the product, in the middle of it all */}
-      <div className="absolute left-1/2 top-[178px] grid size-[92px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-[26px] bg-gradient-to-b from-[#8274f7] to-[#4333cc] text-white shadow-[inset_0_1.5px_0_rgba(255,255,255,0.45),inset_0_0_0_1px_rgba(255,255,255,0.14),0_26px_44px_-18px_rgba(73,57,210,0.85)] sm:top-[186px] sm:size-[108px]">
+      <div className="absolute left-1/2 top-[222px] grid size-[92px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-[26px] bg-gradient-to-b from-[#8274f7] to-[#4333cc] text-white shadow-[inset_0_1.5px_0_rgba(255,255,255,0.45),inset_0_0_0_1px_rgba(255,255,255,0.14),0_26px_44px_-18px_rgba(73,57,210,0.85)] sm:top-[222px] sm:size-[108px]">
         <Buildings weight="fill" className="size-12 sm:size-14" />
       </div>
     </div>

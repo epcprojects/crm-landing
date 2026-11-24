@@ -25,6 +25,7 @@
   --color-body: var(--body);
   --font-sans: var(--font-plus-jakarta);
   --font-label: var(--font-label-mono);
+  --font-serif: var(--font-serif);
 }
 
 html {
@@ -71,7 +72,7 @@ a[href],
   background: rgba(15, 15, 19, 0.28);
 }
 
-/* Hero: pale lavender wash fading to white at the skyline */
+/* Hero: a pale lavender wash that fades to white at the skyline */
 .hero-wash {
   background:
     radial-gradient(60rem 36rem at 85% 0%, rgba(120, 104, 238, 0.16), transparent 70%),
@@ -930,3 +931,191 @@ button.bg-brand {
 
 
 
+
+/* Serif italic accent words in headings */
+.serif {
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--brand);
+}
+
+/* Tone cards: each card carries one hue, set with --tone, for its tint, border and icon chip */
+.tone-card {
+  border: 1px solid color-mix(in srgb, var(--tone) 18%, #ffffff);
+  background: radial-gradient(130% 70% at 50% 0%, color-mix(in srgb, var(--tone) 13%, #ffffff) 0%, #ffffff 62%);
+  box-shadow: 0 1px 2px rgba(21, 21, 27, 0.04);
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+.tone-card:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--tone) 38%, #ffffff);
+  box-shadow: 0 28px 48px -30px color-mix(in srgb, var(--tone) 55%, transparent);
+}
+.tone-chip {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex: none;
+  border-radius: 12px;
+  color: var(--tone);
+  background: color-mix(in srgb, var(--tone) 14%, #ffffff);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tone) 22%, #ffffff);
+}
+
+/* Testimonial tickers: two rows that drift in opposite directions */
+.ticker-track {
+  animation: ticker 55s linear infinite;
+}
+.ticker-reverse {
+  animation-direction: reverse;
+}
+.ticker-fade:hover .ticker-track {
+  animation-play-state: paused;
+}
+.ticker-fade {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+@keyframes ticker {
+  to {
+    transform: translateX(calc(-50% - 8px));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track {
+    animation: none;
+  }
+}
+
+/* Stacked benefit cards: sticky on large screens, and their pictures animate in */
+@media (min-width: 1024px) {
+  .stack-card {
+    position: sticky;
+    transform-origin: 50% 0;
+    will-change: transform;
+  }
+}
+.fx {
+  opacity: 0;
+  transform: translateY(12px);
+}
+.is-in .fx {
+  animation: fx-in 380ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(60ms + var(--i, 0) * 70ms);
+}
+.fx-bar {
+  transform: scaleY(0);
+  transform-origin: bottom;
+}
+.is-in .fx-bar {
+  animation: fx-bar 480ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(60ms + var(--i, 0) * 60ms);
+}
+.fx-fill {
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.is-in .fx-fill {
+  animation: fx-fill 600ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(60ms + var(--i, 0) * 70ms);
+}
+@keyframes fx-in {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fx-bar {
+  to {
+    transform: scaleY(1);
+  }
+}
+@keyframes fx-fill {
+  to {
+    transform: scaleX(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fx,
+  .fx-bar,
+  .fx-fill {
+    opacity: 1;
+    transform: none;
+    animation: none !important;
+  }
+}
+
+/* Stat chips: the icon badge turns and pops when its column is hovered over */
+.group:hover .stat-chip-icon {
+  transform: rotate(-12deg) scale(1.12);
+}
+@media (prefers-reduced-motion: reduce) {
+  .group:hover .stat-chip-icon {
+    transform: none;
+  }
+}
+
+/* Numbers section: pills pop in, and the colour glow fades up */
+.fx-root:not(.is-in) .fx-pop {
+  opacity: 0;
+  transform: scale(0.6);
+}
+.is-in .fx-pop {
+  animation: fx-pop 600ms cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+  animation-delay: calc(180ms + var(--i, 0) * 130ms);
+}
+.fx-fade {
+  transition: opacity 1400ms ease-out;
+}
+.fx-root:not(.is-in) > .fx-fade {
+  opacity: 0;
+}
+@keyframes fx-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fx-pop {
+    animation: none !important;
+  }
+}
+
+/* Glass pill: a frosted, see-through capsule with a light edge, as on Apple's interfaces */
+.glass-pill {
+  position: relative;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.07) 100%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.08),
+    0 10px 24px -12px rgba(0, 0, 0, 0.7);
+}
+.glass-pill::before {
+  /* a soft highlight across the top half */
+  content: "";
+  position: absolute;
+  inset: 1px 10px auto;
+  height: 45%;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0));
+  pointer-events: none;
+}
+.group:hover .glass-pill {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+    0 16px 30px -12px rgba(0, 0, 0, 0.8);
+}
+
+/* Buttons that ask for rounded-full keep it, rather than the 12px brand-button radius */
+a.bg-brand.rounded-full,
+button.bg-brand.rounded-full {
+  border-radius: 9999px;
+}

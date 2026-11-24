@@ -22,7 +22,7 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import { siteConfig, whatsappLink } from "../site-config";
 
-type ContactApi = { openSheet: (phone?: string) => void };
+type ContactApi = { openSheet: (phone?: string, email?: string) => void };
 
 const ContactContext = createContext<ContactApi>({ openSheet: () => {} });
 
@@ -40,9 +40,11 @@ const topics = [
 
 function ContactSheet({
   phone,
+  email,
   onClose,
 }: {
   phone: string;
+  email: string;
   onClose: () => void;
 }) {
   const [done, setDone] = useState(false);
@@ -68,6 +70,7 @@ function ContactSheet({
   const message = [
     "Hi Endpoint Leads, I would like a demo.",
     phone ? `My WhatsApp: +92 ${phone}` : "",
+    email ? `My email: ${email}` : "",
     `Team size: ${sizes[size]} agents`,
     interests.length ? `Interested in: ${interests.join(", ")}` : "",
   ]
@@ -242,19 +245,19 @@ function ContactSheet({
 }
 
 export default function ContactProvider({ children }: { children: ReactNode }) {
-  const [sheet, setSheet] = useState<{ phone: string } | null>(null);
-  const openSheet = useCallback((phone = "") => setSheet({ phone }), []);
+  const [sheet, setSheet] = useState<{ phone: string; email: string } | null>(null);
+  const openSheet = useCallback((phone = "", email = "") => setSheet({ phone, email }), []);
   const close = useCallback(() => setSheet(null), []);
 
   return (
     <ContactContext.Provider value={{ openSheet }}>
       {children}
-      {sheet && <ContactSheet phone={sheet.phone} onClose={close} />}
+      {sheet && <ContactSheet phone={sheet.phone} email={sheet.email} onClose={close} />}
     </ContactContext.Provider>
   );
 }
 
-/** The +92 number field with a button, used in the hero and the 60-second check. */
+/** An email field with a button, used in the 60-second check. */
 export function PhoneCapture({
   cta,
   tone = "light",
@@ -263,12 +266,12 @@ export function PhoneCapture({
   tone?: "light" | "dark";
 }) {
   const { openSheet } = useContact();
-  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   return (
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        openSheet(phone.trim());
+        openSheet("", email.trim());
       }}
       className={`flex w-full flex-col gap-2 rounded-2xl border p-1.5 sm:flex-row ${
         tone === "dark"
@@ -277,15 +280,15 @@ export function PhoneCapture({
       }`}
     >
       <label className="flex min-h-13 flex-1 items-center gap-2 px-4 text-[16px]">
-        <span className="font-bold text-ink">+92</span>
-        <span className="sr-only">Your WhatsApp number</span>
+        <span className="sr-only">Your email address</span>
         <input
-          type="tel"
-          inputMode="tel"
-          autoComplete="tel-national"
-          placeholder="3XX XXXXXXX"
-          value={phone}
-          onChange={(event) => setPhone(event.target.value)}
+          type="email"
+          required
+          inputMode="email"
+          autoComplete="email"
+          placeholder="Your email address"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
           className="min-w-0 flex-1 bg-transparent text-ink outline-none placeholder:text-ink/40"
         />
       </label>

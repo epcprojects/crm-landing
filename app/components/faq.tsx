@@ -48,7 +48,7 @@ export default function Faq() {
         <div className="flex flex-col gap-4 self-start">
           <p className="eyebrow">FAQ</p>
           <h2 id="faq-heading" className="text-[clamp(1.9rem,3.4vw,2.5rem)] leading-[1.3] text-balance">
-            Questions offices ask us.
+            Questions offices <span className="serif">ask us.</span>
           </h2>
         </div>
         <div className="flex flex-col gap-3">

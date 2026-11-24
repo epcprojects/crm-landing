@@ -119,7 +119,7 @@ export default function ProductShowcase() {
       <div className="relative mx-auto flex w-full max-w-7xl flex-col items-center px-5 pb-16 pt-44 sm:px-10 sm:pb-24 sm:pt-[232px]">
         <div className="flex max-w-[40rem] flex-col items-center gap-4 text-center text-white">
           <h2 id="platform-heading" className="text-[clamp(2.1rem,4vw,3rem)] leading-[1.3] text-balance">
-            See how it works for your real estate business.
+            See how it works for your <span className="serif !text-[#e3dfff]">real estate business.</span>
           </h2>
           <p className="max-w-[33rem] text-[17px] leading-[1.4] text-white text-pretty sm:text-[18px]">
             Manage your clients, monitor your agents, and understand your
@@ -207,14 +207,6 @@ export default function ProductShowcase() {
               </div>
             </div>
           </div>
-          <ul key={`points-${tab.id}`} className="thread-in grid gap-6 border-t border-[#e6e8f0] bg-white p-6 sm:grid-cols-3 sm:p-10 lg:px-16">
-            {tab.points.map(([title, line]) => (
-              <li key={title}>
-                <p className="text-[16px] font-semibold tracking-[-0.01em]">{title}</p>
-                <p className="mt-1.5 text-[14px] leading-relaxed text-body">{line}</p>
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
     </section>

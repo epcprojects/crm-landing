@@ -1,112 +1,156 @@
-"use client";
+// The numbers section: one large soft card with a centred heading and four
+// big figures side by side. Every figure here is sample data: replace with
+// real numbers before launch.
 
-import { useEffect, useState } from "react";
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import type { ReactNode } from "react";
+import { ListChecks, MapPin, Timer, WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
+import CountUp from "./count-up";
+import Reveal from "./reveal";
 
-const steps = [
+const stats: {
+  icon: ReactNode;
+  chip: string;
+  tone: string;
+  value: number;
+  unit?: string;
+  label: string;
+  note: string;
+}[] = [
   {
-    n: "01",
-    title: "Talk",
-    line: "A short call or WhatsApp chat about how your office works today.",
+    icon: <WhatsappLogo weight="fill" className="size-3.5" />,
+    chip: "WhatsApp + calls",
+    tone: "#25b865",
+    value: 1248,
+    label: "enquiries handled",
+    note: "this month, across your whole office",
   },
   {
-    n: "02",
-    title: "Set up",
-    line: "We add your team and help move your existing clients in.",
+    icon: <Timer weight="bold" className="size-3.5" />,
+    chip: "Down 62%",
+    tone: "#0f95d8",
+    value: 4,
+    unit: "min",
+    label: "average first reply",
+    note: "from hours, once every enquiry has an owner",
   },
   {
-    n: "03",
-    title: "Run",
-    line: "Your agents work every client from one place, on desktop or phone.",
+    icon: <ListChecks weight="bold" className="size-3.5" />,
+    chip: "Every next step",
+    tone: "#4939d2",
+    value: 96,
+    unit: "%",
+    label: "follow-ups done on time",
+    note: "late ones stand out for the agent and the owner",
+  },
+  {
+    icon: <MapPin weight="fill" className="size-3.5" />,
+    chip: "+9% this quarter",
+    tone: "#e8850c",
+    value: 31,
+    unit: "%",
+    label: "leads reach a site visit",
+    note: "from first enquiry to a visit on the calendar",
   },
 ];
 
-export default function HowItWorks() {
-  const [active, setActive] = useState(0);
+const lightHaze = [
+  "radial-gradient(60% 55% at 50% -8%, rgba(150,134,255,0.28) 0%, rgba(150,134,255,0) 70%)",
+  "radial-gradient(48% 62% at -4% 78%, rgba(120,214,166,0.55) 0%, rgba(120,214,166,0) 72%)",
+  "radial-gradient(44% 58% at 30% 112%, rgba(255,187,140,0.6) 0%, rgba(255,187,140,0) 72%)",
+  "radial-gradient(44% 58% at 70% 112%, rgba(166,148,255,0.55) 0%, rgba(166,148,255,0) 72%)",
+  "radial-gradient(48% 62% at 104% 70%, rgba(122,200,255,0.55) 0%, rgba(122,200,255,0) 72%)",
+  "linear-gradient(180deg, #ffffff 0%, #fbfbff 55%, #f6f4ff 100%)",
+].join(",");
 
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const timer = window.setInterval(() => {
-      setActive((current) => (current + 1) % steps.length);
-    }, 3200);
-    return () => window.clearInterval(timer);
-  }, []);
+// a black gradient: a little lighter at the top, deepest at the bottom
+const darkHaze = [
+  "radial-gradient(60% 45% at 50% -5%, rgba(120,104,255,0.32) 0%, rgba(120,104,255,0) 70%)",
+  "radial-gradient(40% 45% at 0% 100%, rgba(120,214,166,0.16) 0%, rgba(120,214,166,0) 72%)",
+  "radial-gradient(40% 45% at 100% 100%, rgba(166,148,255,0.2) 0%, rgba(166,148,255,0) 72%)",
+  "linear-gradient(180deg, #17171d 0%, #0d0d11 45%, #050507 100%)",
+].join(",");
 
+// Apple-style glass pill for the dark card (see .glass-pill in globals.css)
+const glassChip =
+  "glass-pill stat-chip inline-flex items-center gap-2 rounded-full p-1 pr-3.5 text-[12.5px] font-medium text-white transition-[transform,box-shadow] duration-300 ease-out group-hover:-translate-y-1";
+
+const chip =
+  "stat-chip inline-flex items-center gap-2 rounded-full border border-black/[0.06] bg-white/95 p-1 pr-3.5 text-[12.5px] font-medium text-ink shadow-[0_4px_14px_-8px_rgba(17,17,17,0.35)] transition-[transform,box-shadow,border-color] duration-300 ease-out group-hover:-translate-y-1 group-hover:border-[color-mix(in_srgb,var(--tone)_35%,white)] group-hover:shadow-[0_12px_24px_-10px_color-mix(in_srgb,var(--tone)_60%,transparent)]";
+
+function NumbersSection({ dark = false }: { dark?: boolean }) {
+  const id = dark ? "results" : "how";
+  const headingId = `${id}-heading`;
   return (
-    <section
-      id="how"
-      aria-labelledby="how-heading"
-      className="scroll-mt-20 overflow-hidden bg-night text-white"
-    >
-      <div className="mx-auto grid w-full max-w-7xl gap-12 px-5 py-16 sm:px-10 sm:py-24 lg:grid-cols-[0.82fr_1.18fr] lg:gap-20">
-        <div className="self-start lg:sticky lg:top-28">
-          <p className="text-[12px] font-bold uppercase tracking-[0.18em] text-accent">
-            How it works
-          </p>
-          <h2
-            id="how-heading"
-            className="mt-5 max-w-[34rem] text-[clamp(2.2rem,4.5vw,4.25rem)] leading-[1.02] tracking-[-0.05em] text-balance"
-          >
-            From first call to running in days.
-          </h2>
-          <a
-            href="#start"
-            className="group mt-8 inline-flex min-h-12 items-center gap-3 rounded-full bg-white px-6 text-[14px] font-bold text-night transition-colors hover:bg-surface"
-          >
-            Book a demo
-            <ArrowRight
-              aria-hidden="true"
-              weight="bold"
-              className="size-4 transition-transform group-hover:translate-x-0.5"
-            />
-          </a>
-        </div>
+    <section id={id} aria-labelledby={headingId} className="scroll-mt-20 overflow-hidden bg-white">
+      <div className="mx-auto w-full max-w-[1480px] px-4 py-16 sm:px-8 sm:py-24">
+        <Reveal className={`relative overflow-hidden rounded-[32px] border px-6 pb-28 pt-16 sm:px-14 sm:pt-20 ${dark ? "border-white/10 bg-[#0a0a0d]" : "border-black/[0.06] bg-white"}`}>
+          {/* soft colour haze behind the content */}
+          <div
+            aria-hidden="true"
+            className="fx-fade pointer-events-none absolute inset-0"
+            style={{ background: dark ? darkHaze : lightHaze }}
+          />
 
-        <div className="relative">
-          <ol className="relative space-y-4">
-            {steps.map((step, index) => {
-              const selected = active === index;
-              return (
-                <li key={step.n}>
-                  <button
-                    type="button"
-                    aria-pressed={selected}
-                    onClick={() => setActive(index)}
-                    onMouseEnter={() => setActive(index)}
-                    className={`grid w-full grid-cols-[58px_1fr] items-center gap-4 rounded-[24px] border p-4 text-left transition-[transform,background-color,border-color,color,opacity] duration-500 ease-out motion-reduce:transition-none sm:p-5 ${
-                      selected
-                        ? "translate-x-2 border-white bg-white text-night shadow-2xl"
-                        : "border-white/10 bg-white/[0.045] text-white opacity-[0.65] hover:opacity-100"
-                    }`}
-                  >
-                    <span
-                      className={`relative z-10 grid size-11 place-items-center rounded-full border text-[13px] font-bold transition-[transform,background-color,border-color,color] duration-500 motion-reduce:transition-none ${
-                        selected
-                          ? "scale-105 border-brand bg-brand text-white"
-                          : "border-white/15 bg-night text-accent"
-                      }`}
-                    >
-                      {step.n}
-                    </span>
-                    <span className="py-2">
-                      <strong className="block text-[22px] font-semibold tracking-[-0.025em]">
-                        {step.title}
-                      </strong>
-                      <span
-                        className={`mt-1.5 block max-w-[30rem] text-[14px] leading-relaxed transition-colors duration-500 sm:text-[15px] ${
-                          selected ? "text-body" : "text-white/60"
-                        }`}
-                      >
-                        {step.line}
-                      </span>
-                    </span>
-                  </button>
-                </li>
-              );
-            })}
-          </ol>
-        </div>
+          <div className="relative flex flex-col items-center text-center">
+            <h2
+              id={headingId}
+              style={{ "--i": 0 } as React.CSSProperties}
+              className={`fx text-[clamp(2.1rem,4.2vw,3.5rem)] leading-[1.08] tracking-[-0.04em] text-balance lg:whitespace-nowrap ${dark ? "text-white" : ""}`}
+            >
+              Numbers you can see, <br className="lg:hidden" />
+              <span className={`serif ${dark ? "!text-[#b3a8ff]" : ""}`}>not just guess.</span>
+            </h2>
+            <p style={{ "--i": 1 } as React.CSSProperties} className={`fx mt-5 max-w-[44rem] text-[16px] leading-relaxed ${dark ? "text-white/70" : "text-body"}`}>
+              Every figure comes from your own enquiries, follow-ups and visits, live on one dashboard.
+            </p>
+          </div>
+
+          <ul className={`relative grid ${"mt-16"} gap-y-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-y-0`}>
+            {stats.map((stat, index) => (
+              <li
+                key={stat.label}
+                style={{ "--tone": stat.tone, "--i": index + 2 } as React.CSSProperties}
+                className={`fx group flex flex-col items-center gap-4 px-6 text-center ${
+                  index > 0 ? `lg:border-l ${dark ? "lg:border-white/10" : "lg:border-black/[0.08]"}` : ""
+                }`}
+              >
+                <span className={`fx-pop ${dark ? glassChip : chip}`} style={{ "--i": index + 3 } as React.CSSProperties}>
+                  <span className="stat-chip-icon grid size-6 place-items-center rounded-full bg-[var(--tone)] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.35)] transition-transform duration-500 ease-out">
+                    {stat.icon}
+                  </span>
+                  {stat.chip}
+                </span>
+                <p className={`text-[clamp(2.75rem,5vw,4.25rem)] font-medium leading-none tracking-[-0.05em] ${dark ? "text-white" : "text-ink"}`}>
+                  <CountUp to={stat.value} />
+                  {stat.unit && <span className={`serif ml-1 text-[0.8em] ${dark ? "!text-[#b3a8ff]" : ""}`}>{stat.unit}</span>}
+                </p>
+                <div className="flex flex-col gap-1.5">
+                  <p className={`text-[17px] font-medium ${dark ? "text-white" : "text-ink"}`}>{stat.label}</p>
+                  <p className={`mx-auto max-w-[14rem] text-[14px] leading-snug ${dark ? "text-white/60" : "text-body"}`}>{stat.note}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          <div style={{ "--i": 7 } as React.CSSProperties} className="fx relative mt-14 flex justify-center">
+            <a
+              href="#demo-enquiry"
+              className="inline-flex h-12 items-center rounded-full bg-brand px-6 text-[15px] font-medium text-white transition-colors hover:bg-brand-hover"
+            >
+              Get a free demo
+            </a>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
+}
+
+export default function HowItWorks() {
+  return <NumbersSection />;
+}
+
+/** The same section on a black-to-white background. */
+export function NumbersDark() {
+  return <NumbersSection dark />;
 }

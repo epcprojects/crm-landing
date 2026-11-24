@@ -1,6 +1,6 @@
 "use client";
 
-// "How would you like to start?" Three routes, one panel at a time.
+// "How would you like <span className="serif">to start?</span>" Three routes, one panel at a time.
 // Demo: the Calendly scheduler when NEXT_PUBLIC_CALENDLY_URL is set,
 // otherwise a day/time request sent on WhatsApp.
 

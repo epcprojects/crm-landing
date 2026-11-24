@@ -89,10 +89,10 @@ export default function DemoEnquiryForm() {
   return (
     <div
       id="demo-enquiry"
-      className="rise relative z-10 mt-8 w-full max-w-[680px] scroll-mt-28 rounded-[22px] border border-[#ddd8f5] bg-[radial-gradient(circle_at_50%_0%,#ffffff_0%,#f8f6ff_48%,#f1effb_100%)] p-4 text-left shadow-[0_20px_50px_-38px_rgba(73,57,210,0.5),inset_0_0_0_4px_rgba(255,255,255,0.35)] backdrop-blur sm:p-6"
+      className="rise relative z-10 mt-12 w-full max-w-[680px] scroll-mt-28 rounded-[20px] bg-gradient-to-b from-white/80 to-white/0 p-[5px] text-left"
       style={{ animationDelay: "240ms" }}
     >
-      <div className="relative">
+      <div className="relative rounded-[16px] bg-gradient-to-b from-[#f0e8fc] to-[#f0e8fc]/0 p-4 backdrop-blur sm:p-6">
         <form ref={formRef} onSubmit={submit}>
           <div key={step} ref={questionRef} className="rise">
             <h2 className="max-w-3xl text-[clamp(1.35rem,2.7vw,1.75rem)] leading-[1.18] tracking-[-0.025em] text-ink">{stepContent[step].title}</h2>
@@ -113,7 +113,7 @@ export default function DemoEnquiryForm() {
                     {teamSizes.map((size) => (
                       <label key={size} className="relative">
                         <input type="radio" name="teamSize" value={size} required checked={answers.teamSize === size} onChange={(event) => update("teamSize", event.target.value)} className="peer sr-only" />
-                        <span className="flex min-h-11 items-center justify-center rounded-full border border-[#dcd8f5] bg-white/85 px-3 text-[13px] font-semibold text-ink transition-[border-color,background-color,color,box-shadow] peer-checked:border-brand peer-checked:bg-[#e9e5ff] peer-checked:text-brand peer-checked:shadow-[0_0_0_1px_#4939d2] peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-brand">{size}</span>
+                        <span className="flex min-h-11 items-center justify-center rounded-full border border-[#dcd8f5] bg-white/85 px-3 text-[13px] font-semibold text-ink transition-[border-color,background-color,color,box-shadow] peer-checked:border-brand peer-checked:bg-[#eae6ff] peer-checked:text-brand peer-checked:shadow-[0_0_0_1px_#4939d2] peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-brand">{size}</span>
                       </label>
                     ))}
                   </div>
