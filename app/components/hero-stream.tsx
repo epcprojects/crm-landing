@@ -1,76 +1,105 @@
 // The hero picture: three tilted rows of cards drifting left to right across
 // a vertical brand beam. Left of the beam a card is a blank grey placeholder
-// (a client nobody is tracking); as it crosses the beam it becomes a tidy
-// client card with a next step and a stage. All names are sample data.
+// (a lead nobody is tracking); as it crosses the beam it becomes one of the
+// dashboard's own cards: a lead with its project, agent and status, or a
+// status count. Everything shown is sample data.
 //
 // How the change at the beam works: every row is drawn twice, in step. One
 // copy shows the blank cards and is clipped to the left half; the other shows
 // the real cards and is clipped to the right half.
 
 import { Buildings } from "@phosphor-icons/react/dist/ssr";
+import { Initials, StatusPill, statuses, type StatusKey } from "./dashboard-parts";
 
-type Client = { name: string; note: string; stage: string; tone: string; next: string; avatar: string };
+type Lead = { kind: "lead"; ref: string; title: string; project: string; agent: string; status: StatusKey; short?: string };
+type Stat = { kind: "stat"; status: StatusKey; count: number };
+type Item = Lead | Stat;
 
-const stageTone = {
-  visit: "border-[#cfc8ff] bg-[#f2f0ff] text-[#3a2bbd]",
-  fresh: "border-[#dfe1e8] bg-[#f4f5f8] text-[#4b4c58]",
-  talk: "border-[#ffd9a8] bg-[#fff5e6] text-[#9a4a00]",
-  closed: "border-[#b9e6cb] bg-[#eefaf3] text-[#1d7a52]",
-};
-const violet = "bg-[#e4e0ff] text-[#2f2496]";
-
-const clients: Client[] = [
-  { name: "Usman Tariq", note: "10 marla plot", stage: "Site visit", tone: stageTone.visit, next: "Sat, 11:00", avatar: violet },
-  { name: "Sara Khan", note: "Apartment, Tower B", stage: "Negotiating", tone: stageTone.talk, next: "Send price list", avatar: "bg-[#fff1de] text-[#9a4a00]" },
-  { name: "Ayesha Malik", note: "Shop, Phase 7", stage: "Site visit", tone: stageTone.visit, next: "Mon, 4:00", avatar: "bg-[#ffe9e6] text-[#b3261e]" },
-  { name: "Hina Raza", note: "5 marla house", stage: "New", tone: stageTone.fresh, next: "First call today", avatar: "bg-[#e8f7ee] text-[#1d7a52]" },
-  { name: "Bilal Ahmed", note: "Shop, Tower B", stage: "Closed", tone: stageTone.closed, next: "Hand over keys", avatar: violet },
-  { name: "Zain Ali", note: "New enquiry", stage: "New", tone: stageTone.fresh, next: "Reply due 6 pm", avatar: violet },
-];
-
-/** Each row shows the same six clients starting from a different one. */
-const order = (start: number) => clients.map((_, i) => clients[(i + start) % clients.length]);
-
-const rows = [
-  { tilt: "-rotate-[5deg]", clients: order(0), delay: "-9s" },
-  { tilt: "", clients: order(2), delay: "-27s" },
-  { tilt: "rotate-[5deg]", clients: order(4), delay: "-16s" },
+const rows: { tilt: string; delay: string; items: Item[] }[] = [
+  {
+    tilt: "-rotate-[5deg]",
+    delay: "-9s",
+    items: [
+      { kind: "lead", ref: "EL-1847", title: "10 marla plot, G block", project: "Bahria Town (Plots)", agent: "AR", status: "new" },
+      { kind: "stat", status: "contacted", count: 368 },
+      { kind: "lead", ref: "EL-1846", title: "Shop for rent, F-10", project: "City Rentals", agent: "MK", status: "visit", short: "Visit Scheduled" },
+      { kind: "lead", ref: "EL-1845", title: "2 bed apartment on loan", project: "Tower B (Sales)", agent: "ZA", status: "quote" },
+      { kind: "stat", status: "won", count: 12 },
+      { kind: "lead", ref: "EL-1844", title: "Studio apartment for rent", project: "City Rentals", agent: "HS", status: "contacted" },
+    ],
+  },
+  {
+    tilt: "",
+    delay: "-27s",
+    items: [
+      { kind: "stat", status: "new", count: 36 },
+      { kind: "lead", ref: "EL-1843", title: "Commercial space, F-10", project: "City Rentals", agent: "MK", status: "nego", short: "Negotiation" },
+      { kind: "lead", ref: "EL-1842", title: "5 marla house", project: "Bahria Town (Plots)", agent: "AR", status: "qualified" },
+      { kind: "stat", status: "visit", count: 91 },
+      { kind: "lead", ref: "EL-1841", title: "Apartment details, E-11", project: "Tower B (Sales)", agent: "ZA", status: "token" },
+      { kind: "lead", ref: "EL-1840", title: "Corner shop, Phase 7", project: "Phase 7 Shops", agent: "HS", status: "won" },
+    ],
+  },
+  {
+    tilt: "rotate-[5deg]",
+    delay: "-16s",
+    items: [
+      { kind: "lead", ref: "EL-1839", title: "1 kanal plot", project: "Bahria Town (Plots)", agent: "AR", status: "contacted" },
+      { kind: "lead", ref: "EL-1838", title: "Office floor for rent", project: "City Rentals", agent: "MK", status: "hold" },
+      { kind: "stat", status: "quote", count: 202 },
+      { kind: "lead", ref: "EL-1837", title: "3 bed apartment", project: "Tower B (Sales)", agent: "ZA", status: "new" },
+      { kind: "stat", status: "token", count: 4 },
+      { kind: "lead", ref: "EL-1836", title: "Shop, ground floor", project: "Phase 7 Shops", agent: "HS", status: "visit", short: "Visit Scheduled" },
+    ],
+  },
 ];
 
 const shell =
-  "flex h-[76px] w-[350px] items-center gap-3 rounded-[18px] border border-[#eceef4] bg-white px-3 shadow-[0_14px_28px_-20px_rgba(21,21,27,0.4)]";
+  "relative flex h-[76px] items-center gap-3 overflow-hidden rounded-[14px] border border-[#eaecf0] bg-white pl-4 pr-3.5 shadow-[0_14px_28px_-20px_rgba(16,24,40,0.45)]";
+const widthOf = (item: Item) => (item.kind === "lead" ? "w-[360px]" : "w-[230px]");
 
-/** A client with no owner and no next step. */
-function Blank() {
+/** A lead with no owner and no status yet. */
+function Blank({ item }: { item: Item }) {
   return (
-    <div className={`${shell} opacity-70`}>
-      <span className="size-[52px] flex-none rounded-xl bg-[#eeeff3]" />
+    <div className={`${shell} ${widthOf(item)} opacity-70`}>
+      <span className="size-10 flex-none rounded-full bg-[#eeeff3]" />
       <span className="flex flex-1 flex-col gap-2.5">
         <span className="h-3 w-4/5 rounded-full bg-[#eeeff3]" />
         <span className="h-3 w-1/2 rounded-full bg-[#eeeff3]" />
       </span>
-      <span className="flex h-10 w-[96px] flex-none flex-col justify-center gap-2.5 border-l border-[#eceef4] pl-3">
-        <span className="h-3 w-full rounded-full bg-[#eeeff3]" />
-        <span className="h-3 w-2/3 rounded-full bg-[#eeeff3]" />
-      </span>
+      {item.kind === "lead" && <span className="h-5 w-[72px] flex-none rounded-full bg-[#eeeff3]" />}
     </div>
   );
 }
 
-function ClientCard({ c }: { c: Client }) {
+/** One lead, as a row of the Recent Leads table folded into a card. */
+function LeadCard({ lead }: { lead: Lead }) {
+  const s = statuses[lead.status];
   return (
-    <div className={shell}>
-      <span className={`grid size-[52px] flex-none place-items-center rounded-xl text-[18px] font-semibold ${c.avatar}`}>
-        {c.name[0]}
-      </span>
+    <div className={`${shell} ${widthOf(lead)}`}>
+      <span className="absolute left-0 top-1/2 h-9 w-1 -translate-y-1/2 rounded-r-sm" style={{ backgroundColor: s.color }} />
+      <Initials text={lead.agent} size="size-10" />
       <span className="min-w-0 flex-1">
-        <span className="block truncate text-[15px] font-semibold tracking-[-0.01em] text-ink">{c.name}</span>
-        <span className="block truncate text-[12px] text-body">{c.note}</span>
+        <span className="block truncate text-[14px] font-medium tracking-[-0.01em] text-[#101828]">{lead.title}</span>
+        <span className="block truncate text-[12px] text-[#667085]">
+          {lead.ref} · {lead.project}
+        </span>
       </span>
-      <span className="flex h-10 flex-none flex-col items-end justify-center gap-1.5 border-l border-[#eceef4] pl-3">
-        <span className="text-[15px] font-semibold leading-none tracking-[-0.01em] text-brand">{c.next}</span>
-        <span className={`rounded-md border px-1.5 py-0.5 text-[10px] font-semibold leading-none ${c.tone}`}>{c.stage}</span>
-      </span>
+      <StatusPill status={lead.status} short={lead.short} />
+    </div>
+  );
+}
+
+/** One status count, as on the dashboard's top panel. */
+function StatTile({ stat }: { stat: Stat }) {
+  const s = statuses[stat.status];
+  const Icon = s.icon;
+  return (
+    <div className={`${shell} ${widthOf(stat)}`}>
+      <span className="absolute left-0 top-1/2 h-9 w-1 -translate-y-1/2 rounded-r-sm" style={{ backgroundColor: s.color }} />
+      <Icon weight="regular" className="size-5 flex-none" style={{ color: s.color }} />
+      <span className="min-w-0 flex-1 truncate text-[14px] text-[#344054]">{s.label}</span>
+      <span className="flex-none text-[20px] font-bold tracking-[-0.02em] text-[#101828]">{stat.count}</span>
     </div>
   );
 }
@@ -84,9 +113,9 @@ function Rows({ blank }: { blank?: boolean }) {
           {/* the list is laid out four times; the track slides by half its width and loops */}
           <div className="stream-track absolute left-0 top-0 flex w-max" style={{ animationDelay: row.delay }}>
             {[0, 1, 2, 3].flatMap((copy) =>
-              row.clients.map((c) => (
-                <div key={`${copy}-${c.name}`} className="pr-5">
-                  {blank ? <Blank /> : <ClientCard c={c} />}
+              row.items.map((item, n) => (
+                <div key={`${copy}-${n}`} className="pr-5">
+                  {blank ? <Blank item={item} /> : item.kind === "lead" ? <LeadCard lead={item} /> : <StatTile stat={item} />}
                 </div>
               )),
             )}
@@ -119,8 +148,8 @@ export default function HeroStream() {
       <div className="pointer-events-none absolute inset-x-0 top-0 h-10 bg-gradient-to-b from-white to-transparent" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-b from-transparent to-[#f1efff]" />
 
-      {/* the beam: fades in at the top and runs straight into the next section */}
-      {/* its width follows the same rule as the neck of the dome in the next
+      {/* the beam: fades in at the top and runs straight into the next section.
+          Its width follows the same rule as the neck of the dome in the next
           section (16px, growing with the window past 1440px), so the two meet
           with no step */}
       <div className="absolute left-1/2 top-0 h-full w-[max(16px,1.1111vw)] -translate-x-1/2 bg-[linear-gradient(180deg,rgba(102,87,240,0)_0%,#6657f0_22%,#4333cc_100%)]" />
