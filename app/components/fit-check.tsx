@@ -62,7 +62,7 @@ export default function FitCheck() {
                   <span
                     aria-hidden="true"
                     className={`grid size-9 flex-none place-items-center rounded-full ${
-                      on ? "bg-gradient-to-b from-[#34d37a] to-[#16a34a] text-white" : "border border-[#dcdde6] bg-white/70 text-ink/40"
+                      on ? "bg-gradient-to-b from-[#34d37a] to-[#16a34a] text-white" : "border border-[#e4e5ea] bg-white text-ink shadow-[0_4px_12px_-4px_rgba(21,21,27,0.18)]"
                     }`}
                   >
                     {on ? <Check weight="bold" className="size-4" /> : <Plus weight="bold" className="size-4" />}

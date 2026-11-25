@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { siteConfig, whatsappLink } from "../site-config";
+import { siteConfig } from "../site-config";
 
 const groups = [
   {
@@ -22,10 +22,12 @@ const groups = [
   },
 ];
 
-// The page ends on a field of brand colour that holds the footer.
+// The page ends on a solid near-black footer.
 export default function SiteFooter() {
   return (
-    <footer className="ds-ground pt-[380px] text-white sm:pt-[420px]">
+    // a rounded black card, inset from the edges of the page
+    <footer className="bg-white px-3 pb-3 sm:px-5 sm:pb-5">
+      <div className="ds-ground rounded-[24px] px-2 pt-16 text-white sm:rounded-[32px] sm:px-4 sm:pt-20">
       <div className="mx-auto w-full max-w-7xl px-5 sm:px-10">
         <div className="grid gap-10 pb-12 lg:grid-cols-[1.4fr_1fr_1fr]">
           <div className="flex flex-col gap-5">
@@ -35,16 +37,14 @@ export default function SiteFooter() {
             </p>
             <div className="flex flex-wrap gap-2.5">
               <a
-                href={whatsappLink("Hi Endpoint Leads, I have a question.")}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={`mailto:${siteConfig.email}`}
                 className="btn-ghost inline-flex h-[42px] items-center px-4 text-[15px] font-medium text-ink"
               >
-                WhatsApp us
+                Email us
               </a>
               <Link
                 href="/#start"
-                className="inline-flex h-[42px] items-center rounded-xl border border-white/40 px-4 text-[15px] font-medium text-white transition-colors hover:bg-white/10"
+                className="inline-flex h-[42px] items-center rounded-xl border border-white/25 px-4 text-[15px] font-medium text-white transition-colors hover:bg-white/10"
               >
                 Book on Calendly
               </Link>
@@ -61,9 +61,10 @@ export default function SiteFooter() {
             </nav>
           ))}
         </div>
-        <div className="border-t border-white/20 py-6">
-          <p className="text-[13px] text-white/85">© 2026 Endpoint Leads</p>
+        <div className="border-t border-white/10 py-7 sm:py-8">
+          <p className="text-[13px] text-white/60">© 2026 Endpoint Leads</p>
         </div>
+      </div>
       </div>
     </footer>
   );

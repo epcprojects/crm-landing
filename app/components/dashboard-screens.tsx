@@ -6,6 +6,9 @@
 import type { ReactNode } from "react";
 import {
   AddressBook,
+  CalendarBlank,
+  CaretRight,
+  ChatsCircle,
   Bell,
   Buildings,
   CheckCircle,
@@ -16,14 +19,15 @@ import {
   MagnifyingGlass,
   Phone,
   Plus,
+  Pulse,
   ShieldCheck,
   SlidersHorizontal,
   SquaresFour,
   Users,
   UsersThree,
-  WhatsappLogo,
 } from "@phosphor-icons/react/dist/ssr";
 import { Initials, StatCard, StatusPill, statuses, type StatusKey } from "./dashboard-parts";
+import WhatsappIcon from "./whatsapp-icon";
 
 /* -------------------------------- frame --------------------------------- */
 
@@ -37,29 +41,36 @@ const rail = [
   { label: "Notification", icon: Bell },
 ];
 
+const sideRail = [
+  { label: "Projects", icon: SquaresFour, count: "8" },
+  { label: "Threads", icon: ChatsCircle, count: "" },
+  { label: "Activity", icon: Pulse, count: "99+" },
+  { label: "Upcoming", icon: CalendarBlank, count: "99+" },
+];
+
 export function AppFrame({ active, children }: { active: string; children: ReactNode }) {
   return (
     <div className="flex min-h-[470px] flex-1 gap-2 bg-[#f2f4f7] p-2">
       {/* the side rail, as in the app: logo in a white circle, icon over label,
           the current page on a lighter tile, a red count on Notification and
           the signed-in user's initials at the bottom */}
-      <div className="hidden w-[84px] flex-none flex-col items-center gap-3 rounded-[12px] bg-[#0f0a22] px-1.5 pb-4 pt-4 lg:flex">
-        <span className="grid size-10 flex-none place-items-center rounded-full bg-white text-brand">
-          <Buildings weight="fill" className="size-5" />
+      <div className="hidden w-[92px] flex-none flex-col items-center gap-4 rounded-[12px] bg-[#0f0a22] px-2 pb-5 pt-5 lg:flex">
+        <span className="grid size-11 flex-none place-items-center rounded-full bg-white text-brand shadow-[0_0_0_3px_rgba(255,255,255,0.08)]">
+          <Buildings weight="fill" className="size-[22px]" />
         </span>
-        <span className="flex w-full flex-col gap-0.5">
+        <span className="flex w-full flex-col gap-1">
           {rail.map((item) => {
             const Icon = item.icon;
             const on = item.label === active;
             return (
               <span
                 key={item.label}
-                className={`flex w-full flex-col items-center gap-1 rounded-lg py-2 text-[10px] leading-none ${
-                  on ? "bg-white/10 text-white" : "text-[#d0d5dd]"
+                className={`flex w-full flex-col items-center gap-1.5 rounded-lg py-2.5 text-[10px] leading-none text-[#d1d5db] ${
+                  on ? "bg-white/10" : ""
                 }`}
               >
-                <span className="relative">
-                  <Icon weight={on ? "fill" : "regular"} className="size-[19px]" />
+                <span className={`relative ${on ? "text-white" : "text-[#e5e7eb]"}`}>
+                  <Icon weight={on ? "fill" : "regular"} className="size-[21px]" />
                   {item.label === "Notification" && (
                     <span className="absolute -right-3 -top-2 rounded-full bg-[#f04438] px-1 py-px text-[7px] font-semibold leading-none text-white">
                       99+
@@ -71,11 +82,32 @@ export function AppFrame({ active, children }: { active: string; children: React
             );
           })}
         </span>
-        <span className="mt-auto grid size-10 flex-none place-items-center rounded-full bg-[#3a3650] text-[11px] font-semibold text-white">
+        <span className="mt-auto grid size-11 flex-none place-items-center rounded-full bg-[#3a3650] text-[12px] font-semibold text-white">
           SA
         </span>
       </div>
       <div className="flex min-w-0 flex-1 flex-col gap-2">{children}</div>
+      <div className="relative hidden w-[72px] flex-none flex-col items-stretch rounded-[12px] border border-[#eaecf0] bg-white py-2 xl:flex">
+        <span className="absolute -left-2.5 top-1/2 grid h-7 w-4 -translate-y-1/2 place-items-center rounded-md border border-[#eaecf0] bg-white text-[#98a2b3]">
+          <CaretRight weight="bold" className="size-2.5" />
+        </span>
+        {sideRail.map((item, i) => {
+          const Icon = item.icon;
+          return (
+            <span key={item.label} className={`flex flex-col items-center gap-1 py-2.5 text-[9px] text-[#475467] ${i ? "border-t border-[#f2f4f7]" : ""}`}>
+              <span className="relative">
+                <Icon className="size-[18px] text-[#475467]" />
+                {item.count && (
+                  <span className="absolute -right-2.5 -top-2 rounded-full bg-[#f04438] px-1 py-px text-[7px] font-semibold leading-none text-white">
+                    {item.count}
+                  </span>
+                )}
+              </span>
+              {item.label}
+            </span>
+          );
+        })}
+      </div>
     </div>
   );
 }
@@ -168,7 +200,7 @@ export function LeadsScreen() {
       <div className={`${banner} flex flex-col gap-3`}>
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <p className="text-[17px] font-semibold tracking-[-0.01em] text-[#101828] sm:text-[19px]">Good Day, Super admin</p>
+            <p className="text-[17px] font-semibold tracking-[-0.01em] text-[#101828] sm:text-[19px]">Good Day, Super admin <span aria-hidden="true">☀️</span></p>
             <p className="text-[11px] text-[#475467]">Here&rsquo;s a quick overview of your leads and projects</p>
           </div>
           <div className="flex flex-none items-center gap-2">
@@ -224,7 +256,7 @@ export function LeadsScreen() {
               <span className="flex items-center gap-1.5 text-[10px] text-[#667085]">
                 {l.phone}
                 <Phone className="size-3" />
-                <WhatsappLogo weight="fill" className="size-3 text-[#25a35a]" />
+                <WhatsappIcon className="size-3" />
               </span>
             </span>
             <span className="hidden min-w-0 items-center gap-1.5 lg:flex">

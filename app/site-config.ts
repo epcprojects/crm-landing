@@ -3,6 +3,8 @@ export const siteConfig = {
   name: "Endpoint Leads",
   // TODO(owner): your WhatsApp number in international format, digits only (e.g. 923001234567).
   whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "",
+  // The contact email, as given in the privacy policy.
+  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "info@endpointclients.com",
   // TODO(owner): your Calendly event link (e.g. https://calendly.com/endpoint-leads/demo).
   calendlyUrl: process.env.NEXT_PUBLIC_CALENDLY_URL ?? "",
   // TODO(owner): how fast the team usually replies, shown in the hero.

@@ -9,7 +9,7 @@ export default function Hero() {
       <div className="mx-auto flex w-full max-w-7xl flex-col items-center px-5 text-center sm:px-10">
         {/* the year-end offer as the small pill above the headline */}
         <p className="rise inline-flex max-w-full items-center gap-2 rounded-full border border-[#e3e4ea] bg-white py-1 pl-1.5 pr-3.5 text-left text-[14px] font-medium leading-snug text-ink shadow-[0_1px_2px_rgba(21,21,27,0.06)]">
-          <span className="grid size-6 flex-none place-items-center rounded-md bg-gradient-to-b from-[#7667f5] to-[#4333cc] text-white">
+          <span className="grid size-6 flex-none place-items-center rounded-md bg-gradient-to-b from-[#45444f] to-[#0b0b0f] text-white">
             <SealPercent aria-hidden="true" weight="fill" className="size-4" />
           </span>
           <span>

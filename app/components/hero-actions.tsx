@@ -16,7 +16,7 @@ export default function HeroActions() {
         href="#start"
         className="btn-ghost inline-flex h-[42px] items-center gap-2 px-4 text-[16px] font-medium text-ink"
       >
-        <CalendarBlank aria-hidden="true" weight="fill" className="size-[18px] text-brand" />
+        <CalendarBlank aria-hidden="true" weight="fill" className="size-[18px] text-ink" />
         Book a time on Calendly
       </a>
     </div>

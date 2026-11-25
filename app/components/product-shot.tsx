@@ -6,7 +6,8 @@
 // All names are sample data.
 
 import { useLayoutEffect, useRef, useState } from "react";
-import { Check, WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
+import { Check } from "@phosphor-icons/react/dist/ssr";
+import WhatsappIcon from "./whatsapp-icon";
 
 const W = 640;
 const H = 470;
@@ -78,9 +79,7 @@ function Shot() {
 
       <div className="absolute right-0 top-0 flex w-[230px] flex-col gap-2 rounded-2xl border border-black/10 bg-white px-3.5 py-3 shadow-[0_20px_40px_-20px_rgba(40,30,120,0.45)]">
         <div className="flex items-center gap-2">
-          <span className="grid size-6.5 place-items-center rounded-full bg-[#25a35a] text-white">
-            <WhatsappLogo aria-hidden="true" weight="fill" className="size-4" />
-          </span>
+          <WhatsappIcon className="size-6.5" />
           <span className="text-[12px] font-extrabold">Usman · WhatsApp</span>
           <span className="ml-auto text-[10px] text-ink/50">2 min</span>
         </div>

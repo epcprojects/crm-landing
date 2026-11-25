@@ -3,9 +3,10 @@
 // real numbers before launch.
 
 import type { ReactNode } from "react";
-import { ListChecks, MapPin, Timer, WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
+import { ListChecks, MapPin, Timer } from "@phosphor-icons/react/dist/ssr";
 import CountUp from "./count-up";
 import Reveal from "./reveal";
+import WhatsappIcon from "./whatsapp-icon";
 
 const stats: {
   icon: ReactNode;
@@ -17,7 +18,7 @@ const stats: {
   note: string;
 }[] = [
   {
-    icon: <WhatsappLogo weight="fill" className="size-3.5" />,
+    icon: <WhatsappIcon className="size-3.5" />,
     chip: "WhatsApp + calls",
     tone: "#25b865",
     value: 1248,
@@ -98,7 +99,7 @@ function NumbersSection({ dark = false }: { dark?: boolean }) {
               className={`fx text-[clamp(2.1rem,4.2vw,3.5rem)] leading-[1.08] tracking-[-0.04em] text-balance lg:whitespace-nowrap ${dark ? "text-white" : ""}`}
             >
               Numbers you can see, <br className="lg:hidden" />
-              <span className={`serif ${dark ? "!text-[#b3a8ff]" : ""}`}>not just guess.</span>
+              <span className={`serif ${dark ? "!text-[#cfc6ff]" : ""}`}>not just guess.</span>
             </h2>
             <p style={{ "--i": 1 } as React.CSSProperties} className={`fx mt-5 max-w-[44rem] text-[16px] leading-relaxed ${dark ? "text-white/70" : "text-body"}`}>
               Every figure comes from your own enquiries, follow-ups and visits, live on one dashboard.
@@ -122,7 +123,7 @@ function NumbersSection({ dark = false }: { dark?: boolean }) {
                 </span>
                 <p className={`text-[clamp(2.75rem,5vw,4.25rem)] font-medium leading-none tracking-[-0.05em] ${dark ? "text-white" : "text-ink"}`}>
                   <CountUp to={stat.value} />
-                  {stat.unit && <span className={`serif ml-1 text-[0.8em] ${dark ? "!text-[#b3a8ff]" : ""}`}>{stat.unit}</span>}
+                  {stat.unit && <span className={`serif ml-1 text-[0.8em] ${dark ? "!text-[#cfc6ff]" : ""}`}>{stat.unit}</span>}
                 </p>
                 <div className="flex flex-col gap-1.5">
                   <p className={`text-[17px] font-medium ${dark ? "text-white" : "text-ink"}`}>{stat.label}</p>
@@ -133,12 +134,15 @@ function NumbersSection({ dark = false }: { dark?: boolean }) {
           </ul>
 
           <div style={{ "--i": 7 } as React.CSSProperties} className="fx relative mt-14 flex justify-center">
-            <a
-              href="#demo-enquiry"
-              className="inline-flex h-12 items-center rounded-full bg-brand px-6 text-[15px] font-medium text-white transition-colors hover:bg-brand-hover"
-            >
-              Get a free demo
-            </a>
+            {/* a brand-gradient ring that keeps turning around the button */}
+            <span className="cta-ring">
+              <a
+                href="#demo-enquiry"
+                className="relative z-10 inline-flex h-[42px] items-center bg-brand px-4 text-[16px] font-medium text-white transition-colors hover:bg-brand-hover"
+              >
+                Get a free demo
+              </a>
+            </span>
           </div>
         </Reveal>
       </div>

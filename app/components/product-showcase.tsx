@@ -27,7 +27,7 @@ const tabs: {
     icon: Funnel,
     line: "Every lead, its project, contact, agent and status on one dashboard.",
     active: "Dashboard",
-    tile: "from-[#8274f7] to-[#4333cc]",
+    tile: "from-[#5b9bff] to-[#1f5fd6]",
     points: [
       ["Every status, counted", "From new lead to closed, see how many sit at each stage."],
       ["Recent leads", "The newest enquiries with their project, contact and agent."],
@@ -42,7 +42,7 @@ const tabs: {
     icon: UsersThree,
     line: "Add your agents, give each a role and choose which projects they work on.",
     active: "Users",
-    tile: "from-[#3fcf8e] to-[#17834d]",
+    tile: "from-[#ff7aa8] to-[#d6336c]",
     points: [
       ["Roles", "Agents work their leads; viewers can only look."],
       ["Assigned projects", "Each person sees only the projects you give them."],
@@ -57,7 +57,7 @@ const tabs: {
     icon: SquaresFour,
     line: "Every project with its total leads and a count for each status.",
     active: "Projects",
-    tile: "from-[#ffc24a] to-[#e08a1e]",
+    tile: "from-[#34d6c3] to-[#0e8f80]",
     points: [
       ["Project by project", "Compare sales, rental and development projects."],
       ["Status breakdown", "See where each project's leads are stuck."],

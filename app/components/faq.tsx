@@ -31,7 +31,7 @@ function Plus({ open }: { open: boolean }) {
     <span
       aria-hidden="true"
       className={`grid size-7 shrink-0 place-items-center rounded-full border sm:size-8 transition-colors duration-300 ${
-        open ? "border-brand bg-brand text-white" : "border-black/15 text-ink/70"
+        open ? "border-ink bg-ink text-white" : "border-black/15 text-ink/70"
       }`}
     >
       {open ? <Minus weight="bold" className="size-3.5" /> : <PlusIcon weight="bold" className="size-3.5" />}
@@ -44,7 +44,7 @@ export default function Faq() {
 
   return (
     <section id="faq" aria-labelledby="faq-heading" className="scroll-mt-24 bg-white">
-      <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 pb-4 pt-16 sm:px-10 sm:pb-6 sm:pt-24 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+      <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 pb-16 pt-16 sm:px-10 sm:pb-24 sm:pt-24 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
         <div className="flex flex-col gap-4 self-start">
           <p className="eyebrow">FAQ</p>
           <h2 id="faq-heading" className="text-[clamp(1.9rem,3.4vw,2.5rem)] leading-[1.3] text-balance">
@@ -58,7 +58,7 @@ export default function Faq() {
               <div
                 key={item.q}
                 className={`rounded-2xl border px-5 transition-colors duration-300 sm:px-6 ${
-                  isOpen ? "border-[#dcd7ff] bg-white shadow-[0_20px_40px_-28px_rgba(60,45,170,0.6)]" : "border-[#eceef4] bg-[#f9f9fd]"
+                  isOpen ? "border-[#e4e5ea] bg-white shadow-[0_20px_40px_-28px_rgba(21,21,27,0.28)]" : "border-[#eceef4] bg-[#f9f9fd]"
                 }`}
               >
                 <h3>

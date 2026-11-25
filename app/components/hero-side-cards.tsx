@@ -4,7 +4,8 @@
 // get done, a late one is caught, a deal closes. All names are sample data.
 
 import type { ReactNode } from "react";
-import { Check, Clock, WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
+import { Check, Clock } from "@phosphor-icons/react/dist/ssr";
+import WhatsappIcon from "./whatsapp-icon";
 
 type Spot = {
   pos: string; // absolute position inside the hero wrapper
@@ -30,9 +31,7 @@ const spots: Spot[] = [
     children: (
       <div className={card}>
         <div className="flex items-center gap-2">
-          <span className="grid size-7 place-items-center rounded-full bg-[#25a35a] text-white">
-            <WhatsappLogo weight="fill" className="size-4" />
-          </span>
+          <WhatsappIcon className="size-7" />
           <span className="text-[12px] font-extrabold">Hina Raza</span>
           <span className="ml-auto rounded-full bg-[#e8f7ee] px-2 py-0.5 text-[10px] font-extrabold text-[#1d7a52]">New</span>
         </div>

@@ -5,9 +5,9 @@
 // visit, from above or below. Children marked with fx, fx-pop or fx-fade (see globals.css) animate
 // when it is added.
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 
-export default function Reveal({ children, className = "" }: { children: ReactNode; className?: string }) {
+export default function Reveal({ children, className = "", style }: { children: ReactNode; className?: string; style?: CSSProperties }) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export default function Reveal({ children, className = "" }: { children: ReactNo
   }, []);
 
   return (
-    <div ref={ref} className={`fx-root ${className}`}>
+    <div ref={ref} className={`fx-root ${className}`} style={style}>
       {children}
     </div>
   );

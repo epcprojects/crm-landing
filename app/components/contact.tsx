@@ -17,10 +17,10 @@ import {
   CalendarBlank,
   ChatCircle,
   Check,
-  WhatsappLogo,
   X,
 } from "@phosphor-icons/react/dist/ssr";
 import { siteConfig, whatsappLink } from "../site-config";
+import WhatsappIcon from "./whatsapp-icon";
 
 type ContactApi = { openSheet: (phone?: string, email?: string) => void };
 
@@ -184,7 +184,7 @@ function ContactSheet({
                 onClick={send}
                 className="inline-flex min-h-13 items-center gap-2 rounded-full bg-[#25a35a] px-6 text-[15px] font-bold text-white transition-colors hover:bg-[#1f8c4d]"
               >
-                <WhatsappLogo aria-hidden="true" weight="fill" className="size-5" />
+                <WhatsappIcon className="size-5" />
                 Send on WhatsApp
               </button>
             </div>
@@ -294,7 +294,7 @@ export function PhoneCapture({
       </label>
       <button
         type="submit"
-        className="inline-flex min-h-12 items-center justify-center bg-brand px-5 text-[15px] font-semibold text-white transition-colors hover:bg-brand-hover"
+        className="inline-flex min-h-12 items-center justify-center rounded-xl bg-gradient-to-b from-[#3a3a44] to-[#0a0a0d] px-5 text-[15px] font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_1px_2px_rgba(21,21,27,0.3)] transition-[filter] hover:brightness-125"
       >
         {cta}
       </button>

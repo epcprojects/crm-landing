@@ -5,8 +5,8 @@
 // otherwise a day/time request sent on WhatsApp.
 
 import { useState } from "react";
-import { WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
 import { siteConfig, whatsappLink } from "../site-config";
+import WhatsappIcon from "./whatsapp-icon";
 
 const routes = [
   { id: "demo", title: "See a demo for my office", line: "20 minutes, set up around how your team works.", meta: "You pick the time", popular: true },
@@ -120,7 +120,7 @@ function QuestionPanel() {
         rel="noopener noreferrer"
         className="inline-flex min-h-13 items-center justify-center gap-2 rounded-full bg-[#25a35a] px-6 text-[15px] font-bold text-white transition-colors hover:bg-[#1f8c4d]"
       >
-        <WhatsappLogo aria-hidden="true" weight="fill" className="size-5" />
+        <WhatsappIcon className="size-5" />
         Open WhatsApp
       </a>
     </div>

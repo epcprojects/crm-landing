@@ -1,8 +1,7 @@
 import ContactProvider from "./components/contact";
 import Faq from "./components/faq";
 import FeatureBento from "./components/feature-bento";
-import FeaturesSection from "./components/features-section";
-import FitCheck from "./components/fit-check";
+import { ChatCheckSection } from "./components/features-section";
 import Hero from "./components/hero";
 import { NumbersDark } from "./components/how-it-works";
 import LogoStrip from "./components/logo-strip";
@@ -23,10 +22,9 @@ export default function HomePage() {
         <ProblemSection />
         <NumbersDark />
         <FeatureBento />
-        <FeaturesSection />
+        <ChatCheckSection />
         {/* <HowItWorks /> hidden for now: the light numbers section */}
         <Testimonials />
-        <FitCheck />
         <Faq />
       </main>
       <SiteFooter />

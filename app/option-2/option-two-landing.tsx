@@ -25,9 +25,9 @@ import {
   TrendUp,
   UserCircle,
   UsersThree,
-  WhatsappLogo,
 } from "@phosphor-icons/react/dist/ssr";
 import { siteConfig, whatsappLink } from "../site-config";
+import WhatsappIcon from "../components/whatsapp-icon";
 
 const primaryCta = whatsappLink("Hi Endpoint Leads, I would like a demo for my real estate office.");
 const bookingCta = siteConfig.calendlyUrl || "#contact";
@@ -200,7 +200,7 @@ function DashboardPreview() {
       </div>
 
       <div className="option2-float absolute bottom-16 left-[2%] z-20 hidden w-[205px] rounded-[20px] border border-white/80 bg-white/90 p-4 shadow-[0_28px_60px_-30px_rgba(47,43,94,0.5)] backdrop-blur md:block">
-        <div className="flex items-center gap-2"><span className="grid size-8 place-items-center rounded-full bg-[#e9f8f1] text-[#218d64]"><WhatsappLogo weight="fill" className="size-4" /></span><span className="text-[11px] font-semibold">Client replied</span></div>
+        <div className="flex items-center gap-2"><WhatsappIcon className="size-8" /><span className="text-[11px] font-semibold">Client replied</span></div>
         <p className="mt-3 text-[11px] leading-snug text-body">Saturday at 11 works for me.</p>
       </div>
     </div>
@@ -332,7 +332,7 @@ export default function OptionTwoLanding() {
           <div className="mx-auto max-w-6xl text-center">
             <p className="text-[13px] font-medium text-body">One workspace across your working day</p>
             <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
-              {[[Desktop, "Office desktop"], [DeviceMobile, "Mobile browser"], [WhatsappLogo, "Client conversations"], [PaperPlaneTilt, "Lead exports"]].map(([Icon, label]) => {
+              {[[Desktop, "Office desktop"], [DeviceMobile, "Mobile browser"], [WhatsappIcon, "Client conversations"], [PaperPlaneTilt, "Lead exports"]].map(([Icon, label]) => {
                 const ItemIcon = Icon as typeof Desktop;
                 return <div key={String(label)} className="flex min-h-24 flex-col items-center justify-center gap-3 rounded-[22px] border border-black/[0.06] bg-white text-[13px] font-medium shadow-[0_18px_36px_-32px_rgba(18,18,23,0.5)]"><ItemIcon className="size-6 text-brand" weight="fill" />{String(label)}</div>;
               })}
@@ -378,7 +378,7 @@ export default function OptionTwoLanding() {
               </article>
               <article className="relative flex min-h-[420px] flex-col overflow-hidden rounded-[32px] border border-[#8174ef]/30 bg-[#ece9ff] p-8 sm:p-10">
                 <div className="absolute -right-24 -top-24 size-72 rounded-full bg-white/65 blur-3xl" />
-                <span className="relative grid size-12 place-items-center rounded-full bg-white text-[#25a35a] shadow-sm"><WhatsappLogo weight="fill" className="size-6" /></span>
+                <span className="relative grid size-12 place-items-center rounded-full bg-white shadow-sm"><WhatsappIcon className="size-7" /></span>
                 <h3 className="relative mt-8 text-[32px] font-medium tracking-[-0.045em]">Ask us on WhatsApp</h3>
                 <p className="relative mt-4 max-w-md text-[15px] leading-relaxed text-body">Ask about pricing, setup, moving your current leads, or anything you want to see before booking.</p>
                 <div className="relative mt-8 rounded-[18px] bg-white/75 p-4 text-[13px] leading-relaxed text-[#4e4a58] backdrop-blur">Hi Endpoint Leads, I would like to know how this would work for my real estate office.</div>
