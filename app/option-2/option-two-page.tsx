@@ -7,7 +7,6 @@
 // AI-made (public/option-2, public/benefits). Nothing here changes the home page.
 
 import Image from "next/image";
-import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 import {
   ArrowUpRight,
@@ -21,7 +20,7 @@ import {
 import ContactProvider from "../components/contact";
 import Faq from "./faq";
 import WhyStack from "./why-stack";
-import MobileMenu from "./mobile-menu";
+import { Option2Footer, Option2Header } from "./chrome";
 import FitScale from "./fit-scale";
 import { AgentBreakdown, NotesFollowUps, QuietLead, StageCounts, WaitingLeads } from "../components/problem-section";
 import Reveal from "../components/reveal";
@@ -33,13 +32,6 @@ import { DemoButton } from "./demo-button";
 import Devices from "./devices";
 import Testimonials from "./testimonials";
 
-// the home page header's links, pointing at the matching Option 2 sections
-const nav = [
-  { label: "Platform", href: "#clients" },
-  { label: "Why us", href: "#features" },
-  { label: "See how it works", href: "#devices" },
-  { label: "FAQ", href: "#faq" },
-];
 
 const offices = ["Raza Estates", "Malik Properties", "City Rentals", "Bahria Homes", "Qureshi & Co", "Shah Realty"];
 
@@ -289,28 +281,7 @@ export default function OptionTwoPage() {
     <ContactProvider>
       <div className="bg-white text-[#111113]">
         {/* floating pill menu */}
-        <header className="pointer-events-none fixed inset-x-0 top-4 z-50 px-4">
-          <nav
-            aria-label="Primary"
-            className="pointer-events-auto relative mx-auto flex max-w-4xl items-center justify-between gap-3 rounded-full border border-black/[0.06] bg-white/85 py-2 pl-3 pr-2 shadow-[0_12px_30px_-18px_rgba(17,17,19,0.35)] backdrop-blur-xl"
-          >
-            <a href="#top" aria-label="Endpoint Leads home" className="flex-none">
-              <Image src="/endpoint-leads-dark.svg" alt="Endpoint Leads" width={1656} height={708} className="-my-2 h-14 w-auto" />
-            </a>
-            <span className="hidden items-center gap-1 md:flex">
-              {nav.map((item) => (
-                <a key={item.label} href={item.href} className="rounded-full px-3.5 py-2 text-[14px] text-[#2b2b30] transition-colors hover:bg-black/[0.05]">
-                  {item.label}
-                </a>
-              ))}
-            </span>
-            {/* the button sits in the bar from md up; on phones it moves into the menu */}
-            <span className="hidden md:block">
-              <DemoButton size="sm">Book your free demo</DemoButton>
-            </span>
-            <MobileMenu links={nav} />
-          </nav>
-        </header>
+        <Option2Header onLanding />
 
         <main id="top">
           {/* hero */}
@@ -625,43 +596,7 @@ export default function OptionTwoPage() {
             </section>
 
             {/* footer in a frosted card */}
-            <footer className="relative px-4 pb-6 sm:px-10 sm:pb-10">
-              <div className="mx-auto flex max-w-5xl flex-col gap-10 rounded-[26px] bg-white/55 p-7 backdrop-blur-md sm:p-10">
-                <div className="grid gap-10 sm:grid-cols-[1.6fr_1fr_1fr]">
-                  <div className="flex flex-col gap-4">
-                    <Image src="/endpoint-leads-dark.svg" alt="Endpoint Leads" width={1656} height={708} className="-mb-7 -ml-[23px] h-24 w-auto self-start" />
-                    <p className="max-w-xs text-[14px] leading-relaxed text-[#3d3d44]">The CRM for real estate offices. Every client and every conversation in one place.</p>
-                    <span className="flex gap-2.5">
-                      <a href={waLink} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="grid size-11 place-items-center rounded-full bg-white">
-                        <WhatsappIcon className="size-5" />
-                      </a>
-                      <a href={`mailto:${siteConfig.email}`} aria-label="Email" className="grid size-11 place-items-center rounded-full bg-white">
-                        <Image src="/option-2/gmail.svg" alt="" width={20} height={20} className="size-5" />
-                      </a>
-                    </span>
-                  </div>
-                  <nav aria-label="Pages" className="flex flex-col gap-2.5 text-[14px]">
-                    <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-[#6b6b72]">Pages</p>
-                    {nav.slice(0, 4).map((item) => (
-                      <a key={item.label} href={item.href} className="hover:text-[#5b5b63]">
-                        {item.label}
-                      </a>
-                    ))}
-                  </nav>
-                  <nav aria-label="Information" className="flex flex-col gap-2.5 text-[14px]">
-                    <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-[#6b6b72]">Information</p>
-                    <a href="#contact" className="hover:text-[#5b5b63]">Contact</a>
-                    <Link href="/privacy-policy" className="hover:text-[#5b5b63]">Privacy</Link>
-                    <Link href="/policy-for-automation" className="hover:text-[#5b5b63]">Automation terms</Link>
-                    <a href={siteConfig.signInHref} className="hover:text-[#5b5b63]">Sign in</a>
-                  </nav>
-                </div>
-                <div className="flex flex-col justify-between gap-3 border-t border-black/[0.08] pt-6 text-[13px] text-[#5b5b63] sm:flex-row">
-                  <span>© 2026 Endpoint Leads</span>
-                  <span>Made for real estate offices in Pakistan</span>
-                </div>
-              </div>
-            </footer>
+            <Option2Footer onLanding />
           </div>
         </main>
       </div>

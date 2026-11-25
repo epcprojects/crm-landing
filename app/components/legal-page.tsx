@@ -3,12 +3,35 @@ import Link from "next/link";
 import SiteFooter from "./site-footer";
 import SiteHeader from "./site-header";
 import type { LegalDocument } from "../legal-content";
+import LegalToc from "./legal-toc";
 
 const legalPages = [
   { label: "Privacy policy", href: "/privacy-policy" },
   { label: "Automation terms", href: "/policy-for-automation" },
   { label: "Data deletion", href: "/user-data-deletion-request" },
 ];
+
+type Look = "home" | "option-2";
+
+/** Colours for each landing page's look. */
+const looks = {
+  home: {
+    accent: "text-brand",
+    marker: "marker:text-brand",
+    link: "text-brand decoration-brand/30 hover:decoration-brand",
+    hoverAccent: "hover:text-brand",
+    activeBg: "bg-brand/[0.07]",
+    bar: "var(--brand)",
+  },
+  "option-2": {
+    accent: "text-brand",
+    marker: "marker:text-[#16a34a]",
+    link: "text-brand decoration-brand/30 hover:decoration-brand",
+    hoverAccent: "hover:text-[#111113]",
+    activeBg: "bg-brand/[0.07]",
+    bar: "var(--brand)",
+  },
+} as const;
 
 type ContentBlock =
   | { type: "heading"; level: 2 | 3; text: string }
@@ -93,7 +116,7 @@ function slugify(value: string) {
     .replace(/(^-|-$)/g, "");
 }
 
-function renderInline(text: string): ReactNode[] {
+function renderInline(text: string, link: string): ReactNode[] {
   const tokens = text.split(/(\*\*[^*]+\*\*|https?:\/\/[^\s]+|[\w.+-]+@[\w.-]+\.[A-Za-z]{2,})/g);
 
   return tokens.filter(Boolean).map((token, index) => {
@@ -103,65 +126,117 @@ function renderInline(text: string): ReactNode[] {
     if (/^https?:\/\//.test(token)) {
       const punctuation = token.match(/[.,;:]$/)?.[0] ?? "";
       const href = punctuation ? token.slice(0, -1) : token;
-      return <span key={index}><a href={href} target="_blank" rel="noopener noreferrer" className="break-all font-semibold text-brand underline decoration-brand/30 underline-offset-4 hover:decoration-brand">{href}</a>{punctuation}</span>;
+      return <span key={index}><a href={href} target="_blank" rel="noopener noreferrer" className={`break-all font-semibold underline underline-offset-4 ${link}`}>{href}</a>{punctuation}</span>;
     }
     if (/^[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}$/.test(token)) {
-      return <a key={index} href={`mailto:${token}`} className="break-all font-semibold text-brand underline decoration-brand/30 underline-offset-4 hover:decoration-brand">{token}</a>;
+      return <a key={index} href={`mailto:${token}`} className={`break-all font-semibold underline underline-offset-4 ${link}`}>{token}</a>;
     }
     return <span key={index}>{token}</span>;
   });
 }
 
-function RichText({ text }: { text: string }) {
+function RichText({ text, link }: { text: string; link: string }) {
   const lines = text.split("\n");
   return lines.map((line, index) => (
     <span key={index}>
       {index > 0 && <br />}
-      {renderInline(line)}
+      {renderInline(line, link)}
     </span>
   ));
 }
 
-export default function LegalPage({
+/** The document (hero, contents and text) in either landing page's look. */
+export function LegalBody({
   document,
   currentPath,
+  variant = "home",
+  pageBase = "",
+  icon,
 }: {
   document: LegalDocument;
   currentPath: string;
+  variant?: Look;
+  /** prefix for the legal page links, e.g. "/option-2" */
+  pageBase?: string;
+  /** a clay icon shown on the right of the Option 2 header */
+  icon?: string;
 }) {
+  const look = looks[variant];
   const { title, lastUpdated, blocks } = parseDocument(document.markdown);
+  // "Privacy Policy — EndPoint Clients CRM": the main title, then the product
+  const [mainTitle, subTitle] = title.split(/\s+[—–]\s+/);
   const sections = blocks.filter(
     (block): block is Extract<ContentBlock, { type: "heading" }> =>
       block.type === "heading" && block.level === 2,
   );
 
   return (
-    <>
-      <SiteHeader />
-      <main className="min-h-screen overflow-x-clip bg-surface">
-        <section className="border-b border-black/[0.08] px-5 pb-10 pt-44 sm:px-10 sm:pb-12 sm:pt-48">
-          <div className="mx-auto grid w-full max-w-5xl xl:grid-cols-[minmax(0,46rem)_13rem] xl:gap-12">
-            <div>
-              <p className="font-label text-[11px] font-medium uppercase tracking-[0.18em] text-brand">Legal documents</p>
-              <h1 className="mt-4 max-w-3xl text-balance text-[clamp(2.4rem,5vw,4.25rem)] font-bold leading-[1] tracking-[-0.05em] text-ink">
-                {title}
+    <main className={`min-h-screen overflow-x-clip ${variant === "home" ? "bg-surface" : "bg-white text-[#111113]"}`}>
+        {variant === "home" ? (
+          // home look: the soft hero wash, a label pill and a serif accent
+          <section className="hero-wash border-b border-black/[0.06] px-5 pb-12 pt-44 sm:px-10 sm:pb-14 sm:pt-48">
+            <div className="mx-auto flex w-full max-w-6xl flex-col items-start gap-5">
+              <p className="eyebrow">Legal documents</p>
+              <h1 className="max-w-3xl text-balance text-[clamp(2.2rem,4.6vw,3.5rem)] !font-medium leading-[1.1] tracking-[-0.035em] text-ink">
+                {mainTitle}
+                {subTitle && (
+                  <>
+                    {" "}
+                    <span className="serif">{subTitle}</span>
+                  </>
+                )}
               </h1>
-              {lastUpdated && <p className="mt-5 text-[14px] font-semibold text-body">Last updated {lastUpdated}</p>}
+              {lastUpdated && <p className="text-[14px] text-body">Last updated {lastUpdated}</p>}
             </div>
-          </div>
-        </section>
+          </section>
+        ) : (
+          // Option 2 look: a sky wash, a white pill and a green underline
+          <section className="relative overflow-hidden bg-[linear-gradient(180deg,#cfe2f5_0%,#e6f0fa_45%,#ffffff_100%)] px-5 pb-12 pt-36 sm:px-10 sm:pb-16 sm:pt-44">
+            <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-8">
+            <div className="flex min-w-0 flex-col items-start gap-5">
+              <span className="rounded-full bg-white px-3 py-1.5 text-[13px] font-medium text-[#111113] shadow-[0_1px_2px_rgba(17,17,19,0.05)]">Legal documents</span>
+              <h1 className="max-w-3xl text-balance text-[clamp(2.2rem,4.6vw,3.5rem)] font-semibold leading-[1.08] tracking-[-0.04em] text-[#111113]">
+                <span className="relative inline-block">
+                  {mainTitle}
+                  <svg aria-hidden="true" viewBox="0 0 240 20" preserveAspectRatio="none" className="pointer-events-none absolute -bottom-3 left-0 h-[0.3em] w-full">
+                    <defs>
+                      <linearGradient id="legal-underline" x1="0" x2="1" y1="0" y2="0">
+                        <stop offset="0" stopColor="#4ade80" />
+                        <stop offset="1" stopColor="#16a34a" />
+                      </linearGradient>
+                    </defs>
+                    <path d="M4 14 C 60 6, 150 4, 236 9" pathLength={1} fill="none" stroke="url(#legal-underline)" strokeWidth="6" strokeLinecap="round" className="underline-draw" />
+                  </svg>
+                </span>
+                {subTitle && <span className="mt-4 block text-[0.5em] font-medium tracking-[-0.02em] text-[#5b5b63]">{subTitle}</span>}
+              </h1>
+              {lastUpdated && <p className="text-[14px] text-[#5b5b63]">Last updated {lastUpdated}</p>}
+            </div>
+            {icon && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={icon}
+                alt=""
+                width={320}
+                height={320}
+                className="pw-float hidden size-40 flex-none mix-blend-multiply sm:block lg:size-52"
+              />
+            )}
+            </div>
+          </section>
+        )}
 
-        <div className="mx-auto grid w-full max-w-5xl gap-10 px-5 py-10 sm:px-10 sm:py-14 xl:grid-cols-[minmax(0,46rem)_13rem] xl:gap-12 xl:py-16">
-          <div className="grid gap-3 sm:grid-cols-2 xl:hidden">
+        <div className="mx-auto grid w-full max-w-6xl items-start gap-10 px-5 py-10 sm:px-10 sm:py-14 lg:grid-cols-[minmax(0,1fr)_17rem] lg:gap-14 lg:py-16">
+          <div className="grid gap-3 sm:grid-cols-2 lg:hidden">
             <details className="group border-y border-black/10 py-3">
               <summary className="flex cursor-pointer list-none items-center justify-between text-[14px] font-bold text-ink marker:content-none">
                 Legal documents
-                <span aria-hidden="true" className="text-brand transition-transform group-open:rotate-45">+</span>
+                <span aria-hidden="true" className={`${look.accent} transition-transform group-open:rotate-45`}>+</span>
               </summary>
               <ul className="mt-3 space-y-1 border-l border-black/10 pl-3">
-                {legalPages.map((page) => (
+                {legalPages.map(({ label, href }) => ({ label, path: href, href: pageBase + href })).map((page) => (
                   <li key={page.href}>
-                    <Link href={page.href} aria-current={page.href === currentPath ? "page" : undefined} className={`block py-1.5 text-[14px] font-semibold ${page.href === currentPath ? "text-brand" : "text-body hover:text-ink"}`}>
+                    <Link href={page.href} aria-current={page.path === currentPath ? "page" : undefined} className={`block py-1.5 text-[14px] font-semibold ${page.path === currentPath ? look.accent : "text-body hover:text-ink"}`}>
                       {page.label}
                     </Link>
                   </li>
@@ -171,12 +246,12 @@ export default function LegalPage({
             <details className="group border-y border-black/10 py-3">
               <summary className="flex cursor-pointer list-none items-center justify-between text-[14px] font-bold text-ink marker:content-none">
                 On this page
-                <span aria-hidden="true" className="text-brand transition-transform group-open:rotate-45">+</span>
+                <span aria-hidden="true" className={`${look.accent} transition-transform group-open:rotate-45`}>+</span>
               </summary>
               <ol className="mt-3 max-h-64 space-y-1 overflow-y-auto border-l border-black/10 pl-3">
                 {sections.map((section) => (
                   <li key={section.text}>
-                    <a href={`#${slugify(section.text)}`} className="block py-1.5 text-[13px] font-semibold leading-snug text-body hover:text-brand">
+                    <a href={`#${slugify(section.text)}`} className={`block py-1.5 text-[13px] font-semibold leading-snug text-body ${look.hoverAccent}`}>
                       {section.text}
                     </a>
                   </li>
@@ -185,7 +260,7 @@ export default function LegalPage({
             </details>
           </div>
 
-          <article className="min-w-0 xl:col-start-1">
+          <article className="min-w-0 max-w-[46rem] lg:col-start-1 lg:row-start-1">
             {blocks.map((block, index) => {
               if (block.type === "heading") {
                 const id = slugify(block.text);
@@ -202,8 +277,8 @@ export default function LegalPage({
               if (block.type === "list") {
                 const List = block.ordered ? "ol" : "ul";
                 return (
-                  <List key={index} className={`my-5 space-y-2.5 pl-6 text-[15px] leading-[1.75] text-body sm:text-[16px] ${block.ordered ? "list-decimal" : "list-disc marker:text-brand"}`}>
-                    {block.items.map((item) => <li key={item} className="pl-1"><RichText text={item} /></li>)}
+                  <List key={index} className={`my-5 space-y-2.5 pl-6 text-[15px] leading-[1.75] text-body sm:text-[16px] ${block.ordered ? "list-decimal" : `list-disc ${look.marker}`}`}>
+                    {block.items.map((item) => <li key={item} className="pl-1"><RichText text={item} link={look.link} /></li>)}
                   </List>
                 );
               }
@@ -212,28 +287,30 @@ export default function LegalPage({
               }
               return (
                 <p key={index} className="my-4 text-[15px] leading-[1.78] text-body sm:text-[16px]">
-                  <RichText text={block.text} />
+                  <RichText text={block.text} link={look.link} />
                 </p>
               );
             })}
           </article>
 
-          <aside className="hidden xl:block xl:col-start-2">
-            <nav aria-label="On this page" className="legal-toc sticky top-28 max-h-[calc(100vh-8rem)] overflow-y-auto pr-1">
-              <p className="font-label text-[11px] font-medium uppercase tracking-[0.18em] text-ink/45">On this page</p>
-              <ol className="mt-4 space-y-2 border-l border-black/10 pl-3">
-                {sections.map((section) => (
-                  <li key={section.text}>
-                    <a href={`#${slugify(section.text)}`} className="block text-[12px] font-semibold leading-snug text-body transition-colors hover:text-brand">
-                      {section.text}
-                    </a>
-                  </li>
-                ))}
-              </ol>
-            </nav>
+          <aside className="hidden self-stretch lg:col-start-2 lg:row-start-1 lg:block">
+            <LegalToc
+              sections={sections.map((section) => ({ id: slugify(section.text), text: section.text }))}
+              accent={look.accent}
+              activeBg={look.activeBg}
+              bar={look.bar}
+            />
           </aside>
         </div>
-      </main>
+    </main>
+  );
+}
+
+export default function LegalPage({ document, currentPath }: { document: LegalDocument; currentPath: string }) {
+  return (
+    <>
+      <SiteHeader />
+      <LegalBody document={document} currentPath={currentPath} />
       <SiteFooter />
     </>
   );
