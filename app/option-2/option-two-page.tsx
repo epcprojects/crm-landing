@@ -21,6 +21,7 @@ import ContactProvider from "../components/contact";
 import Faq from "./faq";
 import WhyStack from "./why-stack";
 import { Option2Footer, Option2Header } from "./chrome";
+import BackToTop from "../components/back-to-top";
 import FitScale from "./fit-scale";
 import { AgentBreakdown, NotesFollowUps, QuietLead, StageCounts, WaitingLeads } from "../components/problem-section";
 import Reveal from "../components/reveal";
@@ -599,6 +600,7 @@ export default function OptionTwoPage() {
             <Option2Footer onLanding />
           </div>
         </main>
+        <BackToTop shape="circle" />
       </div>
     </ContactProvider>
   );

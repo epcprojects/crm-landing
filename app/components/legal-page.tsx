@@ -4,6 +4,7 @@ import SiteFooter from "./site-footer";
 import SiteHeader from "./site-header";
 import type { LegalDocument } from "../legal-content";
 import LegalToc from "./legal-toc";
+import BackToTop from "./back-to-top";
 
 const legalPages = [
   { label: "Privacy policy", href: "/privacy-policy" },
@@ -312,6 +313,7 @@ export default function LegalPage({ document, currentPath }: { document: LegalDo
       <SiteHeader />
       <LegalBody document={document} currentPath={currentPath} />
       <SiteFooter />
+      <BackToTop />
     </>
   );
 }

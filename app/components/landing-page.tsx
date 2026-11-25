@@ -11,6 +11,7 @@ import { NumbersDark } from "./how-it-works";
 import LogoStrip from "./logo-strip";
 import ProblemSection from "./problem-section";
 import ProductShowcase from "./product-showcase";
+import BackToTop from "./back-to-top";
 import SiteFooter from "./site-footer";
 import SiteHeader from "./site-header";
 import Testimonials from "./testimonials";
@@ -33,6 +34,7 @@ export default function LandingPage() {
         <Faq />
       </main>
       <SiteFooter />
+      <BackToTop />
     </ContactProvider>
   );
 }
