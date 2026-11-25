@@ -1,5 +1,6 @@
 import ContactProvider from "./components/contact";
 import Faq from "./components/faq";
+import DemoCtaCard from "./components/demo-cta-card";
 import FeatureBento from "./components/feature-bento";
 import { ChatCheckSection } from "./components/features-section";
 import Hero from "./components/hero";
@@ -25,6 +26,7 @@ export default function HomePage() {
         <ChatCheckSection />
         {/* <HowItWorks /> hidden for now: the light numbers section */}
         <Testimonials />
+        <DemoCtaCard />
         <Faq />
       </main>
       <SiteFooter />

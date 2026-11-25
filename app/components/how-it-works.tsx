@@ -84,7 +84,7 @@ function NumbersSection({ dark = false }: { dark?: boolean }) {
   return (
     <section id={id} aria-labelledby={headingId} className="scroll-mt-20 overflow-hidden bg-white">
       <div className="mx-auto w-full max-w-[1480px] px-4 py-16 sm:px-8 sm:py-24">
-        <Reveal className={`relative overflow-hidden rounded-[32px] border px-6 pb-28 pt-16 sm:px-14 sm:pt-20 ${dark ? "border-white/10 bg-[#0a0a0d]" : "border-black/[0.06] bg-white"}`}>
+        <Reveal className={`relative overflow-hidden rounded-[36px] border px-6 pb-28 sm:rounded-[48px] pt-16 sm:px-14 sm:pt-20 ${dark ? "border-white/10 bg-[#0a0a0d]" : "border-black/[0.06] bg-white"}`}>
           {/* soft colour haze behind the content */}
           <div
             aria-hidden="true"

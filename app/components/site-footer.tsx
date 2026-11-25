@@ -22,13 +22,30 @@ const groups = [
   },
 ];
 
-// The page ends on a solid near-black footer.
+// The page ends on a solid near-black footer, with a faint photo of towers on
+// the right.
+function Skyline() {
+  // an AI-made photo of towers on black (public/footer-buildings.webp), kept
+  // faint and faded out to the left and top so the links stay readable
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/footer-buildings.webp"
+      alt=""
+      aria-hidden="true"
+      loading="lazy"
+      className="pointer-events-none absolute bottom-0 right-0 h-[45%] w-auto max-w-none sm:h-full select-none object-cover object-right-bottom opacity-[0.22] mix-blend-screen [mask-image:linear-gradient(to_left,#000_35%,transparent_90%)]"
+    />
+  );
+}
+
 export default function SiteFooter() {
   return (
     // a rounded black card, inset from the edges of the page
     <footer className="bg-white px-3 pb-3 sm:px-5 sm:pb-5">
-      <div className="ds-ground rounded-[24px] px-2 pt-16 text-white sm:rounded-[32px] sm:px-4 sm:pt-20">
-      <div className="mx-auto w-full max-w-7xl px-5 sm:px-10">
+      <div className="ds-ground relative overflow-hidden rounded-[24px] px-2 pt-16 text-white sm:rounded-[32px] sm:px-4 sm:pt-20">
+      <Skyline />
+      <div className="relative mx-auto w-full max-w-7xl px-5 sm:px-10">
         <div className="grid gap-10 pb-12 lg:grid-cols-[1.4fr_1fr_1fr]">
           <div className="flex flex-col gap-5">
             <Image src="/endpoint-leads-reversed.svg" alt={siteConfig.name} width={1656} height={708} className="h-12 w-auto self-start brightness-0 invert" />
