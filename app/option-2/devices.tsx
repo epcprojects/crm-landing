@@ -32,7 +32,7 @@ export default function Devices() {
         >
           <div className="w-full overflow-hidden rounded-[18px] border border-white/70 bg-white/60 p-1.5 shadow-[0_40px_80px_-40px_rgba(30,40,70,0.45)] backdrop-blur sm:rounded-[24px] sm:p-2.5">
             <div className="overflow-hidden rounded-[14px] border border-black/[0.05] bg-white sm:rounded-[18px]">
-              <AppFrame active="Dashboard">
+              <AppFrame active="Dashboard" logo={<img src="/option-2/endpoint-mark.svg" alt="" className="size-7" />}>
                 <LeadsScreen />
               </AppFrame>
             </div>

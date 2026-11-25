@@ -37,7 +37,7 @@ const staffChat: Msg[] = [
  *  screen between the status bar and the home bar. */
 function Phone({ children }: { children: React.ReactNode }) {
   return (
-    <div className="relative w-[300px] max-w-full">
+    <div className="relative w-[300px] max-w-[calc(100%-6px)]">
       {/* side buttons */}
       <span aria-hidden="true" className="absolute -left-[3px] top-[110px] h-7 w-[3px] rounded-l-sm bg-[#2b2b31]" />
       <span aria-hidden="true" className="absolute -left-[3px] top-[160px] h-12 w-[3px] rounded-l-sm bg-[#2b2b31]" />

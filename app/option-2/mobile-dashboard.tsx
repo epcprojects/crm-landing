@@ -47,7 +47,7 @@ const tabs = [
 export default function MobileDashboard() {
   return (
     // phone frame
-    <div className="relative mx-auto w-[300px] max-w-full">
+    <div className="relative mx-auto w-[300px] max-w-[calc(100%-6px)]">
       <span aria-hidden="true" className="absolute -left-[3px] top-[110px] h-7 w-[3px] rounded-l-sm bg-[#2b2b31]" />
       <span aria-hidden="true" className="absolute -left-[3px] top-[160px] h-12 w-[3px] rounded-l-sm bg-[#2b2b31]" />
       <span aria-hidden="true" className="absolute -right-[3px] top-[180px] h-16 w-[3px] rounded-r-sm bg-[#2b2b31]" />
@@ -68,7 +68,9 @@ export default function MobileDashboard() {
             {/* app bar */}
             <div className="flex flex-none items-center justify-between bg-white px-4 pb-2.5 pt-1">
               <List className="size-5 text-[#344054]" />
-              <span className="grid size-8 place-items-center rounded-full bg-[#0f0a22] text-[11px] font-semibold text-white">EL</span>
+              <span className="grid size-8 place-items-center rounded-full bg-white shadow-[0_0_0_1px_rgba(16,24,40,0.08)]">
+                <img src="/option-2/endpoint-mark.svg" alt="Endpoint Leads" className="size-5" />
+              </span>
               <span className="relative">
                 <Bell className="size-5 text-[#344054]" />
                 <span className="absolute -right-2 -top-1.5 rounded-full bg-[#f04438] px-1 text-[7px] font-semibold leading-[12px] text-white">99+</span>

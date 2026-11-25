@@ -8,12 +8,15 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import {
   ArrowUpRight,
   CalendarBlank,
+  CalendarCheck,
   Check,
+  Lightning,
   SealPercent,
+  UserCheck,
 } from "@phosphor-icons/react/dist/ssr";
 import ContactProvider from "../components/contact";
 import Faq from "./faq";
@@ -152,12 +155,43 @@ function SectionHead({ eyebrow, title, line }: { eyebrow: string; title: ReactNo
   );
 }
 
+/** A small white card that floats over a dashboard panel. */
+function FloatCard({ className, delay = 0, children }: { className: string; delay?: number; children: ReactNode }) {
+  return (
+    <div aria-hidden="true" className={`pointer-events-none absolute z-10 ${className}`}>
+      <div
+        className="pw-float flex items-center gap-2.5 rounded-2xl border border-black/[0.05] bg-white py-2 pl-2 pr-3.5 shadow-[0_1px_2px_rgba(16,24,40,0.06),0_16px_32px_-14px_rgba(16,24,40,0.35)]"
+        style={{ "--f": `${-delay}s` } as CSSProperties}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function FloatIcon({ tone, children }: { tone: string; children: ReactNode }) {
+  return (
+    <span className="grid size-8 flex-none place-items-center rounded-xl" style={{ color: tone, backgroundColor: `color-mix(in srgb, ${tone} 14%, white)` }}>
+      {children}
+    </span>
+  );
+}
+
+function FloatText({ title, line }: { title: string; line: string }) {
+  return (
+    <span className="leading-tight">
+      <span className="block text-[12.5px] font-semibold text-[#101828]">{title}</span>
+      <span className="block text-[11px] text-[#667085]">{line}</span>
+    </span>
+  );
+}
+
 /** The app screen in a soft rounded frame. */
 function Screen({ active, children }: { active: string; children: ReactNode }) {
   return (
     <div className="overflow-hidden rounded-[22px] border border-white/70 bg-white/60 p-2 shadow-[0_40px_80px_-40px_rgba(30,40,70,0.45)] backdrop-blur sm:rounded-[28px] sm:p-3">
       <div className="overflow-hidden rounded-[16px] border border-black/[0.05] bg-white sm:rounded-[20px]">
-        <AppFrame active={active}>{children}</AppFrame>
+        <AppFrame active={active} logo={<img src="/option-2/endpoint-mark.svg" alt="" className="size-7" />}>{children}</AppFrame>
       </div>
     </div>
   );
@@ -190,6 +224,7 @@ function Split({
   tags,
   panel,
   flip = false,
+  floats,
   children,
 }: {
   id: string;
@@ -199,6 +234,7 @@ function Split({
   tags: { icon: string; label: string }[];
   panel: string;
   flip?: boolean;
+  floats?: ReactNode;
   children: ReactNode;
 }) {
   return (
@@ -207,6 +243,7 @@ function Split({
         {/* the whole dashboard, scaled down to fit the panel */}
         <div className={`relative overflow-hidden rounded-[28px] p-4 sm:p-7 ${flip ? "lg:order-2" : ""}`} style={{ background: panel }}>
           <FitScale width={900}>{children}</FitScale>
+          {floats}
         </div>
         <div className="flex flex-col gap-5">
           <Eyebrow>{eyebrow}</Eyebrow>
@@ -216,11 +253,12 @@ function Split({
               spaced apart on bigger screens, overlapping on phones */}
           <div className="flex w-full max-w-[30rem] flex-wrap items-center justify-between gap-x-5 gap-y-4">
             <DemoButton>Get a free demo</DemoButton>
-            <ul className="ml-auto flex items-center -space-x-2.5 sm:gap-2.5 sm:space-x-0">
-              {tags.map((tag) => (
+            <ul className="tag-wave ml-auto flex items-center -space-x-2.5 sm:gap-2.5 sm:space-x-0">
+              {tags.map((tag, i) => (
                 <li
                   key={tag.label}
                   tabIndex={0}
+                  style={{ "--i": i } as CSSProperties}
                   className="group/tag relative grid size-11 place-items-center rounded-full border border-black/[0.08] bg-white shadow-[0_0_0_2px_#fff,0_1px_2px_rgba(17,17,19,0.08),0_10px_20px_-10px_rgba(30,40,70,0.45)] transition-transform duration-200 outline-none hover:z-10 hover:-translate-y-0.5 focus-visible:z-10 focus-visible:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-[#111113]/20 sm:size-14"
                 >
                   <Image src={tag.icon} alt={tag.label} width={80} height={80} className="size-7 mix-blend-multiply sm:size-9" />
@@ -287,12 +325,21 @@ export default function OptionTwoPage() {
             <div className="relative mx-auto grid max-w-6xl items-center gap-10 pb-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:pb-16">
               <div className="flex flex-col items-start gap-6 text-left">
                 {/* the same headline, line and buttons as the home page hero */}
-                <h1 className="text-[clamp(2.5rem,6vw,4.75rem)] font-semibold leading-[1.02] tracking-[-0.045em] text-balance">
+                {/* a short punch line above the headline, in a white pill */}
+                <p className="inline-flex items-center gap-2 rounded-full border border-black/[0.04] bg-white py-1.5 pl-3 pr-4 text-[14px] font-medium text-[#111113] shadow-[0_1px_2px_rgba(17,17,19,0.05),0_8px_20px_-12px_rgba(25,55,100,0.3)]">
+                  {/* a glowing green dot */}
+                  <span aria-hidden="true" className="relative flex size-2">
+                    <span className="absolute inline-flex size-full animate-ping rounded-full bg-[#22c55e] opacity-70" />
+                    <span className="relative inline-flex size-2 rounded-full bg-[#22c55e] shadow-[0_0_8px_2px_rgba(34,197,94,0.6)]" />
+                  </span>
+                  Stop chasing leads. Start closing them.
+                </p>
+                <h1 className="text-[clamp(2.25rem,5vw,4rem)] font-semibold leading-[1.04] tracking-[-0.045em] text-balance">
                   Manage your complete real estate business from one place.
                 </h1>
                 <p className="max-w-[34rem] text-[18px] leading-relaxed text-[#3d3d44]">
-                  A solution that gives you complete transparency and control over your real estate
-                  business, helping you scale your business in less time.
+                  Complete transparency and control over your real estate business, so you can
+                  scale it in less time.
                 </p>
                 <div className="flex flex-wrap items-center gap-2">
                   <a href="#demo-enquiry" className="inline-flex h-11 items-center rounded-full bg-[#111113] px-5 text-[15px] font-medium text-white transition-colors hover:bg-[#2a2a2e]">
@@ -300,7 +347,7 @@ export default function OptionTwoPage() {
                   </a>
                   <a
                     href={siteConfig.calendlyUrl || "#demo-enquiry"}
-                    className="inline-flex h-11 items-center gap-2 rounded-full border border-transparent px-5 text-[15px] font-medium transition-colors hover:border-[#111113]"
+                    className="inline-flex h-11 items-center gap-2 rounded-full border border-black/[0.06] bg-white px-5 text-[15px] font-medium shadow-[0_1px_2px_rgba(17,17,19,0.06),0_12px_28px_-12px_rgba(17,17,19,0.35)] transition-[border-color,box-shadow] hover:border-[#111113] hover:shadow-[0_1px_2px_rgba(17,17,19,0.08),0_16px_32px_-12px_rgba(17,17,19,0.45)]"
                   >
                     <CalendarBlank aria-hidden="true" weight="fill" className="size-[18px]" />
                     Book a time on Calendly
@@ -342,6 +389,22 @@ export default function OptionTwoPage() {
             title="Keep every client moving forward"
             line={<><strong className="font-semibold text-[#111113]">Every lead in one place</strong>, with its project, contact, agent and status on one dashboard. Call or WhatsApp a client straight from their file, and see what is late before they notice.</>}
             panel="radial-gradient(80% 70% at 100% 0%,#ffd9c7 0%,rgba(255,217,199,0) 60%),linear-gradient(180deg,#e3dbfb 0%,#efeafd 55%,#fbe9e2 100%)"
+            floats={
+              <>
+                <FloatCard className="-right-1 top-6 sm:right-3 sm:top-10" delay={0}>
+                  <FloatIcon tone="#12b76a">
+                    <WhatsappIcon className="size-4" />
+                  </FloatIcon>
+                  <FloatText title="New enquiry" line="Usman Tariq · just now" />
+                </FloatCard>
+                <FloatCard className="bottom-6 left-2 sm:bottom-10 sm:left-4" delay={2.5}>
+                  <FloatIcon tone="#7a5af8">
+                    <CalendarCheck weight="fill" className="size-4" />
+                  </FloatIcon>
+                  <FloatText title="Site visit booked" line="Sat, 4:00 pm" />
+                </FloatCard>
+              </>
+            }
             tags={[
               { icon: "/option-2/tag-leads.webp", label: "Leads" },
               { icon: "/option-2/tag-contacts.webp", label: "Contacts" },
@@ -361,6 +424,22 @@ export default function OptionTwoPage() {
             line={<><strong className="font-semibold text-[#111113]">Add your agents</strong>, give each a role and choose which projects they work on. Each person sees only what you give them, and you see everyone.</>}
             panel="linear-gradient(180deg,#f7efe6 0%,#f3f0eb 55%,#e6eedf 100%)"
             flip
+            floats={
+              <>
+                <FloatCard className="left-2 top-6 sm:left-4 sm:top-12" delay={1}>
+                  <FloatIcon tone="#12b76a">
+                    <UserCheck weight="fill" className="size-4" />
+                  </FloatIcon>
+                  <FloatText title="Invite accepted" line="Maha Khan joined" />
+                </FloatCard>
+                <FloatCard className="-right-1 bottom-6 sm:bottom-8 sm:right-3" delay={3.5}>
+                  <FloatIcon tone="#e0703a">
+                    <Lightning weight="fill" className="size-4" />
+                  </FloatIcon>
+                  <FloatText title="Fastest reply today" line="Ali Raza · 4 min" />
+                </FloatCard>
+              </>
+            }
             tags={[
               { icon: "/option-2/tag-invites.webp", label: "Invitations" },
               { icon: "/option-2/tag-roles.webp", label: "Roles" },
@@ -441,7 +520,7 @@ export default function OptionTwoPage() {
                 </h2>
                 <p className="mt-1 max-w-[34rem] text-[17px] text-[#5b5b63]">The price depends on the size of your team. Book a demo and we will tell you straight away.</p>
               </div>
-              <div className="grid items-stretch gap-4 lg:grid-cols-3">
+              <div className="mx-auto grid w-full max-w-xl items-stretch gap-4 lg:max-w-none lg:grid-cols-3">
                 {plans.map((plan) => (
                   <div
                     key={plan.name}
@@ -510,7 +589,7 @@ export default function OptionTwoPage() {
                   </h2>
                 </div>
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="flex flex-col gap-4 rounded-[24px] bg-white/85 p-7 backdrop-blur">
+                  <div className="flex flex-col gap-4 rounded-[24px] bg-white/85 p-7 shadow-[0_1px_2px_rgba(16,24,40,0.05),0_24px_48px_-24px_rgba(25,55,100,0.35)] backdrop-blur">
                     <div className="flex items-start justify-between">
                       <Image src="/option-2/chat-w.webp" alt="" width={96} height={96} className="-ml-2 -mt-2 size-16 mix-blend-multiply" />
                       <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#6b6b72]">Chat with us</span>
@@ -521,7 +600,7 @@ export default function OptionTwoPage() {
                       Message us <ArrowUpRight className="size-3.5" />
                     </a>
                   </div>
-                  <div className="flex flex-col gap-4 rounded-[24px] bg-white/85 p-7 backdrop-blur">
+                  <div className="flex flex-col gap-4 rounded-[24px] bg-white/85 p-7 shadow-[0_1px_2px_rgba(16,24,40,0.05),0_24px_48px_-24px_rgba(25,55,100,0.35)] backdrop-blur">
                     <div className="flex items-start justify-between gap-3">
                       <Image src="/option-2/email-w.webp" alt="" width={96} height={96} className="-ml-2 -mt-2 size-16 mix-blend-multiply" />
                       <span className="truncate text-[11px] font-semibold uppercase tracking-[0.12em] text-[#6b6b72]">Write to us</span>

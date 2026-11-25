@@ -13,7 +13,7 @@ import { whatsappLink } from "../site-config";
 const teamSizes = ["2–10", "11–25", "25–50", "50+"];
 
 const input =
-  "h-12 w-full rounded-2xl border border-black/[0.06] bg-[#f7f8fa] pl-11 pr-4 text-[14px] text-[#111113] outline-none transition-[border-color,background-color,box-shadow] placeholder:text-[#111113]/35 hover:border-black/[0.1] focus:border-[#7fb2e8] focus:bg-white focus:shadow-[0_0_0_4px_rgba(127,178,232,0.18)]";
+  "h-12 w-full rounded-2xl border border-black/[0.06] bg-[#f7f8fa] pl-11 pr-4 text-[14px] text-[#111113] transition-[border-color,background-color] placeholder:text-[#111113]/35 hover:border-black/[0.1] focus:border-[#111113] focus:bg-white focus:outline-none focus-visible:outline-none";
 
 function Field({ label, icon, children }: { label: string; icon: ReactNode; children: ReactNode }) {
   return (
@@ -59,7 +59,7 @@ export default function ReachUsForm() {
         <form
           id="demo-enquiry"
           onSubmit={submit}
-          className="flex scroll-mt-28 flex-col gap-5 rounded-[22px] bg-white p-5 shadow-[0_1px_2px_rgba(17,17,19,0.06)] sm:p-7"
+          className="reach-form flex scroll-mt-28 flex-col gap-5 rounded-[22px] bg-white p-5 shadow-[0_1px_2px_rgba(17,17,19,0.06)] sm:p-7"
         >
           {/* header: who you will talk to */}
           <div className="flex items-start justify-between gap-4">
@@ -112,7 +112,7 @@ export default function ReachUsForm() {
               value={a.challenge}
               onChange={(e) => set("challenge", e.target.value)}
               placeholder="Follow-ups get missed, agents reply late…"
-              className="w-full resize-none rounded-2xl border border-black/[0.06] bg-[#f7f8fa] px-4 py-3 text-[14px] text-[#111113] outline-none transition-[border-color,background-color,box-shadow] placeholder:text-[#111113]/35 hover:border-black/[0.1] focus:border-[#7fb2e8] focus:bg-white focus:shadow-[0_0_0_4px_rgba(127,178,232,0.18)]"
+              className="w-full resize-none rounded-2xl border border-black/[0.06] bg-[#f7f8fa] px-4 py-3 text-[14px] text-[#111113] transition-[border-color,background-color] placeholder:text-[#111113]/35 hover:border-black/[0.1] focus:border-[#111113] focus:bg-white focus:outline-none focus-visible:outline-none"
             />
           </label>
 

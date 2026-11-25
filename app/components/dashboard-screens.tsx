@@ -48,7 +48,7 @@ const sideRail = [
   { label: "Upcoming", icon: CalendarBlank, count: "99+" },
 ];
 
-export function AppFrame({ active, children }: { active: string; children: ReactNode }) {
+export function AppFrame({ active, logo, children }: { active: string; logo?: ReactNode; children: ReactNode }) {
   return (
     <div className="flex min-h-[470px] flex-1 gap-2 bg-[#f2f4f7] p-2">
       {/* the side rail, as in the app: logo in a white circle, icon over label,
@@ -56,7 +56,7 @@ export function AppFrame({ active, children }: { active: string; children: React
           the signed-in user's initials at the bottom */}
       <div className="hidden w-[92px] flex-none flex-col items-center gap-4 rounded-[12px] bg-[#0f0a22] px-2 pb-5 pt-5 lg:flex">
         <span className="grid size-11 flex-none place-items-center rounded-full bg-white text-brand shadow-[0_0_0_3px_rgba(255,255,255,0.08)]">
-          <Buildings weight="fill" className="size-[22px]" />
+          {logo ?? <Buildings weight="fill" className="size-[22px]" />}
         </span>
         <span className="flex w-full flex-col gap-1">
           {rail.map((item) => {

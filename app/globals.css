@@ -1404,3 +1404,34 @@ button.bg-brand:not([aria-pressed]):not([role="tab"]):not([aria-label="Send"]):h
 }
 
 
+
+/* Option 2 demo form: a selected field just shows a dark border, no outline */
+.reach-form input:focus-visible,
+.reach-form textarea:focus-visible {
+  outline: none;
+}
+
+
+/* Option 2 tag icons: a gentle wave across the row, paused on hover */
+.tag-wave > li {
+  animation: tag-wave 2.4s ease-in-out infinite;
+  animation-delay: calc(var(--i, 0) * 0.18s);
+}
+.tag-wave:hover > li {
+  animation-play-state: paused;
+}
+@keyframes tag-wave {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tag-wave > li {
+    animation: none;
+  }
+}
+
