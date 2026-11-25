@@ -67,7 +67,7 @@ function Photo({ src, name, size, className = "" }: { src: string; name: string;
 /* ------------------------------- pictures ------------------------------- */
 
 /** New messages pile up while a clock keeps counting and nobody owns them. */
-function WaitingLeads() {
+export function WaitingLeads() {
   return (
     <div className="relative mx-auto h-[250px] w-full max-w-[300px]">
       <Float i={0} f={0} className="left-0 top-0 w-[86%]">
@@ -114,7 +114,7 @@ function WaitingLeads() {
 }
 
 /** Follow-ups on a sticky note, a promise with no date, and no reminders. */
-function NotesFollowUps() {
+export function NotesFollowUps() {
   const notes = [
     { text: "Call Sara back… Tues??", strike: false },
     { text: "Send payment plan to Bilal", strike: true },
@@ -167,7 +167,7 @@ function NotesFollowUps() {
 }
 
 /** A lead whose progress stopped: the bar fills, then stalls and goes cold. */
-function QuietLead() {
+export function QuietLead() {
   const steps: StatusKey[] = ["contacted", "quote", "nego"];
   return (
     <div className="relative mx-auto h-[250px] w-full max-w-[300px]">
@@ -217,7 +217,7 @@ function QuietLead() {
 
 /** Agents with their reply times and how their leads are going. Nobody
  *  watches it, so who replied today is a guess and one agent's leads pile up. */
-function AgentBreakdown() {
+export function AgentBreakdown() {
   const rows: { photo: string; name: string; dot: string; reply: string; replyTone: string; won: number; hold: number }[] = [
     { photo: "maha", name: "Maha Khan", dot: "bg-[#12b76a]", reply: "4 min", replyTone: "bg-[#ecfdf3] text-[#067647]", won: 7, hold: 3 },
     { photo: "ali", name: "Ali Raza", dot: "bg-[#f79009]", reply: "1 h 20", replyTone: "bg-[#fffaeb] text-[#b54708]", won: 4, hold: 6 },
@@ -290,7 +290,7 @@ function AgentBreakdown() {
 
 /** The pipeline as one stacked bar and four stages. The total exists, but it
  *  is counted by hand and lost deals carry no reason. */
-function StageCounts() {
+export function StageCounts() {
   const items: [StatusKey, number][] = [
     ["new", 36],
     ["contacted", 368],

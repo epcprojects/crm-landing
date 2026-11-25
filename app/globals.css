@@ -951,6 +951,46 @@ button.bg-brand {
   }
 }
 
+/* Option 2 headline underline: draws itself in once */
+.underline-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: underline-draw 0.9s 0.3s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+@keyframes underline-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .underline-draw {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Option 2 reviews: a column of cards that drifts upward, paused on hover */
+.ticker-y {
+  animation: ticker-y 30s linear infinite;
+}
+.ticker-y-box:hover .ticker-y {
+  animation-play-state: paused;
+}
+.ticker-y-box {
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 10%, #000 90%, transparent);
+}
+@keyframes ticker-y {
+  to {
+    transform: translateY(calc(-50% - 8px));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ticker-y {
+    animation: none;
+  }
+}
+
 /* Stacked benefit cards: sticky on large screens, and their pictures animate in */
 @media (min-width: 1024px) {
   .stack-card {
@@ -1338,4 +1378,29 @@ button.bg-brand:not([aria-pressed]):not([role="tab"]):not([aria-label="Send"]):h
   line-height: 1.4;
   color: var(--ink);
 }
+
+
+/* Option 2 form: team faces pop in one by one, then bob gently */
+.av-pop {
+  animation:
+    av-pop 600ms cubic-bezier(0.34, 1.56, 0.64, 1) backwards,
+    av-bob 3.2s ease-in-out infinite;
+}
+@keyframes av-pop {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.6);
+  }
+}
+@keyframes av-bob {
+  50% {
+    transform: translateY(-3px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .av-pop {
+    animation: none;
+  }
+}
+
 

@@ -27,10 +27,10 @@ export default function DemoCtaCard() {
     <section id="book-demo" aria-labelledby="demo-cta-heading" className="scroll-mt-24 bg-white px-3 pt-10 sm:px-5 sm:pt-16">
       <div className="relative mx-auto w-full max-w-7xl overflow-hidden rounded-[28px] border border-black/[0.04] sm:rounded-[36px]">
         {/* four soft hazes */}
-        {/* a soft office photo (AI-made, public/demo-cta-bg.webp), blurred, under a
+        {/* a soft office photo (AI-made, public/demo-cta-bg.webp), sharp, under a
             white wash that is strongest on the left where the text sits */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/demo-cta-bg.webp" alt="" aria-hidden="true" loading="lazy" className="absolute inset-0 size-full scale-110 object-cover blur-[10px]" />
+        <img src="/demo-cta-bg.webp" alt="" aria-hidden="true" loading="lazy" className="absolute inset-0 size-full object-cover" />
         <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.86)_0%,rgba(255,255,255,0.72)_50%,rgba(255,255,255,0.45)_100%)]" />
         <div aria-hidden="true" className="absolute -left-24 -top-24 size-[460px] rounded-full bg-[#ddd6ff] opacity-40 blur-[90px]" />
         <div aria-hidden="true" className="absolute -bottom-32 -left-16 size-[420px] rounded-full bg-[#d4f5e2] opacity-40 blur-[90px]" />
