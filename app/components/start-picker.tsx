@@ -164,7 +164,7 @@ export default function StartPicker() {
       <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 py-16 sm:px-10 sm:py-24 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-5">
-            <p className="eyebrow">GET STARTED</p>
+            <p className="eyebrow">Get started</p>
             <h2 id="start-heading" className="text-[clamp(1.9rem,3.4vw,2.5rem)] leading-[1.3] text-balance">
               How would you like to start?
             </h2>

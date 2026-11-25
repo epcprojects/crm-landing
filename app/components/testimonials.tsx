@@ -106,7 +106,7 @@ export default function Testimonials() {
   return (
     <section id="clients" aria-labelledby="clients-heading" className="scroll-mt-20 overflow-hidden bg-white">
       <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-4 px-5 pt-16 text-center sm:px-10 sm:pt-24">
-        <p className="eyebrow">CLIENT STORIES</p>
+        <p className="eyebrow">Client stories</p>
         <h2 id="clients-heading" className="max-w-[40rem] text-[clamp(1.9rem,3.4vw,2.5rem)] leading-[1.3] text-balance">
           Offices that stopped <span className="serif">chasing clients.</span>
         </h2>

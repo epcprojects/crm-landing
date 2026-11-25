@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
-import OptionTwoLanding from "./option-two-landing";
+import LandingPage from "../components/landing-page";
+
+// Option 2 now shows the same sections as the home page. The earlier Option 2
+// design is kept in ./option-two-landing.tsx in case it is wanted again.
 
 export const metadata: Metadata = {
   title: "Endpoint Leads Option 2 | Real Estate CRM",
@@ -8,5 +11,5 @@ export const metadata: Metadata = {
 };
 
 export default function OptionTwoPage() {
-  return <OptionTwoLanding />;
+  return <LandingPage />;
 }

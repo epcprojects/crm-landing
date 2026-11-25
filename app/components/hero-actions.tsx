@@ -2,6 +2,7 @@
 // the outlined one goes to the booking section further down the page.
 
 import { CalendarBlank } from "@phosphor-icons/react/dist/ssr";
+import { siteConfig } from "../site-config";
 
 export default function HeroActions() {
   return (
@@ -13,7 +14,7 @@ export default function HeroActions() {
         Get a free demo
       </a>
       <a
-        href="#start"
+        href={siteConfig.calendlyUrl || "#book-demo"}
         className="btn-ghost inline-flex h-[42px] items-center gap-2 px-4 text-[16px] font-medium text-ink"
       >
         <CalendarBlank aria-hidden="true" weight="fill" className="size-[18px] text-ink" />

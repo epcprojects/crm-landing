@@ -91,10 +91,16 @@ export default function FeatureBento() {
     <section id="benefits" aria-labelledby="benefits-heading" className="scroll-mt-20 bg-white">
       <div className="mx-auto grid w-full max-w-7xl gap-12 px-5 py-16 sm:px-10 sm:py-24 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
         <div className="flex flex-col gap-5 self-start lg:sticky lg:top-28">
-          <p className="eyebrow">WHY ENDPOINT LEADS</p>
+          <p className="eyebrow">Why Endpoint Leads</p>
           <h2 id="benefits-heading" className="text-[clamp(1.9rem,3.8vw,3rem)] leading-[1.15] text-balance">
             Everything your office needs, <span className="serif">without the chasing.</span>
           </h2>
+          <a
+            href="#demo-enquiry"
+            className="mt-2 inline-flex h-[42px] items-center self-start bg-brand px-4 text-[16px] font-medium text-white"
+          >
+            Get a free demo
+          </a>
         </div>
 
         <StackList className="flex flex-col gap-5 lg:gap-48">

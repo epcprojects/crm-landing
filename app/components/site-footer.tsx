@@ -6,9 +6,11 @@ const groups = [
   {
     title: "Product",
     links: [
-      { label: "Features", href: "/#features" },
-      { label: "How it works", href: "/#how" },
-      { label: "60-second check", href: "/#check" },
+      { label: "Platform", href: "/#platform" },
+      { label: "Why us", href: "/#benefits" },
+      { label: "See how it works", href: "/#features" },
+      { label: "Client stories", href: "/#clients" },
+      { label: "FAQ", href: "/#faq" },
       { label: "Sign in", href: siteConfig.signInHref },
     ],
   },
@@ -60,7 +62,7 @@ export default function SiteFooter() {
                 Email us
               </a>
               <Link
-                href="/#start"
+                href={siteConfig.calendlyUrl || "/#book-demo"}
                 className="inline-flex h-[42px] items-center rounded-xl border border-white/25 px-4 text-[15px] font-medium text-white transition-colors hover:bg-white/10"
               >
                 Book on Calendly

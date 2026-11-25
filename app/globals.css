@@ -1324,3 +1324,18 @@ button.bg-brand:not([aria-pressed]):not([role="tab"]):not([aria-label="Send"]):h
   }
 }
 
+
+/* Section pills: the same look as "The problem" pill: white, light grey
+   edge, soft drop shadow, plain sentence-case text */
+.eyebrow {
+  border: 1px solid #e6e6e6;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.4;
+  color: var(--ink);
+}
+

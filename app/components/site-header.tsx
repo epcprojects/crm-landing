@@ -2,18 +2,25 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, CaretRight, List, X } from "@phosphor-icons/react/dist/ssr";
-import { siteConfig, whatsappLink } from "../site-config";
+import { siteConfig } from "../site-config";
 
+// one link per section on the landing page, in page order
 const links = [
-  { label: "Features", href: "/#features" },
-  { label: "How it works", href: "/#how" },
-  { label: "60-second check", href: "/#check" },
+  { label: "Platform", href: "/#platform" },
+  { label: "Why us", href: "/#benefits" },
+  { label: "See how it works", href: "/#features" },
   { label: "FAQ", href: "/#faq" },
 ];
 
 export default function SiteHeader() {
+  // on a landing page (/ or /option-2) section links stay on that page;
+  // anywhere else they go to the home page
+  const pathname = usePathname();
+  const onLanding = pathname === "/" || pathname === "/option-2";
+  const to = (href: string) => (onLanding && href.startsWith("/#") ? href.slice(1) : href);
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const menuButton = useRef<HTMLButtonElement>(null);
@@ -62,12 +69,10 @@ export default function SiteHeader() {
           <span aria-hidden="true" className="size-2 rounded-full bg-[#25a35a]" />
           Now onboarding real estate offices in {siteConfig.city}.
           <a
-            href={whatsappLink("Hi Endpoint Leads, I saw your website.")}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={`mailto:${siteConfig.email}?subject=${encodeURIComponent("Demo for my real estate office")}`}
             className="font-bold text-[#c9c3ff] hover:text-white"
           >
-            Message us on WhatsApp →
+            Email us to book your demo →
           </a>
         </p>
       </div>
@@ -100,7 +105,7 @@ export default function SiteHeader() {
             {links.map((link) => (
               <Link
                 key={link.href}
-                href={link.href}
+                href={to(link.href)}
                 className="inline-flex min-h-10 items-center rounded-xl px-4 text-[16px] text-ink transition-colors hover:bg-black/[0.04]"
               >
                 {link.label}
@@ -110,7 +115,7 @@ export default function SiteHeader() {
 
           <div className="col-start-3 flex items-center justify-end gap-2.5">
             <Link
-              href="/#start"
+              href={to("/#book-demo")}
               className="hidden h-[42px] items-center whitespace-nowrap bg-brand px-4 text-[15px] font-medium text-white transition-colors hover:bg-brand-hover sm:inline-flex"
             >
               Book your free demo
@@ -180,7 +185,7 @@ export default function SiteHeader() {
               {links.map((link) => (
                 <li key={link.href}>
                   <Link
-                    href={link.href}
+                    href={to(link.href)}
                     onClick={() => setOpen(false)}
                     className="flex min-h-14 items-center justify-between text-[18px] font-bold tracking-[-0.01em] text-ink transition-colors hover:text-brand"
                   >
@@ -197,7 +202,7 @@ export default function SiteHeader() {
           </nav>
 
           <Link
-            href="/#start"
+            href={to("/#book-demo")}
             onClick={() => setOpen(false)}
             className="group inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-gradient-to-b from-[#5848e6] to-[#4030c9] px-8 text-[16px] font-bold text-white shadow-[0_10px_24px_-8px_rgba(73,57,210,0.65),inset_0_1px_0_rgba(255,255,255,0.28)]"
           >

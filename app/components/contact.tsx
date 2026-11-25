@@ -218,7 +218,7 @@ function ContactSheet({
             </p>
             <div className="grid gap-3 sm:grid-cols-2">
               <a
-                href="#start"
+                href={siteConfig.calendlyUrl || "#book-demo"}
                 onClick={onClose}
                 className="flex flex-col gap-2 rounded-2xl border border-black/10 p-4 transition-colors hover:border-brand/40"
               >

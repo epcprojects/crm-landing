@@ -33,7 +33,7 @@ export default function FitCheck() {
     <section id="check" aria-labelledby="check-heading" className="ds-bars scroll-mt-20 text-ink">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-9 px-5 py-20 sm:px-10 sm:py-28">
         <div className="flex max-w-[40rem] flex-col items-start gap-4 text-left">
-          <p className="eyebrow">60-SECOND CHECK</p>
+          <p className="eyebrow">60-second check</p>
           <h2 id="check-heading" className="text-[clamp(1.9rem,3.4vw,2.5rem)] leading-[1.3] text-balance">
             Is your office <span className="serif">losing clients?</span>
           </h2>

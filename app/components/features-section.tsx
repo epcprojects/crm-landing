@@ -308,7 +308,7 @@ function ChatDemo({ layout = "dark" }: { layout?: "dark" | "check" }) {
       }
     >
       <div className="flex flex-col gap-5">
-        {!dark && <p className="eyebrow self-start">TRY IT HERE</p>}
+        {!dark && <p className="eyebrow self-start">Try it here</p>}
         <h3 className={`text-[clamp(1.75rem,3.2vw,2.5rem)] font-extrabold leading-[1.08] tracking-[-0.03em] ${dark ? "text-white" : "text-ink"}`}>
           <span className="block">Talk to the client.</span>
           <span className="block">Talk about the client.</span>
@@ -638,7 +638,7 @@ export default function FeaturesSection() {
     <section id="features" aria-labelledby="features-heading" className="scroll-mt-20 bg-white">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-5 py-16 sm:px-10 sm:py-24">
         <div className="flex flex-col items-center gap-5 text-center">
-          <p className="eyebrow">TRY IT HERE</p>
+          <p className="eyebrow">Try it here</p>
           <h2 id="features-heading" className="text-[clamp(1.9rem,3.4vw,2.5rem)] leading-[1.3] text-balance">
             See how it works. <span className="serif">Click around.</span>
           </h2>

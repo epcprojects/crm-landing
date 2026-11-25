@@ -24,7 +24,7 @@ export default function DemoCtaCard() {
   const [team, setTeam] = useState("");
 
   return (
-    <section aria-labelledby="demo-cta-heading" className="bg-white px-3 pt-10 sm:px-5 sm:pt-16">
+    <section id="book-demo" aria-labelledby="demo-cta-heading" className="scroll-mt-24 bg-white px-3 pt-10 sm:px-5 sm:pt-16">
       <div className="relative mx-auto w-full max-w-7xl overflow-hidden rounded-[28px] border border-black/[0.04] sm:rounded-[36px]">
         {/* four soft hazes */}
         {/* a soft office photo (AI-made, public/demo-cta-bg.webp), blurred, under a

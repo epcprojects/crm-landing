@@ -182,7 +182,7 @@ export default function ProductShowcase() {
               <p className="mt-3 text-[24px] font-semibold leading-tight tracking-[-0.02em]">{tab.label}</p>
               <p className="text-[17px] leading-[1.45] text-ink/80">{tab.line}</p>
               <a
-                href="#start"
+                href="#book-demo"
                 className="mt-2 inline-flex h-[42px] items-center gap-1.5 self-start bg-brand px-4 text-[16px] font-medium text-white transition-colors hover:bg-brand-hover"
               >
                 Book your free demo
