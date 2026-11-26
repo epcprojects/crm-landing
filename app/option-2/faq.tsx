@@ -29,7 +29,7 @@ const items = [
   },
   {
     q: "How much does it cost?",
-    a: "It depends on the size of your team. Ask us on WhatsApp and we will tell you straight away.",
+    a: "It depends on the size of your team. Book your demo and we will tell you straight away.",
   },
 ];
 

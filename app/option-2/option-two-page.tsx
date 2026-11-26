@@ -238,7 +238,7 @@ function Split({
         </div>
         <div className="flex flex-col gap-5">
           <Eyebrow>{eyebrow}</Eyebrow>
-          <h2 className="text-[clamp(2.1rem,4.4vw,3.5rem)] font-semibold leading-[1.03] tracking-[-0.04em]">{title}</h2>
+          <h2 className="text-[clamp(1.9rem,3.4vw,2.75rem)] font-semibold leading-[1.08] tracking-[-0.035em] text-balance">{title}</h2>
           <p className="max-w-[30rem] text-[17px] leading-relaxed text-[#5b5b63]">{line}</p>
           {/* the button on the left, the tags as clay icons on the far right:
               spaced apart on bigger screens, overlapping on phones */}
@@ -337,7 +337,7 @@ export default function OptionTwoPage() {
           {/* work from anywhere */}
           <section id="devices" className="scroll-mt-28 px-5 py-16 sm:px-10 sm:py-20">
             <div className="mx-auto flex max-w-6xl flex-col gap-12">
-              <SectionHead eyebrow="Seamless across devices" title={<>Work from anywhere,<br className="hidden sm:block" /> stay in <Mark id="devices-underline">sync</Mark></>} />
+              <SectionHead eyebrow="Seamless across devices" title={<>Works on both<br className="hidden sm:block" /> Mobile and <Mark id="devices-underline">Computer</Mark></>} />
               <Devices />
             </div>
           </section>
@@ -345,7 +345,7 @@ export default function OptionTwoPage() {
           <Split
             id="clients"
             eyebrow="Client management"
-            title="Keep every client moving forward"
+            title="Manage all your projects and see every status update in One click"
             line={<><strong className="font-semibold text-[#111113]">Every lead in one place</strong>, with its project, contact, agent and status on one dashboard. Call or WhatsApp a client straight from their file, and see what is late before they notice.</>}
             panel="radial-gradient(80% 70% at 100% 0%,#ffd9c7 0%,rgba(255,217,199,0) 60%),linear-gradient(180deg,#e3dbfb 0%,#efeafd 55%,#fbe9e2 100%)"
             floats={
@@ -379,7 +379,7 @@ export default function OptionTwoPage() {
           <Split
             id="agents"
             eyebrow="Agent management"
-            title="See who is closing, help who is not"
+            title="Control all your agent’s activity in one place"
             line={<><strong className="font-semibold text-[#111113]">Add your agents</strong>, give each a role and choose which projects they work on. Each person sees only what you give them, and you see everyone.</>}
             panel="linear-gradient(180deg,#f7efe6 0%,#f3f0eb 55%,#e6eedf 100%)"
             flip
