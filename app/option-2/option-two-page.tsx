@@ -24,6 +24,7 @@ import FloatingDock from "./floating-dock";
 import FitScale from "./fit-scale";
 import { AgentBreakdown, NotesFollowUps, QuietLead, StageCounts, WaitingLeads } from "../components/problem-section";
 import Reveal from "../components/reveal";
+import CountUp from "../components/count-up";
 import { AppFrame, ProjectsScreen, UsersScreen } from "../components/dashboard-screens";
 import ReachUsForm from "./reach-us-form";
 import WhatsappIcon from "../components/whatsapp-icon";
@@ -292,7 +293,7 @@ export default function OptionTwoPage() {
             </div>
             {/* words on the left, the demo form on the right */}
             <div className="relative mx-auto grid max-w-6xl items-center gap-8 sm:gap-10 sm:pb-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:pb-16">
-              <div className="flex flex-col items-start gap-4 text-left sm:gap-6">
+              <div className="flex flex-col items-start gap-4 text-left sm:gap-6 [@media(min-width:1024px)_and_(max-height:820px)]:!gap-5 [@media(min-width:1024px)_and_(max-height:700px)]:!gap-4">
                 {/* the same headline, line and buttons as the home page hero */}
                 {/* a short punch line above the headline, in a white pill */}
                 <p className="inline-flex items-center gap-2 rounded-full border border-black/[0.04] bg-white py-1.5 pl-3 pr-3.5 text-[14px] font-medium text-[#111113] shadow-[0_1px_2px_rgba(17,17,19,0.05),0_8px_20px_-12px_rgba(25,55,100,0.3)]">
@@ -310,9 +311,30 @@ export default function OptionTwoPage() {
                   Complete transparency and control over your real estate business, so you can
                   scale it in less time.
                 </p>
-                <div className="flex flex-wrap items-center gap-2">
-                  <DemoButton>Get a free demo</DemoButton>
-                </div>
+                <DemoButton>Get a free demo</DemoButton>
+                {/* two key numbers with clay icons; the numbers count up from zero as
+                    they come into view. Two frosted cards: on phones each card is
+                    centred with the icon on top; from 640px the icon sits left. */}
+                <dl className="mt-1 grid w-full grid-cols-2 gap-2.5 sm:mt-2 sm:gap-3 [@media(min-width:1024px)_and_(max-height:820px)]:!mt-0">
+                  {[
+                    { value: 14, label: "Islamabad’s biggest projects launched", icon: "/option-2/kpi-tower.webp" },
+                    { value: 15, label: "High ticket clients saved every quarter", icon: "/option-2/kpi-shield.webp" },
+                  ].map((k) => (
+                    <div
+                      key={k.label}
+                      className="flex flex-col items-center gap-1.5 rounded-[18px] border border-white/80 bg-white/70 px-3 py-3.5 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_10px_24px_-16px_rgba(25,55,100,0.45)] backdrop-blur-md sm:flex-row sm:gap-3.5 sm:rounded-[20px] sm:py-3 sm:pl-3.5 sm:pr-4 sm:text-left [@media(min-width:1024px)_and_(max-height:700px)]:!py-2"
+                    >
+                      {/* the clay icon on its own, no tile behind it */}
+                      <Image src={k.icon} alt="" width={80} height={80} className="size-11 flex-none drop-shadow-[0_4px_6px_rgba(17,17,19,0.12)] sm:size-14 [@media(min-width:1024px)_and_(max-height:700px)]:!size-11" />
+                      <div className="flex min-w-0 flex-col items-center gap-1 sm:items-start">
+                        <dt className="order-2 max-w-[9.5rem] text-[12px] leading-snug text-[#5b5b63] sm:max-w-none sm:text-[13.5px] [@media(min-width:1024px)_and_(max-height:700px)]:!text-[12.5px]">{k.label}</dt>
+                        <dd className="order-1 text-[24px] font-semibold leading-none tracking-[-0.03em] tabular-nums text-[#111113] sm:text-[30px] [@media(min-width:1024px)_and_(max-height:700px)]:!text-[26px]">
+                          <CountUp to={k.value} />
+                        </dd>
+                      </div>
+                    </div>
+                  ))}
+                </dl>
               </div>
               <div className="relative w-full pt-5">
                 {/* the year-end offer, floating on the top edge of the form */}
