@@ -566,7 +566,7 @@ export default function OptionTwoPage() {
                       <span className="truncate text-[11px] font-semibold uppercase tracking-[0.12em] text-[#6b6b72]">Write to us</span>
                     </div>
                     <h3 className="text-[22px] font-semibold tracking-[-0.02em]">Email</h3>
-                    <p className="text-[15px] leading-relaxed text-[#5b5b63]">Prefer email? Write to {siteConfig.email} and we will set up your free demo.</p>
+                    <p className="text-[15px] leading-relaxed text-[#5b5b63]">Prefer email? Write to {siteConfig.email} with a few details about your office, and we will reply within a day to set up your free demo.</p>
                     <a href={`mailto:${siteConfig.email}`} className="inline-flex h-10 items-center gap-1.5 self-start rounded-full bg-[#f3f0eb] px-4 text-[14px] font-medium hover:bg-[#ebe6df]">
                       Email us <ArrowUpRight className="size-3.5" />
                     </a>
