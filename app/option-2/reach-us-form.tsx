@@ -13,11 +13,11 @@ import { whatsappLink } from "../site-config";
 const teamSizes = ["5–10", "10–25", "25–50", "50+"];
 
 const input =
-  "h-12 w-full rounded-2xl border border-black/[0.06] bg-[#f7f8fa] pl-11 pr-4 text-[14px] text-[#111113] transition-[border-color,background-color] placeholder:text-[#111113]/35 hover:border-black/[0.1] focus:border-[#111113] focus:bg-white focus:outline-none focus-visible:outline-none";
+  "h-12 [@media(min-width:1024px)_and_(max-height:700px)]:!h-11 w-full rounded-2xl border border-black/[0.06] bg-[#f7f8fa] pl-11 pr-4 text-[14px] text-[#111113] transition-[border-color,background-color] placeholder:text-[#111113]/35 hover:border-black/[0.1] focus:border-[#111113] focus:bg-white focus:outline-none focus-visible:outline-none";
 
 function Field({ label, icon, children }: { label: string; icon: ReactNode; children: ReactNode }) {
   return (
-    <label className="flex flex-col gap-1.5 text-[12.5px] font-medium text-[#3d3d44]">
+    <label className="flex flex-col gap-1.5 [@media(min-width:1024px)_and_(max-height:700px)]:!gap-1 text-[12.5px] font-medium text-[#3d3d44]">
       {label}
       <span className="relative">
         <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#8a8a93]">{icon}</span>
@@ -67,7 +67,7 @@ export default function ReachUsForm({
         <form
           id={id}
           onSubmit={submit}
-          className="reach-form flex scroll-mt-28 flex-col gap-5 rounded-[22px] bg-white p-5 shadow-[0_1px_2px_rgba(17,17,19,0.06)] sm:p-7 [@media(min-width:1024px)_and_(max-height:820px)]:!gap-4 [@media(min-width:1024px)_and_(max-height:820px)]:!p-6"
+          className="reach-form flex scroll-mt-28 flex-col gap-5 rounded-[22px] bg-white p-5 shadow-[0_1px_2px_rgba(17,17,19,0.06)] sm:p-7 [@media(min-width:1024px)_and_(min-height:701px)_and_(max-height:820px)]:!gap-4 [@media(min-width:1024px)_and_(max-height:700px)]:!gap-2.5 [@media(min-width:1024px)_and_(max-height:700px)]:!p-5 [@media(min-width:1024px)_and_(min-height:701px)_and_(max-height:820px)]:!p-6"
         >
           {/* header: who you will talk to */}
           <div className="flex items-start justify-between gap-4">
@@ -100,7 +100,7 @@ export default function ReachUsForm({
 
           <div className="h-px bg-gradient-to-r from-transparent via-black/[0.08] to-transparent" />
 
-          <div className="grid gap-3.5 sm:grid-cols-2">
+          <div className="grid gap-3.5 [@media(min-width:1024px)_and_(max-height:700px)]:!gap-2.5 sm:grid-cols-2">
             <Field label="Business name" icon={<Buildings className="size-[18px]" />}>
               <input required autoComplete="organization" value={a.businessName} onChange={(e) => set("businessName", e.target.value)} placeholder="Skyline Estates" className={input} />
             </Field>
@@ -121,7 +121,7 @@ export default function ReachUsForm({
               {teamSizes.map((size) => (
                 <label key={size} className="relative">
                   <input type="radio" name="teamSize" value={size} required checked={a.teamSize === size} onChange={(e) => set("teamSize", e.target.value)} className="peer sr-only" />
-                  <span className="flex h-10 cursor-pointer items-center justify-center rounded-xl text-[13px] font-medium text-[#3d3d44] transition-all hover:text-[#111113] peer-checked:bg-white peer-checked:text-[#111113] peer-checked:shadow-[0_1px_2px_rgba(17,17,19,0.08),0_6px_14px_-8px_rgba(17,17,19,0.35)] peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2">
+                  <span className="flex h-10 [@media(min-width:1024px)_and_(max-height:700px)]:!h-9 cursor-pointer items-center justify-center rounded-xl text-[13px] font-medium text-[#3d3d44] transition-all hover:text-[#111113] peer-checked:bg-white peer-checked:text-[#111113] peer-checked:shadow-[0_1px_2px_rgba(17,17,19,0.08),0_6px_14px_-8px_rgba(17,17,19,0.35)] peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2">
                     {size}
                   </span>
                 </label>
@@ -136,15 +136,15 @@ export default function ReachUsForm({
               value={a.challenge}
               onChange={(e) => set("challenge", e.target.value)}
               placeholder="Follow-ups get missed, agents reply late…"
-              className="w-full resize-none rounded-2xl [@media(min-width:1024px)_and_(max-height:820px)]:!h-[64px] border border-black/[0.06] bg-[#f7f8fa] px-4 py-3 text-[14px] text-[#111113] transition-[border-color,background-color] placeholder:text-[#111113]/35 hover:border-black/[0.1] focus:border-[#111113] focus:bg-white focus:outline-none focus-visible:outline-none"
+              className="w-full resize-none rounded-2xl [@media(min-width:1024px)_and_(min-height:701px)_and_(max-height:820px)]:!h-[64px] [@media(min-width:1024px)_and_(max-height:700px)]:!h-[46px] border border-black/[0.06] bg-[#f7f8fa] px-4 py-3 text-[14px] text-[#111113] transition-[border-color,background-color] placeholder:text-[#111113]/35 hover:border-black/[0.1] focus:border-[#111113] focus:bg-white focus:outline-none focus-visible:outline-none"
             />
           </label>
 
           {/* the send button, on the right */}
-          <div className="mt-1 flex justify-center sm:justify-end">
+          <div className="mt-1 flex justify-center sm:justify-end [@media(min-width:1024px)_and_(max-height:700px)]:!mt-0">
             <button
               type="submit"
-              className="group inline-flex h-[52px] flex-none items-center gap-4 whitespace-nowrap rounded-full bg-gradient-to-b from-[#3a3a44] to-[#0a0a0d] pl-5 pr-1.5 text-[15px] font-medium text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_14px_28px_-14px_rgba(10,10,13,0.75)] transition-[filter] hover:brightness-125"
+              className="group inline-flex h-[52px] [@media(min-width:1024px)_and_(max-height:700px)]:!h-12 flex-none items-center gap-4 whitespace-nowrap rounded-full bg-gradient-to-b from-[#3a3a44] to-[#0a0a0d] pl-5 pr-1.5 text-[15px] font-medium text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_14px_28px_-14px_rgba(10,10,13,0.75)] transition-[filter] hover:brightness-125"
             >
               {sent ? (
                 <span className="flex items-center gap-2">

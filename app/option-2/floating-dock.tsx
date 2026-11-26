@@ -91,34 +91,34 @@ export default function FloatingDock() {
   return (
     <div
       aria-hidden={!show}
-      className={`pointer-events-none fixed inset-x-0 bottom-4 z-40 flex justify-center pl-3 pr-[4.5rem] transition-[opacity,translate] duration-500 ${ease} motion-reduce:transition-none sm:bottom-6 sm:px-3 ${
+      className={`pointer-events-none fixed inset-x-0 bottom-4 z-40 flex justify-center pl-3 pr-[4.5rem] transition-[opacity,translate] duration-500 ${ease} motion-reduce:transition-none lg:bottom-6 lg:px-3 ${
         show ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
       }`}
     >
       <div
         tabIndex={-1}
-        className={`relative flex items-center gap-3 rounded-[24px] border border-black/[0.06] bg-white/95 p-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_2px_6px_rgba(15,26,46,0.08),0_18px_40px_-12px_rgba(15,26,46,0.35),0_40px_80px_-24px_rgba(15,26,46,0.45)] sm:gap-4 backdrop-blur-xl ${
+        className={`relative flex items-center gap-3 rounded-[24px] border border-black/[0.06] bg-white/95 p-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_2px_6px_rgba(15,26,46,0.08),0_18px_40px_-12px_rgba(15,26,46,0.35),0_40px_80px_-24px_rgba(15,26,46,0.45)] lg:gap-4 backdrop-blur-xl ${
           show ? "pointer-events-auto" : ""
         }`}
       >
         {/* the offer badge, gently swinging */}
-        <span className="grid size-11 flex-none place-items-center rounded-2xl sm:size-[52px] bg-gradient-to-b from-[#34d37a] to-[#16a34a] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_8px_18px_-8px_rgba(22,163,74,0.7)] motion-safe:animate-[pw-wiggle_3s_ease-in-out_infinite]">
-          <SealPercent weight="fill" className="size-6 sm:size-7" />
+        <span className="grid size-11 flex-none place-items-center rounded-2xl max-[359px]:hidden lg:size-[52px] bg-gradient-to-b from-[#34d37a] to-[#16a34a] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_8px_18px_-8px_rgba(22,163,74,0.7)] motion-safe:animate-[pw-wiggle_3s_ease-in-out_infinite]">
+          <SealPercent weight="fill" className="size-6 lg:size-7" />
         </span>
 
-        <span className="flex min-w-0 flex-col gap-0.5 sm:pr-1">
-          <span className="whitespace-nowrap text-[13px] font-semibold leading-tight text-[#111113] sm:text-[15px]">
-            <span className="text-[#16a34a]">Save 25%</span><span className="hidden sm:inline"> on your plan</span>
+        <span className="flex min-w-0 flex-col gap-0.5 lg:pr-1">
+          <span className="whitespace-nowrap text-[13px] font-semibold leading-tight text-[#111113] lg:text-[15px]">
+            <span className="text-[#16a34a]">Save 25%</span><span className="hidden lg:inline"> on your plan</span>
           </span>
-          <span className="whitespace-nowrap text-[12px] font-medium leading-tight text-[#6b6b73] sm:text-[13px]">
-            <span className="sm:hidden">Ends in {time ? `${time.d} days` : "…"}</span>
-            <span className="hidden sm:inline">Offer ends 31 December 2026</span>
+          <span className="whitespace-nowrap text-[12px] font-medium leading-tight text-[#6b6b73] lg:text-[13px]">
+            <span className="lg:hidden">Ends in {time ? `${time.d} days` : "…"}</span>
+            <span className="hidden lg:inline">Offer ends 31 December 2026</span>
           </span>
         </span>
 
         {/* the live countdown, set off by thin dividers */}
-        <span className="hidden h-8 w-px flex-none bg-black/[0.08] sm:block" />
-        <span className="group/timer hidden cursor-default items-center gap-1.5 sm:flex" role="timer" aria-label="Time left on the offer">
+        <span className="hidden h-8 w-px flex-none bg-black/[0.08] lg:block" />
+        <span className="group/timer hidden cursor-default items-center gap-1.5 lg:flex" role="timer" aria-label="Time left on the offer">
           {time ? (
             <>
               <Tile i={0} value={time.d} label="days" />
@@ -130,17 +130,17 @@ export default function FloatingDock() {
             <span className="h-[52px] w-[226px]" />
           )}
         </span>
-        <span className="hidden h-8 w-px flex-none bg-black/[0.08] sm:block" />
+        <span className="hidden h-8 w-px flex-none bg-black/[0.08] lg:block" />
 
         <button
           type="button"
           tabIndex={show ? 0 : -1}
           onClick={() => openSheet("", "")}
-          className="group inline-flex h-11 flex-none items-center gap-2 whitespace-nowrap rounded-2xl bg-[#111113] pl-4 pr-1.5 text-[14px] shadow-[0_10px_20px_-10px_rgba(17,17,19,0.7)] sm:h-[52px] sm:gap-3 sm:pl-5 sm:text-[15.5px] font-medium text-white transition-colors hover:bg-[#2a2a2e]"
+          className="group inline-flex h-11 flex-none items-center gap-2 whitespace-nowrap rounded-2xl bg-[#111113] pl-4 pr-1.5 text-[14px] shadow-[0_10px_20px_-10px_rgba(17,17,19,0.7)] lg:h-[52px] lg:gap-3 lg:pl-5 lg:text-[15.5px] font-medium text-white transition-colors hover:bg-[#2a2a2e]"
         >
-          <span className="hidden sm:inline">Claim my demo</span>
-          <span className="sm:hidden">Claim</span>
-          <span className="grid size-8 place-items-center rounded-xl bg-white/15 sm:size-10 transition-transform group-hover:translate-x-0.5">
+          <span className="hidden lg:inline">Claim my demo</span>
+          <span className="lg:hidden">Claim</span>
+          <span className="grid size-8 place-items-center rounded-xl bg-white/15 lg:size-10 transition-transform group-hover:translate-x-0.5">
             <ArrowRight weight="bold" className="size-3.5" />
           </span>
         </button>

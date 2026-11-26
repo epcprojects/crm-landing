@@ -284,7 +284,7 @@ export default function OptionTwoPage() {
 
         <main id="top">
           {/* hero */}
-          <section className="relative overflow-hidden bg-white px-5 pb-10 pt-36 sm:px-10 sm:pt-44 [@media(min-width:1024px)_and_(max-height:820px)]:!pt-28">
+          <section className="relative overflow-hidden bg-white px-5 pb-10 pt-36 sm:px-10 sm:pt-44 [@media(min-width:1024px)_and_(min-height:701px)_and_(max-height:820px)]:!pt-28 [@media(min-width:1024px)_and_(max-height:700px)]:!pt-24">
             {/* a sharp sky photo with clouds (AI-made, public/option-2/sky.webp),
                 fading into white at the bottom */}
             <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 bottom-24 sm:bottom-32">
@@ -419,7 +419,8 @@ export default function OptionTwoPage() {
           <section id="features" className="scroll-mt-28 px-5 py-16 sm:px-10 sm:py-24">
             <div className="mx-auto flex max-w-6xl flex-col gap-12">
               <SectionHead eyebrow="The problem" title={<>Your office is busy. Are your<br className="hidden sm:block" /> clients moving <Mark id="features-underline">forward?</Mark></>} />
-              <ul className="grid gap-4 sm:grid-cols-3">
+              {/* one column on phones, two on tablets (the third spans both), three on laptops */}
+              <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 [&>li:last-child]:sm:col-span-2 [&>li:last-child]:lg:col-span-1">
                 {[
                   { title: "Clients wait for answers", line: "Nobody is sure whose job it is to reply.", picture: <WaitingLeads /> },
                   { title: "Follow-ups live in heads", line: "Next steps are scattered across chats and memory.", picture: <NotesFollowUps /> },
