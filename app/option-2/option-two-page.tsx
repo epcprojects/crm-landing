@@ -18,6 +18,10 @@ import {
 import { Option2ContactProvider } from "./demo-popup";
 import Faq from "./faq";
 import WhyStack from "./why-stack";
+import WhyStackCopy from "./why-stack-copy";
+
+/** The duplicate "Why Endpoint Leads" deck stays hidden until this is true. */
+const SHOW_WHY_COPY = false;
 import { Option2Footer, Option2Header } from "./chrome";
 import BackToTop from "../components/back-to-top";
 import FloatingDock from "./floating-dock";
@@ -481,6 +485,8 @@ export default function OptionTwoPage() {
 
           {/* why Endpoint Leads: a sticky card deck like the reference */}
           <WhyStack />
+          {/* the duplicate of the card deck above, hidden for now */}
+          {SHOW_WHY_COPY && <WhyStackCopy />}
 
           {/* plans */}
           <section id="plans" className="scroll-mt-28 px-4 py-8 sm:px-10 sm:py-24">
