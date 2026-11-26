@@ -18,7 +18,7 @@ const sections = [
 
 /** In-page anchors on the landing page, full links from anywhere else. */
 function links(onLanding: boolean) {
-  return sections.map((s) => ({ label: s.label, href: onLanding ? `#${s.id}` : `/option-2#${s.id}` }));
+  return sections.map((s) => ({ label: s.label, href: onLanding ? `#${s.id}` : `/#${s.id}` }));
 }
 
 export function Option2Header({ onLanding = false }: { onLanding?: boolean }) {
@@ -29,7 +29,7 @@ export function Option2Header({ onLanding = false }: { onLanding?: boolean }) {
         aria-label="Primary"
         className="pointer-events-auto relative mx-auto flex max-w-4xl items-center justify-between gap-3 rounded-full border border-black/[0.06] bg-white/85 py-2 pl-3 pr-2 shadow-[0_12px_30px_-18px_rgba(17,17,19,0.35)] backdrop-blur-xl"
       >
-        <a href={onLanding ? "#top" : "/option-2"} aria-label="Endpoint Leads home" className="flex-none">
+        <a href={onLanding ? "#top" : "/"} aria-label="Endpoint Leads home" className="flex-none">
           <Image src="/option-2/endpoint-leads-teal.svg" alt="Endpoint Leads" width={1656} height={708} className="-my-2 h-14 w-auto" />
         </a>
         <span className="hidden items-center gap-1 md:flex">
@@ -71,8 +71,8 @@ export function Option2Footer({ onLanding = false }: { onLanding?: boolean }) {
             <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-[#6b6b72]">Information</p>
             {/* opens the demo popup, like every other contact button */}
             <OpenContact className="self-start text-left hover:text-[#5b5b63]">Contact</OpenContact>
-            <Link href="/option-2/privacy-policy" className="hover:text-[#5b5b63]">Privacy</Link>
-            <Link href="/option-2/policy-for-automation" className="hover:text-[#5b5b63]">Automation terms</Link>
+            <Link href="/privacy-policy" className="hover:text-[#5b5b63]">Privacy</Link>
+            <Link href="/policy-for-automation" className="hover:text-[#5b5b63]">Automation terms</Link>
             <a href={siteConfig.signInHref} className="hover:text-[#5b5b63]">Sign in</a>
           </nav>
         </div>

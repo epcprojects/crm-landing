@@ -1,5 +1,5 @@
-// An Option 3 legal page: Option 3's pill menu and sky footer around the
-// shared legal document, shown in Option 3's look.
+// An Option 2 legal page: Option 2's pill menu and sky footer around the
+// shared legal document, shown in Option 2's look.
 
 import { Option2ContactProvider } from "./demo-popup";
 import { LegalBody } from "../components/legal-page";
@@ -19,7 +19,7 @@ export default function Option2Legal({ document, currentPath }: { document: Lega
     <Option2ContactProvider>
       <div className="bg-white text-[#111113]">
         <Option2Header />
-        <LegalBody document={document} currentPath={currentPath} variant="option-2" pageBase="/option-3" icon={icons[currentPath]} />
+        <LegalBody document={document} currentPath={currentPath} variant="option-2" icon={icons[currentPath]} />
         <Option2SkyFooter />
         <BackToTop shape="circle" />
       </div>
