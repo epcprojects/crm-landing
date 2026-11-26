@@ -30,7 +30,7 @@ function Person({ src, name, office }: { src: string; name: string; office: stri
   );
 }
 
-const card = "rounded-[24px] bg-[#1e2633] p-6 sm:p-7";
+const card = "rounded-[20px] bg-[#1e2633] p-5 sm:rounded-[24px] sm:p-7";
 
 // reviews in the scrolling column (the same sample quotes as the home page)
 const scrolling = [
@@ -49,13 +49,13 @@ const stats = [
 
 export default function Testimonials() {
   return (
-    <section id="reviews" className="scroll-mt-28 bg-[#0a0a0b] px-5 py-20 text-white sm:px-10 sm:py-28">
-      <div className="mx-auto flex max-w-6xl flex-col gap-12">
+    <section id="reviews" className="scroll-mt-28 bg-[#0a0a0b] px-4 py-8 text-white sm:px-10 sm:py-28">
+      <div className="mx-auto flex max-w-6xl flex-col gap-6 sm:gap-12">
         {/* heading row */}
-        <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
-          <div className="flex flex-col items-start gap-5">
+        <div className="flex flex-col justify-between gap-4 sm:gap-8 lg:flex-row lg:items-end">
+          <div className="flex flex-col items-start gap-3 sm:gap-5">
             <span className="rounded-full bg-white/10 px-3 py-1.5 text-[13px] text-white/90">Testimonials</span>
-            <h2 className="text-[clamp(2.2rem,4.6vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.04em]">
+            <h2 className="text-[1.75rem] sm:text-[clamp(2.2rem,4.6vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.04em]">
               What offices say
               <br />
               about{" "}
@@ -82,8 +82,8 @@ export default function Testimonials() {
               </span>
             </h2>
           </div>
-          <div className="flex max-w-sm flex-col items-start gap-5">
-            <p className="text-[17px] leading-relaxed text-white/80">
+          <div className="flex max-w-sm flex-col items-start gap-4 sm:gap-5">
+            <p className="text-[15px] leading-relaxed text-white/80 sm:text-[17px]">
               We believe every client deserves a fast reply and a clear next step.
             </p>
             <DemoButton light>Book your free demo</DemoButton>
@@ -91,12 +91,12 @@ export default function Testimonials() {
         </div>
 
         {/* review grid */}
-        <div className="grid gap-4 lg:grid-cols-3">
+        <div className="grid gap-3 sm:gap-4 lg:grid-cols-3">
           {/* one big quote */}
-          <figure className={`${card} flex min-h-[420px] flex-col justify-between gap-10`}>
+          <figure className={`${card} flex flex-col justify-between gap-6 sm:min-h-[420px] sm:gap-10`}>
             <div className="flex flex-col gap-6">
               <Stars />
-              <blockquote className="text-[clamp(1.5rem,2.4vw,1.9rem)] font-medium leading-[1.25] tracking-[-0.02em]">
+              <blockquote className="text-[1.3rem] sm:text-[clamp(1.5rem,2.4vw,1.9rem)] font-medium leading-[1.25] tracking-[-0.02em]">
                 &ldquo;For the first time I can see who is closing and who is slow to reply, without asking anyone.&rdquo;
               </blockquote>
             </div>
@@ -106,10 +106,10 @@ export default function Testimonials() {
           {/* a quote with a video still, like a recorded review */}
           <figure className={`${card} flex flex-col gap-5`}>
             <Stars />
-            <blockquote className="text-[16px] leading-relaxed text-white/90">
+            <blockquote className="text-[15px] leading-relaxed text-white/90 sm:text-[16px]">
               &ldquo;Clients used to wait hours for an answer. Now every enquiry has an owner and gets a reply the same hour.&rdquo;
             </blockquote>
-            <div className="relative min-h-[340px] flex-1 overflow-hidden rounded-[18px]">
+            <div className="relative min-h-[280px] flex-1 overflow-hidden rounded-[16px] sm:min-h-[340px] sm:rounded-[18px]">
               <Image src="/option-2/review-video-camera.webp" alt="Fatima Raza from Raza Estates talking to the camera" fill sizes="(min-width: 1024px) 360px, 100vw" className="object-cover" />
               <span aria-hidden="true" className="absolute left-1/2 top-1/2 grid size-[72px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-white/70 bg-white/80 text-[#111113] shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)] backdrop-blur-md">
                 <Play weight="fill" className="ml-1 size-7" />
@@ -123,13 +123,13 @@ export default function Testimonials() {
 
           {/* quote cards drifting upward in a loop; the list is doubled so
               the loop has no seam, and the copy is hidden from screen readers */}
-          <div className="ticker-y-box relative h-[520px] overflow-hidden lg:h-auto">
-            <div className="ticker-y flex flex-col gap-4 lg:absolute lg:inset-x-0 lg:top-0">
+          <div className="ticker-y-box relative h-[440px] overflow-hidden sm:h-[520px] lg:h-auto">
+            <div className="ticker-y flex flex-col gap-3 sm:gap-4 lg:absolute lg:inset-x-0 lg:top-0">
               {[...scrolling, ...scrolling].map((r, i) => (
                 <figure key={i} aria-hidden={i >= scrolling.length} className={`${card} flex flex-col gap-6`}>
                   <div className="flex flex-col gap-4">
                     <Stars />
-                    <blockquote className="text-[16px] leading-relaxed text-white/90">&ldquo;{r.quote}&rdquo;</blockquote>
+                    <blockquote className="text-[15px] leading-relaxed text-white/90 sm:text-[16px]">&ldquo;{r.quote}&rdquo;</blockquote>
                   </div>
                   <Person src={r.avatar} name={r.name} office={r.office} />
                 </figure>
@@ -139,14 +139,14 @@ export default function Testimonials() {
         </div>
 
         {/* numbers with clay icons */}
-        <ul className="-mt-8 grid gap-4 sm:-mt-8 sm:grid-cols-3">
+        <ul className="-mt-3 grid grid-cols-3 gap-2 sm:-mt-8 sm:gap-4">
           {stats.map((st) => (
             <li key={st.label} className={`${card} flex flex-col gap-1`}>
-              <p className="text-[clamp(2rem,3.4vw,2.6rem)] font-medium leading-none tracking-[-0.03em]">
+              <p className="text-[1.5rem] font-medium leading-none tracking-[-0.03em] sm:text-[clamp(2rem,3.4vw,2.6rem)]">
                 {st.value}
                 {st.unit && <span className="ml-0.5 text-[0.45em] text-white/70">{st.unit}</span>}
               </p>
-              <p className="text-[15px] text-white/55">{st.label}</p>
+              <p className="text-[12px] leading-snug text-white/55 sm:text-[15px]">{st.label}</p>
               <Image src={`/option-2/${st.icon}.webp`} alt="" width={64} height={64} className="-ml-1 mt-6 size-14 [mask-image:radial-gradient(circle,#000_55%,transparent_72%)]" />
             </li>
           ))}

@@ -37,12 +37,12 @@ export default function Faq() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section id="faq" aria-labelledby="faq-heading" className="scroll-mt-28 px-5 py-16 sm:px-10 sm:py-24">
-      <div className="mx-auto flex max-w-5xl flex-col gap-12 sm:gap-16">
+    <section id="faq" aria-labelledby="faq-heading" className="scroll-mt-28 px-4 py-8 sm:px-10 sm:py-24">
+      <div className="mx-auto flex max-w-5xl flex-col gap-6 sm:gap-16">
         {/* heading */}
-        <div className="flex flex-col items-center gap-5 text-center">
-          <span className="rounded-full bg-[#f3f4f6] px-3 py-1.5 text-[13px] font-medium text-[#111113]">FAQ</span>
-          <h2 id="faq-heading" className="text-[clamp(2.1rem,4.4vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.04em] text-balance">
+        <div className="flex flex-col items-center gap-3 text-center sm:gap-5">
+          <span className="rounded-full bg-[#f3f4f6] px-3 py-1.5 text-[12.5px] font-medium text-[#111113] sm:text-[13px]">FAQ</span>
+          <h2 id="faq-heading" className="text-[1.75rem] sm:text-[clamp(2.1rem,4.4vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.04em] text-balance">
             Everything you need to know
             <br className="hidden sm:block" /> before your{" "}
             <span className="relative inline-block">
@@ -60,12 +60,12 @@ export default function Faq() {
           </h2>
         </div>
 
-        <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.6fr)] lg:gap-12">
+        <div className="grid items-start gap-5 sm:gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.6fr)] lg:gap-12">
           {/* talk to us */}
-          <div className="flex flex-col items-start gap-5 rounded-[24px] bg-[#f3f0eb] p-6 sm:p-7">
-            <Image src="/option-2/help-chat-w.webp" alt="" width={128} height={128} className="size-24 mix-blend-multiply" />
-            <div className="mt-4 flex flex-col gap-2">
-              <h3 className="text-[22px] font-medium tracking-[-0.02em] text-[#111113]">Talk to us</h3>
+          <div className="flex flex-col items-start gap-3 rounded-[20px] bg-[#f3f0eb] p-5 sm:gap-5 sm:rounded-[24px] sm:p-7">
+            <Image src="/option-2/help-chat-w.webp" alt="" width={128} height={128} className="size-16 mix-blend-multiply sm:size-24" />
+            <div className="mt-1 flex flex-col gap-1.5 sm:mt-4 sm:gap-2">
+              <h3 className="text-[19px] font-medium tracking-[-0.02em] text-[#111113] sm:text-[22px]">Talk to us</h3>
               <p className="text-[15px] leading-relaxed text-[#5b5b63]">
                 Our team is here to help. Send us a message and we will reply shortly.
               </p>
@@ -88,7 +88,7 @@ export default function Faq() {
                       aria-expanded={isOpen}
                       aria-controls={`faq-a-${index}`}
                       onClick={() => setOpen(isOpen ? null : index)}
-                      className="group flex w-full items-center justify-between gap-6 py-5 text-left text-[16px] font-medium text-[#111113] sm:py-6 sm:text-[17px]"
+                      className="group flex w-full items-center justify-between gap-4 py-4 text-left text-[15px] sm:gap-6 font-medium text-[#111113] sm:py-6 sm:text-[17px]"
                     >
                       {item.q}
                       <Plus
@@ -105,7 +105,7 @@ export default function Faq() {
                     style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
                   >
                     <div className="overflow-hidden">
-                      <p className="max-w-[36rem] pb-6 pr-10 text-[15px] leading-relaxed text-[#5b5b63]">{item.a}</p>
+                      <p className="max-w-[36rem] pb-4 pr-6 text-[14px] leading-relaxed text-[#5b5b63] sm:pb-6 sm:pr-10 sm:text-[15px]">{item.a}</p>
                     </div>
                   </div>
                 </li>

@@ -52,11 +52,11 @@ export function Option2Header({ onLanding = false }: { onLanding?: boolean }) {
 export function Option2Footer({ onLanding = false }: { onLanding?: boolean }) {
   const nav = links(onLanding);
   return (
-    <footer className="relative px-4 pb-6 sm:px-10 sm:pb-10">
-      <div className="mx-auto flex max-w-5xl flex-col gap-10 rounded-[26px] bg-white/55 p-7 backdrop-blur-md sm:p-10">
-        <div className="grid gap-10 sm:grid-cols-[1.6fr_1fr_1fr]">
-          <div className="flex flex-col gap-4">
-            <Image src="/endpoint-leads-dark.svg" alt="Endpoint Leads" width={1656} height={708} className="-mb-7 -ml-[23px] h-24 w-auto self-start" />
+    <footer className="relative px-4 pb-4 sm:px-10 sm:pb-10">
+      <div className="mx-auto flex max-w-5xl flex-col gap-6 rounded-[22px] bg-white/55 p-5 backdrop-blur-md sm:gap-10 sm:rounded-[26px] sm:p-10">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-[1.6fr_1fr_1fr] sm:gap-10">
+          <div className="col-span-2 flex flex-col gap-4 sm:col-span-1">
+            <Image src="/endpoint-leads-dark.svg" alt="Endpoint Leads" width={1656} height={708} className="-mb-6 -ml-[19px] h-20 w-auto self-start sm:-mb-7 sm:-ml-[23px] sm:h-24" />
             <p className="max-w-xs text-[14px] leading-relaxed text-[#3d3d44]">The CRM for real estate offices. Every client and every conversation in one place.</p>
           </div>
           <nav aria-label="Pages" className="flex flex-col gap-2.5 text-[14px]">
@@ -76,7 +76,7 @@ export function Option2Footer({ onLanding = false }: { onLanding?: boolean }) {
             <a href={siteConfig.signInHref} className="hover:text-[#5b5b63]">Sign in</a>
           </nav>
         </div>
-        <div className="flex flex-col justify-between gap-3 border-t border-black/[0.08] pt-6 text-[13px] text-[#5b5b63] sm:flex-row">
+        <div className="flex flex-col justify-between gap-2 border-t border-black/[0.08] pt-4 text-[12.5px] sm:gap-3 sm:pt-6 sm:text-[13px] text-[#5b5b63] sm:flex-row">
           <span>
             © 2026 Endpoint Leads · Built by{" "}
             <a href="https://www.endpointclients.com/" target="_blank" rel="noopener noreferrer" className="font-medium text-[#111113] underline decoration-black/20 underline-offset-4 transition-colors hover:decoration-[#111113]">

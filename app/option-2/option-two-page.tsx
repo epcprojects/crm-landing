@@ -70,8 +70,8 @@ const guides = [
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function Guides() {
   return (
-    <section id="guides" className="scroll-mt-28 px-5 py-16 sm:px-10 sm:py-24">
-      <div className="mx-auto flex max-w-6xl flex-col gap-12">
+    <section id="guides" className="scroll-mt-28 px-4 py-8 sm:px-10 sm:py-24">
+      <div className="mx-auto flex max-w-6xl flex-col gap-6 sm:gap-12">
         <SectionHead eyebrow="Guides" title={<>Ideas to run a<br /> calmer real estate office</>} />
         <article className="grid overflow-hidden rounded-[26px] bg-[#f4f6f9] p-3 lg:grid-cols-[1.1fr_1fr]">
           <div className="relative aspect-[4/3] overflow-hidden rounded-[20px]">
@@ -138,10 +138,10 @@ function Mark({ id, children }: { id: string; children: ReactNode }) {
 /** Section heading styled like the FAQ: a grey pill, then the headline. */
 function SectionHead({ eyebrow, title, line }: { eyebrow: string; title: ReactNode; line?: string }) {
   return (
-    <div className="flex flex-col items-center gap-5 text-center">
-      <span className="rounded-full bg-[#f3f4f6] px-3 py-1.5 text-[13px] font-medium text-[#111113]">{eyebrow}</span>
-      <h2 className="text-[clamp(2.1rem,4.4vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.04em] text-balance">{title}</h2>
-      {line && <p className="max-w-[34rem] text-[17px] text-[#5b5b63]">{line}</p>}
+    <div className="flex flex-col items-center gap-3 text-center sm:gap-5">
+      <span className="rounded-full bg-[#f3f4f6] px-3 py-1.5 text-[12.5px] font-medium text-[#111113] sm:text-[13px]">{eyebrow}</span>
+      <h2 className="text-[1.75rem] sm:text-[clamp(2.1rem,4.4vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.04em] text-balance">{title}</h2>
+      {line && <p className="max-w-[34rem] text-[15px] text-[#5b5b63] sm:text-[17px]">{line}</p>}
     </div>
   );
 }
@@ -151,7 +151,7 @@ function FloatCard({ className, delay = 0, children }: { className: string; dela
   return (
     <div aria-hidden="true" className={`pointer-events-none absolute z-10 ${className}`}>
       <div
-        className="pw-float flex items-center gap-2.5 rounded-2xl border border-black/[0.05] bg-white py-2 pl-2 pr-3.5 shadow-[0_1px_2px_rgba(16,24,40,0.06),0_16px_32px_-14px_rgba(16,24,40,0.35)]"
+        className="pw-float flex origin-center items-center gap-2 rounded-2xl border max-sm:scale-[0.82] sm:gap-2.5 border-black/[0.05] bg-white py-2 pl-2 pr-3.5 shadow-[0_1px_2px_rgba(16,24,40,0.06),0_16px_32px_-14px_rgba(16,24,40,0.35)]"
         style={{ "--f": `${-delay}s` } as CSSProperties}
       >
         {children}
@@ -191,12 +191,12 @@ function Screen({ active, children }: { active: string; children: ReactNode }) {
 /** A moving row of office names, faded at both ends. */
 function Offices({ label }: { label?: string }) {
   return (
-    <div className="flex flex-col items-center gap-6 px-5 py-12">
+    <div className="flex flex-col items-center gap-6 px-4 py-6 sm:py-12">
       {label && <p className="text-[14px] text-[#6b6b72]">{label}</p>}
       <div className="w-full max-w-5xl overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_12%,#000_88%,transparent)]">
-        <div className="ticker-track flex w-max gap-14">
+        <div className="ticker-track flex w-max gap-9 sm:gap-14">
           {[...offices, ...offices, ...offices, ...offices].map((name, i) => (
-            <span key={i} className="whitespace-nowrap text-[22px] font-semibold tracking-[-0.03em] text-[#9a9aa2]">
+            <span key={i} className="whitespace-nowrap text-[18px] font-semibold tracking-[-0.03em] text-[#9a9aa2] sm:text-[22px]">
               {name}
             </span>
           ))}
@@ -229,20 +229,20 @@ function Split({
   children: ReactNode;
 }) {
   return (
-    <section id={id} className="scroll-mt-28 px-5 py-16 sm:px-10 sm:py-24">
-      <div className={`mx-auto grid w-full max-w-6xl items-center gap-10 lg:gap-14 ${flip ? "lg:grid-cols-[1fr_1.2fr]" : "lg:grid-cols-[1.2fr_1fr]"}`}>
+    <section id={id} className="scroll-mt-28 px-4 py-8 sm:px-10 sm:py-24">
+      <div className={`mx-auto grid w-full max-w-6xl items-center gap-6 sm:gap-10 lg:gap-14 ${flip ? "lg:grid-cols-[1fr_1.2fr]" : "lg:grid-cols-[1.2fr_1fr]"}`}>
         {/* the whole dashboard, scaled down to fit the panel */}
-        <div className={`relative overflow-hidden rounded-[28px] p-4 sm:p-7 ${flip ? "lg:order-2" : ""}`} style={{ background: panel }}>
+        <div className={`relative overflow-hidden rounded-[22px] p-3 sm:rounded-[28px] sm:p-7 ${flip ? "lg:order-2" : ""}`} style={{ background: panel }}>
           <FitScale width={900}>{children}</FitScale>
           {floats}
         </div>
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-3 sm:gap-5">
           <Eyebrow>{eyebrow}</Eyebrow>
-          <h2 className="text-[clamp(1.9rem,3.4vw,2.75rem)] font-semibold leading-[1.08] tracking-[-0.035em] text-balance">{title}</h2>
-          <p className="max-w-[30rem] text-[17px] leading-relaxed text-[#5b5b63]">{line}</p>
+          <h2 className="text-[1.6rem] sm:text-[clamp(1.9rem,3.4vw,2.75rem)] font-semibold leading-[1.08] tracking-[-0.035em] text-balance">{title}</h2>
+          <p className="max-w-[30rem] text-[15px] leading-relaxed text-[#5b5b63] sm:text-[17px]">{line}</p>
           {/* the button on the left, the tags as clay icons on the far right:
               spaced apart on bigger screens, overlapping on phones */}
-          <div className="flex w-full max-w-[30rem] flex-wrap items-center justify-between gap-x-5 gap-y-4">
+          <div className="mt-1 flex w-full max-w-[30rem] flex-wrap items-center justify-between gap-x-4 gap-y-3 sm:mt-0 sm:gap-x-5 sm:gap-y-4">
             <DemoButton>Get a free demo</DemoButton>
             <ul className="tag-wave ml-auto flex items-center -space-x-2.5 sm:gap-2.5 sm:space-x-0">
               {tags.map((tag, i) => (
@@ -256,10 +256,11 @@ function Split({
                   {/* tooltip above the icon on hover or keyboard focus */}
                   <span
                     aria-hidden="true"
-                    className="pointer-events-none absolute bottom-full left-1/2 mb-2.5 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded-lg bg-[#111113] px-2.5 py-1.5 text-[12.5px] font-medium text-white opacity-0 shadow-[0_8px_20px_-8px_rgba(17,17,19,0.5)] transition-[opacity,transform] duration-200 group-hover/tag:translate-y-0 group-hover/tag:opacity-100 group-focus-visible/tag:translate-y-0 group-focus-visible/tag:opacity-100"
+                    className={`pointer-events-none absolute bottom-full mb-2.5 translate-y-1 whitespace-nowrap ${i === tags.length - 1 ? "right-0" : "left-1/2 -translate-x-1/2"} rounded-lg bg-[#111113] px-2.5 py-1.5 text-[12.5px] font-medium text-white opacity-0 shadow-[0_8px_20px_-8px_rgba(17,17,19,0.5)] transition-[opacity,transform] duration-200 group-hover/tag:translate-y-0 group-hover/tag:opacity-100 group-focus-visible/tag:translate-y-0 group-focus-visible/tag:opacity-100`}
                   >
                     {tag.label}
-                    <span className="absolute left-1/2 top-full -translate-x-1/2 border-x-[5px] border-t-[5px] border-x-transparent border-t-[#111113]" />
+                    {/* the last tooltip sits right-aligned so it never pokes past the screen edge */}
+                    <span className={`absolute top-full border-x-[5px] ${i === tags.length - 1 ? "right-4" : "left-1/2 -translate-x-1/2"} border-t-[5px] border-x-transparent border-t-[#111113]`} />
                   </span>
                 </li>
               ))}
@@ -282,7 +283,7 @@ export default function OptionTwoPage() {
 
         <main id="top">
           {/* hero */}
-          <section className="relative overflow-hidden bg-white px-5 pb-10 pt-36 sm:px-10 sm:pt-44 [@media(min-width:1024px)_and_(min-height:701px)_and_(max-height:820px)]:!pt-28 [@media(min-width:1024px)_and_(max-height:700px)]:!pt-24">
+          <section className="relative overflow-hidden bg-white px-4 pb-8 pt-28 sm:px-10 sm:pb-10 sm:pt-44 [@media(min-width:1024px)_and_(min-height:701px)_and_(max-height:820px)]:!pt-28 [@media(min-width:1024px)_and_(max-height:700px)]:!pt-24">
             {/* a sharp sky photo with clouds (AI-made, public/option-2/sky.webp),
                 fading into white at the bottom */}
             <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 bottom-24 sm:bottom-32">
@@ -290,8 +291,8 @@ export default function OptionTwoPage() {
               <span className="absolute inset-x-0 -bottom-px h-28 bg-gradient-to-b from-transparent to-white sm:h-36" />
             </div>
             {/* words on the left, the demo form on the right */}
-            <div className="relative mx-auto grid max-w-6xl items-center gap-10 pb-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:pb-16">
-              <div className="flex flex-col items-start gap-6 text-left">
+            <div className="relative mx-auto grid max-w-6xl items-center gap-8 sm:gap-10 sm:pb-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:pb-16">
+              <div className="flex flex-col items-start gap-4 text-left sm:gap-6">
                 {/* the same headline, line and buttons as the home page hero */}
                 {/* a short punch line above the headline, in a white pill */}
                 <p className="inline-flex items-center gap-2 rounded-full border border-black/[0.04] bg-white py-1.5 pl-3 pr-3.5 text-[14px] font-medium text-[#111113] shadow-[0_1px_2px_rgba(17,17,19,0.05),0_8px_20px_-12px_rgba(25,55,100,0.3)]">
@@ -302,10 +303,10 @@ export default function OptionTwoPage() {
                   </span>
                   Stop chasing leads. Start closing them.
                 </p>
-                <h1 className="text-[clamp(2.25rem,5vw,3.75rem)] lg:text-[clamp(2.25rem,4.6vw,3.75rem)] font-semibold leading-[1.04] tracking-[-0.045em] text-balance">
+                <h1 className="text-[2rem] sm:text-[clamp(2.25rem,5vw,3.75rem)] lg:text-[clamp(2.25rem,4.6vw,3.75rem)] font-semibold leading-[1.04] tracking-[-0.045em] text-balance">
                   Manage your complete <span className="whitespace-nowrap">real estate</span> business from one place.
                 </h1>
-                <p className="max-w-[34rem] text-[18px] leading-relaxed text-[#3d3d44]">
+                <p className="max-w-[34rem] text-[16px] leading-relaxed text-[#3d3d44] sm:text-[18px]">
                   Complete transparency and control over your real estate business, so you can
                   scale it in less time.
                 </p>
@@ -335,8 +336,8 @@ export default function OptionTwoPage() {
           <Offices />
 
           {/* work from anywhere */}
-          <section id="devices" className="scroll-mt-28 px-5 py-16 sm:px-10 sm:py-20">
-            <div className="mx-auto flex max-w-6xl flex-col gap-12">
+          <section id="devices" className="scroll-mt-28 px-4 py-8 sm:px-10 sm:py-20">
+            <div className="mx-auto flex max-w-6xl flex-col gap-6 sm:gap-12">
               <SectionHead eyebrow="Seamless across devices" title={<>Works on both<br className="hidden sm:block" /> Mobile and <Mark id="devices-underline">Computer</Mark></>} />
               <Devices />
             </div>
@@ -414,38 +415,41 @@ export default function OptionTwoPage() {
           {/* the problems: Option 2's layout and type (three smaller cards,
               then two big ones), with the home page problem section's words and
               live widgets */}
-          <section id="features" className="scroll-mt-28 px-5 py-16 sm:px-10 sm:py-24">
-            <div className="mx-auto flex max-w-6xl flex-col gap-12">
+          <section id="features" className="scroll-mt-28 px-4 py-8 sm:px-10 sm:py-24">
+            <div className="mx-auto flex max-w-6xl flex-col gap-6 sm:gap-12">
               <SectionHead eyebrow="The problem" title={<>Your office is busy. Are your<br className="hidden sm:block" /> clients moving <Mark id="features-underline">forward?</Mark></>} />
+              {/* both rows of cards in one group, so the gap between the rows matches the gap between cards */}
+              <div className="flex flex-col gap-3 sm:gap-4">
               {/* one column on phones, two on tablets (the third spans both), three on laptops */}
-              <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 [&>li:last-child]:sm:col-span-2 [&>li:last-child]:lg:col-span-1">
+              <ul className="grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3 [&>li:last-child]:sm:col-span-2 [&>li:last-child]:lg:col-span-1">
                 {[
                   { title: "Clients wait for answers", line: "Nobody is sure whose job it is to reply.", picture: <WaitingLeads /> },
                   { title: "Follow-ups live in heads", line: "Next steps are scattered across chats and memory.", picture: <NotesFollowUps /> },
                   { title: "Deals go quiet", line: "Interested buyers go cold before anyone notices.", picture: <QuietLead /> },
                 ].map((c) => (
-                  <li key={c.title} className="flex min-w-0 flex-col gap-4 overflow-hidden rounded-[24px] bg-[#f3f0eb] p-6 sm:p-7">
-                    <h3 className="text-[19px] font-semibold tracking-[-0.015em]">{c.title}</h3>
-                    <p className="-mt-2.5 text-[15px] leading-relaxed text-[#5b5b63]">{c.line}</p>
-                    <Reveal className="mt-auto pt-4">
+                  <li key={c.title} className="flex min-w-0 flex-col gap-3 overflow-hidden rounded-[20px] bg-[#f3f0eb] p-5 sm:gap-4 sm:rounded-[24px] sm:p-7">
+                    <h3 className="text-[17px] font-semibold tracking-[-0.015em] sm:text-[19px]">{c.title}</h3>
+                    <p className="-mt-1.5 text-[14px] leading-relaxed text-[#5b5b63] sm:-mt-2.5 sm:text-[15px]">{c.line}</p>
+                    <Reveal className="mt-auto pt-2 sm:pt-4">
                       <div aria-hidden="true">{c.picture}</div>
                     </Reveal>
                   </li>
                 ))}
               </ul>
-              <div className="grid grid-cols-[minmax(0,1fr)] gap-4 lg:grid-cols-2">
+              <div className="grid grid-cols-[minmax(0,1fr)] gap-3 sm:gap-4 lg:grid-cols-2">
                 {[
                   { title: "No view of your agents", line: "You can’t see who is closing and who needs help.", picture: <AgentBreakdown /> },
                   { title: "No picture of your pipeline", line: "You can’t tell how many leads sit at each stage.", picture: <StageCounts /> },
                 ].map((c) => (
-                  <article key={c.title} className="flex min-w-0 flex-col gap-4 rounded-[24px] bg-[#f3f0eb] p-6 sm:p-8">
-                    <h3 className="text-[24px] font-semibold leading-tight tracking-[-0.02em]">{c.title}</h3>
-                    <p className="text-[15px] leading-relaxed text-[#5b5b63]">{c.line}</p>
-                    <Reveal className="mt-auto w-full pt-4">
+                  <article key={c.title} className="flex min-w-0 flex-col gap-3 rounded-[20px] bg-[#f3f0eb] p-5 sm:gap-4 sm:rounded-[24px] sm:p-8">
+                    <h3 className="text-[20px] font-semibold leading-tight tracking-[-0.02em] sm:text-[24px]">{c.title}</h3>
+                    <p className="text-[14px] leading-relaxed text-[#5b5b63] sm:text-[15px]">{c.line}</p>
+                    <Reveal className="mt-auto w-full pt-2 sm:pt-4">
                       <div aria-hidden="true">{c.picture}</div>
                     </Reveal>
                   </article>
                 ))}
+              </div>
               </div>
             </div>
           </section>
@@ -457,12 +461,12 @@ export default function OptionTwoPage() {
           <WhyStack />
 
           {/* plans */}
-          <section id="plans" className="scroll-mt-28 px-5 py-16 sm:px-10 sm:py-24">
-            <div className="mx-auto flex max-w-6xl flex-col gap-12">
+          <section id="plans" className="scroll-mt-28 px-4 py-8 sm:px-10 sm:py-24">
+            <div className="mx-auto flex max-w-6xl flex-col gap-6 sm:gap-12">
               {/* heading styled like the FAQ: grey pill, green underline on one word */}
-              <div className="flex flex-col items-center gap-5 text-center">
-                <span className="rounded-full bg-[#f3f4f6] px-3 py-1.5 text-[13px] font-medium text-[#111113]">Plans</span>
-                <h2 className="text-[clamp(2.1rem,4.4vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.04em] text-balance">
+              <div className="flex flex-col items-center gap-3 text-center sm:gap-5">
+                <span className="rounded-full bg-[#f3f4f6] px-3 py-1.5 text-[12.5px] font-medium text-[#111113] sm:text-[13px]">Plans</span>
+                <h2 className="text-[1.75rem] sm:text-[clamp(2.1rem,4.4vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.04em] text-balance">
                   Simple plans
                   <br /> for busy{" "}
                   <span className="relative inline-block">
@@ -478,13 +482,13 @@ export default function OptionTwoPage() {
                     </svg>
                   </span>
                 </h2>
-                <p className="mt-1 max-w-[34rem] text-[17px] text-[#5b5b63]">The price depends on the size of your team. Book a demo and we will tell you straight away.</p>
+                <p className="mt-1 max-w-[34rem] text-[15px] text-[#5b5b63] sm:text-[17px]">The price depends on the size of your team. Book a demo and we will tell you straight away.</p>
               </div>
-              <div className="mx-auto grid w-full max-w-xl items-stretch gap-4 lg:max-w-none lg:grid-cols-3">
+              <div className="mx-auto grid w-full max-w-xl items-stretch gap-3 sm:gap-4 lg:max-w-none lg:grid-cols-3">
                 {plans.map((plan) => (
                   <div
                     key={plan.name}
-                    className={`flex flex-col gap-6 rounded-[26px] p-7 ${
+                    className={`flex flex-col gap-5 rounded-[22px] p-5 sm:gap-6 sm:rounded-[26px] sm:p-7 ${
                       plan.featured
                         ? "border border-[#9cc3ec] bg-[linear-gradient(180deg,#b9d6f2_0%,#e7f0f9_55%,#f6f1ea_100%)] shadow-[0_30px_60px_-36px_rgba(30,60,110,0.45)]"
                         : "border border-black/[0.06] bg-white"
@@ -495,12 +499,12 @@ export default function OptionTwoPage() {
                       {plan.featured && <span className="rounded-full bg-[#12b76a] px-2.5 py-1 text-[11px] font-semibold text-white">Most popular</span>}
                     </div>
                     <div>
-                      <p className="text-[36px] font-semibold leading-none tracking-[-0.04em]">{plan.price}</p>
-                      <p className="mt-3 text-[15px] text-[#5b5b63]">{plan.line}</p>
+                      <p className="text-[30px] font-semibold leading-none tracking-[-0.04em] sm:text-[36px]">{plan.price}</p>
+                      <p className="mt-2 text-[14px] text-[#5b5b63] sm:mt-3 sm:text-[15px]">{plan.line}</p>
                     </div>
-                    <ul className="flex flex-col gap-3">
+                    <ul className="flex flex-col gap-2.5 sm:gap-3">
                       {plan.items.map((item) => (
-                        <li key={item} className="flex items-center gap-2.5 text-[15px]">
+                        <li key={item} className="flex items-center gap-2.5 text-[14px] sm:text-[15px]">
                           <Check weight="bold" className="size-4 flex-none text-[#111113]" /> {item}
                         </li>
                       ))}
@@ -526,13 +530,13 @@ export default function OptionTwoPage() {
               <Image src="/option-2/sky.webp" alt="" fill sizes="100vw" className="object-cover object-bottom" />
             </div>
             {/* white fading down over the top, so the sky melts out of the FAQ with no edge */}
-            <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[linear-gradient(180deg,#ffffff_0%,rgba(255,255,255,0.85)_35%,rgba(255,255,255,0)_100%)] sm:h-80" />
+            <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[linear-gradient(180deg,#ffffff_0%,rgba(255,255,255,0.85)_35%,rgba(255,255,255,0)_100%)] sm:h-80" />
 
             {/* closing call to action */}
-            <section className="relative px-5 pb-16 pt-24 text-center sm:px-10 sm:pb-20 sm:pt-32">
-              <div className="mx-auto flex max-w-2xl flex-col items-center gap-5">
-                <h2 className="text-[clamp(2.2rem,5vw,4rem)] font-semibold leading-[1.03] tracking-[-0.04em]">Ready to get started</h2>
-                <p className="text-[17px] text-[#3d3d44]">A free 20-minute demo with your own team and clients in mind.</p>
+            <section className="relative px-4 py-8 text-center sm:px-10 sm:pb-20 sm:pt-32">
+              <div className="mx-auto flex max-w-2xl flex-col items-center gap-3 sm:gap-5">
+                <h2 className="text-[2rem] sm:text-[clamp(2.2rem,5vw,4rem)] font-semibold leading-[1.03] tracking-[-0.04em]">Ready to get started</h2>
+                <p className="text-[15px] text-[#3d3d44] sm:text-[17px]">A free 20-minute demo with your own team and clients in mind.</p>
                 <DemoButton>Book your free demo</DemoButton>
               </div>
             </section>
