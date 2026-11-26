@@ -1,3 +1,5 @@
+import nodemailer from "nodemailer";
+
 const TEAM_SIZES = new Set(["2–10", "5–10", "10–25", "11–25", "25–50", "50+"]);
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const REQUEST_ID_PATTERN = /^[0-9a-f-]{36}$/i;
@@ -31,6 +33,49 @@ function isValidEnquiry(value: unknown): value is DemoEnquiry {
     isString(enquiry.requestId) && REQUEST_ID_PATTERN.test(enquiry.requestId) &&
     (enquiry.website === undefined || isString(enquiry.website))
   );
+}
+
+async function sendLeadNotification(enquiry: DemoEnquiry) {
+  const host = process.env.SMTP_HOST?.trim();
+  const port = Number(process.env.SMTP_PORT || "465");
+  const user = process.env.SMTP_USER?.trim();
+  const password = process.env.SMTP_PASSWORD;
+  const recipient = process.env.LEAD_NOTIFICATION_EMAIL?.trim() || "info@endpointclients.com";
+
+  if (!host || !user || !password || !Number.isInteger(port) || port <= 0) {
+    console.error("SMTP environment variables are not configured correctly.");
+    return false;
+  }
+
+  const transporter = nodemailer.createTransport({
+    host,
+    port,
+    secure: port === 465,
+    auth: { user, pass: password },
+    connectionTimeout: 8_000,
+    greetingTimeout: 8_000,
+    socketTimeout: 10_000,
+  });
+
+  const email = enquiry.email.trim().toLowerCase();
+  await transporter.sendMail({
+    from: process.env.SMTP_FROM?.trim() || `"EndPoint Clients Website" <${user}>`,
+    to: recipient,
+    replyTo: email,
+    subject: "New demo request — EndPoint Clients",
+    text: [
+      "A new demo request was submitted from the Option 2 landing page.",
+      "",
+      `Business name: ${enquiry.businessName.trim()}`,
+      `Team size: ${enquiry.teamSize}`,
+      `Challenge: ${enquiry.challenge.trim()}`,
+      `Full name: ${enquiry.fullName.trim()}`,
+      `Phone: ${enquiry.phone.trim()}`,
+      `Email: ${email}`,
+    ].join("\n"),
+  });
+
+  return true;
 }
 
 export async function POST(request: Request) {
@@ -84,13 +129,26 @@ export async function POST(request: Request) {
       return Response.json({ error: "The request could not be saved." }, { status: 502 });
     }
 
-    const result = (await webhookResponse.json()) as { ok?: boolean; error?: string };
+    const result = (await webhookResponse.json()) as { ok?: boolean; duplicate?: boolean; error?: string };
     if (!result.ok) {
       console.error("Google Sheets webhook rejected the request.", result.error);
       return Response.json({ error: "The request could not be saved." }, { status: 502 });
     }
 
-    return Response.json({ ok: true });
+    if (result.duplicate) {
+      return Response.json({ ok: true, duplicate: true, emailSent: false });
+    }
+
+    let emailSent = false;
+    try {
+      emailSent = await sendLeadNotification(body);
+    } catch (error) {
+      // The lead is already safely stored in Sheets, so an SMTP outage should
+      // not make the visitor submit the same lead again.
+      console.error("Lead saved, but the SMTP notification failed.", error);
+    }
+
+    return Response.json({ ok: true, emailSent });
   } catch (error) {
     console.error("Google Sheets webhook request failed.", error);
     return Response.json({ error: "The request could not be saved." }, { status: 502 });
