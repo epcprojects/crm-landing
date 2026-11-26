@@ -4,8 +4,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import WhatsappIcon from "../components/whatsapp-icon";
-import { siteConfig, whatsappLink } from "../site-config";
+import OpenContact from "../components/open-contact";
+import { siteConfig } from "../site-config";
 import { DemoButton } from "./demo-button";
 import MobileMenu from "./mobile-menu";
 
@@ -51,7 +51,6 @@ export function Option2Header({ onLanding = false }: { onLanding?: boolean }) {
 
 export function Option2Footer({ onLanding = false }: { onLanding?: boolean }) {
   const nav = links(onLanding);
-  const waLink = whatsappLink("Hi Endpoint Leads, I saw your website.");
   return (
     <footer className="relative px-4 pb-6 sm:px-10 sm:pb-10">
       <div className="mx-auto flex max-w-5xl flex-col gap-10 rounded-[26px] bg-white/55 p-7 backdrop-blur-md sm:p-10">
@@ -59,14 +58,6 @@ export function Option2Footer({ onLanding = false }: { onLanding?: boolean }) {
           <div className="flex flex-col gap-4">
             <Image src="/endpoint-leads-dark.svg" alt="Endpoint Leads" width={1656} height={708} className="-mb-7 -ml-[23px] h-24 w-auto self-start" />
             <p className="max-w-xs text-[14px] leading-relaxed text-[#3d3d44]">The CRM for real estate offices. Every client and every conversation in one place.</p>
-            <span className="flex gap-2.5">
-              <a href={waLink} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="grid size-11 place-items-center rounded-full bg-white">
-                <WhatsappIcon className="size-5" />
-              </a>
-              <a href={`mailto:${siteConfig.email}`} aria-label="Email" className="grid size-11 place-items-center rounded-full bg-white">
-                <Image src="/option-2/gmail.svg" alt="" width={20} height={20} className="size-5" />
-              </a>
-            </span>
           </div>
           <nav aria-label="Pages" className="flex flex-col gap-2.5 text-[14px]">
             <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-[#6b6b72]">Pages</p>
@@ -78,7 +69,8 @@ export function Option2Footer({ onLanding = false }: { onLanding?: boolean }) {
           </nav>
           <nav aria-label="Information" className="flex flex-col gap-2.5 text-[14px]">
             <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-[#6b6b72]">Information</p>
-            <a href={onLanding ? "#contact" : "/option-2#contact"} className="hover:text-[#5b5b63]">Contact</a>
+            {/* opens the demo popup, like every other contact button */}
+            <OpenContact className="self-start text-left hover:text-[#5b5b63]">Contact</OpenContact>
             <Link href="/option-2/privacy-policy" className="hover:text-[#5b5b63]">Privacy</Link>
             <Link href="/option-2/policy-for-automation" className="hover:text-[#5b5b63]">Automation terms</Link>
             <a href={siteConfig.signInHref} className="hover:text-[#5b5b63]">Sign in</a>

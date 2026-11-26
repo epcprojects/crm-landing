@@ -9,7 +9,6 @@
 import Image from "next/image";
 import type { CSSProperties, ReactNode } from "react";
 import {
-  ArrowUpRight,
   CalendarCheck,
   Check,
   Lightning,
@@ -28,7 +27,6 @@ import Reveal from "../components/reveal";
 import { AppFrame, ProjectsScreen, UsersScreen } from "../components/dashboard-screens";
 import ReachUsForm from "./reach-us-form";
 import WhatsappIcon from "../components/whatsapp-icon";
-import { siteConfig } from "../site-config";
 import { DemoButton } from "./demo-button";
 import Devices from "./devices";
 import Testimonials from "./testimonials";
@@ -520,55 +518,18 @@ export default function OptionTwoPage() {
 
           <Faq />
 
-          {/* the sky bottom: stay in touch, closing call to action, footer */}
+          {/* the sky bottom: closing call to action, footer */}
           <div className="relative overflow-hidden bg-[linear-gradient(180deg,#ffffff_0%,#f1f6fc_18%,#d6e7f7_45%,#a9cff3_100%)]">
             {/* the same sky photo behind the closing call to action and footer */}
             {/* the photo fades in over its top half, so there is no edge */}
             <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-[900px] [mask-image:linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.35)_30%,#000_60%)]">
               <Image src="/option-2/sky.webp" alt="" fill sizes="100vw" className="object-cover object-bottom" />
             </div>
-
-            {/* stay in touch */}
-            <section id="contact" className="relative scroll-mt-28 px-5 py-16 sm:px-10">
-              <div className="mx-auto flex max-w-4xl flex-col gap-12">
-                {/* heading styled like the FAQ: grey pill, green underline on one word */}
-                <div className="flex flex-col items-center gap-5 text-center">
-                  <span className="rounded-full bg-[#f3f4f6] px-3 py-1.5 text-[13px] font-medium text-[#111113]">Contact</span>
-                  <h2 className="text-[clamp(2.1rem,4.4vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.04em] text-balance">
-                    Stay in{" "}
-                    <span className="relative inline-block">
-                      touch
-                      <svg aria-hidden="true" viewBox="0 0 240 20" preserveAspectRatio="none" className="pointer-events-none absolute -bottom-3 left-0 h-[0.3em] w-full">
-                        <defs>
-                          <linearGradient id="contact-underline" x1="0" x2="1" y1="0" y2="0">
-                            <stop offset="0" stopColor="#4ade80" />
-                            <stop offset="1" stopColor="#16a34a" />
-                          </linearGradient>
-                        </defs>
-                        <path d="M4 14 C 60 6, 150 4, 236 9" pathLength={1} fill="none" stroke="url(#contact-underline)" strokeWidth="6" strokeLinecap="round" className="underline-draw" />
-                      </svg>
-                    </span>
-                  </h2>
-                </div>
-                {/* the email card, centred */}
-                <div className="mx-auto grid w-full max-w-xl">
-                  <div className="flex flex-col gap-4 rounded-[24px] bg-white/85 p-7 shadow-[0_1px_2px_rgba(16,24,40,0.05),0_24px_48px_-24px_rgba(25,55,100,0.35)] backdrop-blur">
-                    <div className="-mt-2 flex items-center justify-between gap-3">
-                      <Image src="/option-2/email-w.webp" alt="" width={96} height={96} className="-ml-2 size-16 mix-blend-multiply" />
-                      <span className="truncate text-[11px] font-semibold uppercase tracking-[0.12em] text-[#6b6b72]">Write to us</span>
-                    </div>
-                    <h3 className="text-[22px] font-semibold tracking-[-0.02em]">Email</h3>
-                    <p className="text-[15px] leading-relaxed text-[#5b5b63]">Prefer email? Write to {siteConfig.email} with a few details about your office, and we will reply within a day to set up your free demo.</p>
-                    <a href={`mailto:${siteConfig.email}`} className="inline-flex h-10 items-center gap-1.5 self-start rounded-full bg-[#f3f0eb] px-4 text-[14px] font-medium hover:bg-[#ebe6df]">
-                      Email us <ArrowUpRight className="size-3.5" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </section>
+            {/* white fading down over the top, so the sky melts out of the FAQ with no edge */}
+            <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[linear-gradient(180deg,#ffffff_0%,rgba(255,255,255,0.85)_35%,rgba(255,255,255,0)_100%)] sm:h-80" />
 
             {/* closing call to action */}
-            <section className="relative px-5 pb-16 pt-12 text-center sm:px-10 sm:pb-20">
+            <section className="relative px-5 pb-16 pt-24 text-center sm:px-10 sm:pb-20 sm:pt-32">
               <div className="mx-auto flex max-w-2xl flex-col items-center gap-5">
                 <h2 className="text-[clamp(2.2rem,5vw,4rem)] font-semibold leading-[1.03] tracking-[-0.04em]">Ready to get started</h2>
                 <p className="text-[17px] text-[#3d3d44]">A free 20-minute demo with your own team and clients in mind.</p>
