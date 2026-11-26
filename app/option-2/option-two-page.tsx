@@ -10,18 +10,18 @@ import Image from "next/image";
 import type { CSSProperties, ReactNode } from "react";
 import {
   ArrowUpRight,
-  CalendarBlank,
   CalendarCheck,
   Check,
   Lightning,
   SealPercent,
   UserCheck,
 } from "@phosphor-icons/react/dist/ssr";
-import ContactProvider from "../components/contact";
+import { Option2ContactProvider } from "./demo-popup";
 import Faq from "./faq";
 import WhyStack from "./why-stack";
 import { Option2Footer, Option2Header } from "./chrome";
 import BackToTop from "../components/back-to-top";
+import FloatingDock from "./floating-dock";
 import FitScale from "./fit-scale";
 import { AgentBreakdown, NotesFollowUps, QuietLead, StageCounts, WaitingLeads } from "../components/problem-section";
 import Reveal from "../components/reveal";
@@ -277,7 +277,7 @@ function Split({
 
 export default function OptionTwoPage() {
   return (
-    <ContactProvider>
+    <Option2ContactProvider>
       <div className="bg-white text-[#111113]">
         {/* floating pill menu */}
         <Option2Header onLanding />
@@ -296,7 +296,7 @@ export default function OptionTwoPage() {
               <div className="flex flex-col items-start gap-6 text-left">
                 {/* the same headline, line and buttons as the home page hero */}
                 {/* a short punch line above the headline, in a white pill */}
-                <p className="inline-flex items-center gap-2 rounded-full border border-black/[0.04] bg-white py-1.5 pl-3 pr-4 text-[14px] font-medium text-[#111113] shadow-[0_1px_2px_rgba(17,17,19,0.05),0_8px_20px_-12px_rgba(25,55,100,0.3)]">
+                <p className="inline-flex items-center gap-2 rounded-full border border-black/[0.04] bg-white py-1.5 pl-3 pr-3.5 text-[14px] font-medium text-[#111113] shadow-[0_1px_2px_rgba(17,17,19,0.05),0_8px_20px_-12px_rgba(25,55,100,0.3)]">
                   {/* a glowing green dot */}
                   <span aria-hidden="true" className="relative flex size-2">
                     <span className="absolute inline-flex size-full animate-ping rounded-full bg-[#22c55e] opacity-70" />
@@ -304,24 +304,15 @@ export default function OptionTwoPage() {
                   </span>
                   Stop chasing leads. Start closing them.
                 </p>
-                <h1 className="text-[clamp(2.25rem,5vw,4rem)] font-semibold leading-[1.04] tracking-[-0.045em] text-balance">
-                  Manage your complete real estate business from one place.
+                <h1 className="text-[clamp(2.25rem,5vw,3.75rem)] lg:text-[clamp(2.25rem,4.6vw,3.75rem)] font-semibold leading-[1.04] tracking-[-0.045em] text-balance">
+                  Manage your complete <span className="whitespace-nowrap">real estate</span> business from one place.
                 </h1>
                 <p className="max-w-[34rem] text-[18px] leading-relaxed text-[#3d3d44]">
                   Complete transparency and control over your real estate business, so you can
                   scale it in less time.
                 </p>
                 <div className="flex flex-wrap items-center gap-2">
-                  <a href="#demo-enquiry" className="inline-flex h-11 items-center rounded-full bg-[#111113] px-5 text-[15px] font-medium text-white transition-colors hover:bg-[#2a2a2e]">
-                    Get a free demo
-                  </a>
-                  <a
-                    href={siteConfig.calendlyUrl || "#demo-enquiry"}
-                    className="inline-flex h-11 items-center gap-2 rounded-full border border-black/[0.06] bg-white px-5 text-[15px] font-medium shadow-[0_1px_2px_rgba(17,17,19,0.06),0_12px_28px_-12px_rgba(17,17,19,0.35)] transition-[border-color,box-shadow] hover:border-[#111113] hover:shadow-[0_1px_2px_rgba(17,17,19,0.08),0_16px_32px_-12px_rgba(17,17,19,0.45)]"
-                  >
-                    <CalendarBlank aria-hidden="true" weight="fill" className="size-[18px]" />
-                    Book a time on Calendly
-                  </a>
+                  <DemoButton>Get a free demo</DemoButton>
                 </div>
               </div>
               <div className="relative w-full pt-5">
@@ -588,8 +579,9 @@ export default function OptionTwoPage() {
             <Option2Footer onLanding />
           </div>
         </main>
+        <FloatingDock />
         <BackToTop shape="circle" />
       </div>
-    </ContactProvider>
+    </Option2ContactProvider>
   );
 }

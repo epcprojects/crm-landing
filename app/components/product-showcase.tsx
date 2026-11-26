@@ -7,6 +7,7 @@
 import { useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import { CaretRight, Funnel, SquaresFour, UsersThree } from "@phosphor-icons/react/dist/ssr";
 import { AppFrame, LeadsScreen, ProjectsScreen, UsersScreen } from "./dashboard-screens";
+import OpenContact from "./open-contact";
 
 /* -------------------------------- section ------------------------------- */
 
@@ -181,13 +182,10 @@ export default function ProductShowcase() {
               </span>
               <p className="mt-3 text-[24px] font-semibold leading-tight tracking-[-0.02em]">{tab.label}</p>
               <p className="text-[17px] leading-[1.45] text-ink/80">{tab.line}</p>
-              <a
-                href="#book-demo"
-                className="mt-2 inline-flex h-[42px] items-center gap-1.5 self-start bg-brand px-4 text-[16px] font-medium text-white transition-colors hover:bg-brand-hover"
-              >
+              <OpenContact className="mt-2 inline-flex h-[42px] items-center gap-1.5 self-start bg-brand px-4 text-[16px] font-medium text-white transition-colors hover:bg-brand-hover">
                 Book your free demo
                 <CaretRight aria-hidden="true" weight="bold" className="size-3.5" />
-              </a>
+              </OpenContact>
             </div>
             {/* the app window runs off the right edge of the card */}
             <div className="pl-5 sm:pl-10 lg:pl-4 lg:pt-10">

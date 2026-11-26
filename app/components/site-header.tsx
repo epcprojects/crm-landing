@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, CaretRight, List, X } from "@phosphor-icons/react/dist/ssr";
 import { siteConfig } from "../site-config";
+import OpenContact from "./open-contact";
 
 // one link per section on the landing page, in page order
 const links = [
@@ -114,12 +115,9 @@ export default function SiteHeader() {
           </nav>
 
           <div className="col-start-3 flex items-center justify-end gap-2.5">
-            <Link
-              href={to("/#book-demo")}
-              className="hidden h-[42px] items-center whitespace-nowrap bg-brand px-4 text-[15px] font-medium text-white transition-colors hover:bg-brand-hover sm:inline-flex"
-            >
+            <OpenContact className="hidden h-[42px] items-center whitespace-nowrap bg-brand px-4 text-[15px] font-medium text-white transition-colors hover:bg-brand-hover sm:inline-flex">
               Book your free demo
-            </Link>
+            </OpenContact>
             <button
               ref={menuButton}
               type="button"
@@ -201,14 +199,13 @@ export default function SiteHeader() {
             </ul>
           </nav>
 
-          <Link
-            href={to("/#book-demo")}
+          <OpenContact
             onClick={() => setOpen(false)}
             className="group inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-gradient-to-b from-[#5848e6] to-[#4030c9] px-8 text-[16px] font-bold text-white shadow-[0_10px_24px_-8px_rgba(73,57,210,0.65),inset_0_1px_0_rgba(255,255,255,0.28)]"
           >
             Book your free demo
             <ArrowRight aria-hidden="true" weight="bold" className="size-[18px]" />
-          </Link>
+          </OpenContact>
         </div>
       </div>
     </header>

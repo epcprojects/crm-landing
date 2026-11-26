@@ -5,12 +5,11 @@
 // fields with icons and a black gradient button. Sending it opens WhatsApp
 // with the answers typed in, the same as the home page's step form.
 
-import Image from "next/image";
 import { useState, type FormEvent, type ReactNode } from "react";
-import { ArrowRight, Buildings, CheckCircle, EnvelopeSimple, Phone, User } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, Buildings, CheckCircle, EnvelopeSimple, Phone, User, X } from "@phosphor-icons/react/dist/ssr";
 import { whatsappLink } from "../site-config";
 
-const teamSizes = ["2–10", "11–25", "25–50", "50+"];
+const teamSizes = ["5–10", "10–25", "25–50", "50+"];
 
 const input =
   "h-12 w-full rounded-2xl border border-black/[0.06] bg-[#f7f8fa] pl-11 pr-4 text-[14px] text-[#111113] transition-[border-color,background-color] placeholder:text-[#111113]/35 hover:border-black/[0.1] focus:border-[#111113] focus:bg-white focus:outline-none focus-visible:outline-none";
@@ -27,8 +26,19 @@ function Field({ label, icon, children }: { label: string; icon: ReactNode; chil
   );
 }
 
-export default function ReachUsForm() {
-  const [a, setA] = useState({ businessName: "", teamSize: "2–10", challenge: "", fullName: "", phone: "", email: "" });
+export default function ReachUsForm({
+  id = "demo-enquiry",
+  framed = true,
+  onClose,
+}: {
+  /** the form's id; the hero copy keeps "demo-enquiry" */
+  id?: string;
+  /** false in the popup, where the popup itself is the frame */
+  framed?: boolean;
+  /** shows a close button in the header (popup only) */
+  onClose?: () => void;
+} = {}) {
+  const [a, setA] = useState({ businessName: "", teamSize: "5–10", challenge: "", fullName: "", phone: "", email: "" });
   const [sent, setSent] = useState(false);
   const set = (k: keyof typeof a, v: string) => {
     setA((cur) => ({ ...cur, [k]: v }));
@@ -52,12 +62,9 @@ export default function ReachUsForm() {
     setSent(true);
   };
 
-  return (
-    // a soft sky-to-white edge around a frosted frame
-    <div className="rounded-[30px] bg-[linear-gradient(160deg,rgba(255,255,255,0.95)_0%,rgba(190,218,246,0.9)_45%,rgba(255,255,255,0.7)_100%)] p-[1.5px] shadow-[0_40px_80px_-44px_rgba(25,55,100,0.28),0_16px_32px_-28px_rgba(25,55,100,0.18)]">
-      <div className="rounded-[28.5px] bg-white/55 p-2 backdrop-blur-xl">
+  const form = (
         <form
-          id="demo-enquiry"
+          id={id}
           onSubmit={submit}
           className="reach-form flex scroll-mt-28 flex-col gap-5 rounded-[22px] bg-white p-5 shadow-[0_1px_2px_rgba(17,17,19,0.06)] sm:p-7 [@media(min-width:1024px)_and_(max-height:820px)]:!gap-4 [@media(min-width:1024px)_and_(max-height:820px)]:!p-6"
         >
@@ -69,8 +76,20 @@ export default function ReachUsForm() {
                 <p className="mt-1 text-[13.5px] text-[#5b5b63]">A real person from our team will set it up with you.</p>
               </div>
             </div>
-            <span className="flex-none whitespace-nowrap rounded-full border border-[#c7ecd6] bg-[#effaf3] px-2.5 py-1 text-[11px] font-semibold text-[#1d7a52]">
-              Free · 20 min
+            <span className="flex flex-none items-center gap-2">
+              <span className="whitespace-nowrap rounded-full border border-[#c7ecd6] bg-[#effaf3] px-2.5 py-1 text-[11px] font-semibold text-[#1d7a52]">
+                Free · 20 min
+              </span>
+              {onClose && (
+                <button
+                  type="button"
+                  aria-label="Close"
+                  onClick={onClose}
+                  className="grid size-9 place-items-center rounded-full border border-black/10 text-[#3d3d44] transition-colors hover:border-[#111113] hover:text-[#111113]"
+                >
+                  <X weight="bold" className="size-4" />
+                </button>
+              )}
             </span>
           </div>
 
@@ -116,15 +135,8 @@ export default function ReachUsForm() {
             />
           </label>
 
-          {/* the team who will call you back, beside the button */}
-          <div className="mt-1 flex flex-col-reverse items-center gap-3 sm:flex-row sm:justify-between sm:gap-4">
-            <span className="flex flex-none items-center justify-center gap-2.5 sm:justify-start">
-              <span className="group/av flex -space-x-3 transition-all duration-300 hover:-space-x-1">
-                {["maha", "ali", "hamza"].map((p, i) => (
-                  <Image key={p} src={`/avatars/${p}.webp`} alt="" width={44} height={44} className="av-pop size-11 rounded-full object-cover ring-[3px] ring-white transition-transform duration-300 group-hover/av:-translate-y-0.5" style={{ animationDelay: `${i * 120}ms, ${0.9 + i * 0.4}s` }} />
-                ))}
-              </span>
-            </span>
+          {/* the send button, on the right */}
+          <div className="mt-1 flex justify-center sm:justify-end">
             <button
               type="submit"
               className="group inline-flex h-[52px] flex-none items-center gap-4 whitespace-nowrap rounded-full bg-gradient-to-b from-[#3a3a44] to-[#0a0a0d] pl-5 pr-1.5 text-[15px] font-medium text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_14px_28px_-14px_rgba(10,10,13,0.75)] transition-[filter] hover:brightness-125"
@@ -143,7 +155,13 @@ export default function ReachUsForm() {
           </div>
 
         </form>
-      </div>
+  );
+
+  if (!framed) return form;
+  return (
+    // a soft sky-to-white edge around a frosted frame
+    <div className="rounded-[30px] bg-[linear-gradient(160deg,rgba(255,255,255,0.95)_0%,rgba(190,218,246,0.9)_45%,rgba(255,255,255,0.7)_100%)] p-[1.5px] shadow-[0_40px_80px_-44px_rgba(25,55,100,0.28),0_16px_32px_-28px_rgba(25,55,100,0.18)]">
+      <div className="rounded-[28.5px] bg-white/55 p-2 backdrop-blur-xl">{form}</div>
     </div>
   );
 }

@@ -8,7 +8,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Plus, Question } from "@phosphor-icons/react/dist/ssr";
-import { whatsappLink } from "../site-config";
+import OpenContact from "../components/open-contact";
 
 const items = [
   {
@@ -70,14 +70,9 @@ export default function Faq() {
                 Our team is here to help. Send us a message and we will reply shortly.
               </p>
             </div>
-            <a
-              href={whatsappLink("Hi Endpoint Leads, I have a question.")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex h-10 items-center gap-2 rounded-xl border border-black/[0.08] bg-white px-4 text-[14px] font-medium text-[#111113] shadow-[0_1px_2px_rgba(17,17,19,0.06)] transition-colors hover:border-[#111113]"
-            >
+            <OpenContact className="inline-flex h-10 items-center gap-2 rounded-xl border border-black/[0.08] bg-white px-4 text-[14px] font-medium text-[#111113] shadow-[0_1px_2px_rgba(17,17,19,0.06)] transition-colors hover:border-[#111113]">
               Contact us <Question className="size-4" />
-            </a>
+            </OpenContact>
           </div>
 
           {/* questions */}

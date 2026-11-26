@@ -244,7 +244,14 @@ function ContactSheet({
   );
 }
 
-export default function ContactProvider({ children }: { children: ReactNode }) {
+export default function ContactProvider({
+  children,
+  renderSheet,
+}: {
+  children: ReactNode;
+  /** a page's own popup in place of the default one */
+  renderSheet?: (close: () => void) => ReactNode;
+}) {
   const [sheet, setSheet] = useState<{ phone: string; email: string } | null>(null);
   const openSheet = useCallback((phone = "", email = "") => setSheet({ phone, email }), []);
   const close = useCallback(() => setSheet(null), []);
@@ -252,7 +259,7 @@ export default function ContactProvider({ children }: { children: ReactNode }) {
   return (
     <ContactContext.Provider value={{ openSheet }}>
       {children}
-      {sheet && <ContactSheet phone={sheet.phone} email={sheet.email} onClose={close} />}
+      {sheet && (renderSheet ? renderSheet(close) : <ContactSheet phone={sheet.phone} email={sheet.email} onClose={close} />)}
     </ContactContext.Provider>
   );
 }

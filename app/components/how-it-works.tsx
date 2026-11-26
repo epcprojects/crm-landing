@@ -7,6 +7,7 @@ import { ListChecks, MapPin, Timer } from "@phosphor-icons/react/dist/ssr";
 import CountUp from "./count-up";
 import Reveal from "./reveal";
 import WhatsappIcon from "./whatsapp-icon";
+import OpenContact from "./open-contact";
 
 const stats: {
   icon: ReactNode;
@@ -136,12 +137,9 @@ function NumbersSection({ dark = false }: { dark?: boolean }) {
           <div style={{ "--i": 7 } as React.CSSProperties} className="fx relative mt-14 flex justify-center">
             {/* a brand-gradient ring that keeps turning around the button */}
             <span className="cta-ring">
-              <a
-                href="#demo-enquiry"
-                className="relative z-10 inline-flex h-[42px] items-center bg-brand px-4 text-[16px] font-medium text-white transition-colors hover:bg-brand-hover"
-              >
+              <OpenContact className="relative z-10 inline-flex h-[42px] items-center bg-brand px-4 text-[16px] font-medium text-white transition-colors hover:bg-brand-hover">
                 Get a free demo
-              </a>
+              </OpenContact>
             </span>
           </div>
         </Reveal>

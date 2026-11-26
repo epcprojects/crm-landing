@@ -1436,3 +1436,15 @@ button.bg-brand:not([aria-pressed]):not([role="tab"]):not([aria-label="Send"]):h
 }
 
 
+
+/* Option 2 offer ticket: a countdown digit rolling up into place */
+@keyframes digit-roll {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

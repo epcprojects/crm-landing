@@ -11,6 +11,7 @@ import {
   UsersThree,
 } from "@phosphor-icons/react/dist/ssr";
 import StackList from "./stack-list";
+import OpenContact from "./open-contact";
 
 /* --------------------------------- cards -------------------------------- */
 
@@ -95,12 +96,9 @@ export default function FeatureBento() {
           <h2 id="benefits-heading" className="text-[clamp(1.9rem,3.8vw,3rem)] leading-[1.15] text-balance">
             Everything your office needs, <span className="serif">without the chasing.</span>
           </h2>
-          <a
-            href="#demo-enquiry"
-            className="mt-2 inline-flex h-[42px] items-center self-start bg-brand px-4 text-[16px] font-medium text-white"
-          >
+          <OpenContact className="mt-2 inline-flex h-[42px] items-center self-start bg-brand px-4 text-[16px] font-medium text-white">
             Get a free demo
-          </a>
+          </OpenContact>
         </div>
 
         <StackList className="flex flex-col gap-5 lg:gap-48">
