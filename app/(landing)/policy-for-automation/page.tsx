@@ -7,6 +7,7 @@ const document = legalDocuments["policy-for-automation"];
 export const metadata: Metadata = {
   title: "Terms of Service for Automation | Endpoint Leads",
   description: document.description,
+  alternates: { canonical: "/policy-for-automation" },
 };
 
 export default function Option2PolicyForAutomationPage() {

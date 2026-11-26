@@ -1,3 +1,6 @@
+// Canonical public origin used by metadata, structured data, robots and sitemaps.
+export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://endpointclients.com").replace(/\/$/, "");
+
 // Single place for links and contact details the owner still has to confirm before launch.
 export const siteConfig = {
   name: "Endpoint Leads",

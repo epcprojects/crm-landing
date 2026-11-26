@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Instrument_Serif, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { siteUrl } from "./site-config";
 import "./globals.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -28,9 +29,11 @@ export const metadata: Metadata = {
   description:
     "Manage your real estate clients and agents from one workspace. See who spoke to each client, what was discussed, and what needs attention next.",
   applicationName: "Endpoint Leads",
-  // the site's public address, so share images get full links; set NEXT_PUBLIC_SITE_URL
-  // (e.g. https://endpointleads.com) – on Vercel the production address is used when it is unset
-  ...(process.env.NEXT_PUBLIC_SITE_URL ? { metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL) } : {}),
+  metadataBase: new URL(siteUrl),
+  authors: [{ name: "Endpoint Clients", url: siteUrl }],
+  creator: "Endpoint Clients",
+  publisher: "Endpoint Clients",
+  category: "Business software",
   // link previews on WhatsApp, Facebook, LinkedIn, X and Slack; the picture comes from
   // app/opengraph-image.jpg and app/twitter-image.jpg (1200 × 630)
   openGraph: {
@@ -40,12 +43,15 @@ export const metadata: Metadata = {
     description:
       "Manage your complete real estate business from one place: leads, agents, projects and follow-ups in one CRM.",
     locale: "en_US",
+    url: "/",
+    images: [{ url: "/opengraph-image.jpg", width: 1200, height: 630, alt: "Endpoint Leads real estate CRM" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Endpoint Leads | Real estate CRM for your whole office",
     description:
       "Manage your complete real estate business from one place: leads, agents, projects and follow-ups in one CRM.",
+    images: ["/twitter-image.jpg"],
   },
   // favicon.ico (16, 32, 48) comes from app/favicon.ico; the manifest from app/manifest.ts
   icons: {
@@ -75,6 +81,9 @@ export const metadata: Metadata = {
     "msapplication-TileColor": "#0891b3",
     "msapplication-TileImage": "/icons/mstile-150x150.png",
   },
+  ...(process.env.GOOGLE_SITE_VERIFICATION
+    ? { verification: { google: process.env.GOOGLE_SITE_VERIFICATION } }
+    : {}),
 };
 
 // the browser bar and installed-app title bar take the logo's teal

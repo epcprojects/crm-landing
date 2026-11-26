@@ -12,6 +12,10 @@ import OpenContact from "../components/open-contact";
 
 const items = [
   {
+    q: "What is Endpoint Leads?",
+    a: "Endpoint Leads is a web-based CRM for real estate offices. It keeps leads, client conversations, projects, agent activity and follow-ups together so owners and teams can see what needs attention next.",
+  },
+  {
     q: "What happens on the demo call?",
     a: "About 20 minutes. We ask how your office works today, then show you Endpoint Leads with your own team and clients in mind. No pressure and no slides.",
   },

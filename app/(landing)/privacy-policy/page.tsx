@@ -7,6 +7,7 @@ const document = legalDocuments["privacy-policy"];
 export const metadata: Metadata = {
   title: "Privacy Policy | Endpoint Leads",
   description: document.description,
+  alternates: { canonical: "/privacy-policy" },
 };
 
 export default function Option2PrivacyPolicyPage() {

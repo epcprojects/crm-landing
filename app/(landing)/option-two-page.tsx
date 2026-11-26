@@ -303,8 +303,8 @@ export default function OptionTwoPage() {
                   Manage your complete <span className="whitespace-nowrap">real estate</span> business from one place.
                 </h1>
                 <p className="max-w-[34rem] text-[16px] leading-relaxed text-[#3d3d44] sm:text-[18px]">
-                  Complete transparency and control over your real estate business, so you can
-                  scale it in less time.
+                  Endpoint Leads is a real estate CRM that gives owners and agents one place to manage leads,
+                  client conversations, projects, follow-ups and team activity.
                 </p>
                 {/* two key numbers with clay icons; the numbers count up from zero as
                     they come into view. Two frosted cards: on phones each card is

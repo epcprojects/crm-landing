@@ -7,6 +7,7 @@ const document = legalDocuments["user-data-deletion-request"];
 export const metadata: Metadata = {
   title: "Data Deletion Instructions | Endpoint Leads",
   description: document.description,
+  alternates: { canonical: "/user-data-deletion-request" },
 };
 
 export default function Option2UserDataDeletionRequestPage() {
