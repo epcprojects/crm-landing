@@ -24,13 +24,25 @@ function isValidEnquiry(value: unknown): value is DemoEnquiry {
 
   const enquiry = value as Record<string, unknown>;
   return (
-    isString(enquiry.businessName) && enquiry.businessName.trim().length >= 2 && enquiry.businessName.trim().length <= 120 &&
-    isString(enquiry.teamSize) && TEAM_SIZES.has(enquiry.teamSize) &&
-    isString(enquiry.challenge) && enquiry.challenge.trim().length >= 2 && enquiry.challenge.trim().length <= 1000 &&
-    isString(enquiry.fullName) && enquiry.fullName.trim().length >= 2 && enquiry.fullName.trim().length <= 120 &&
-    isString(enquiry.phone) && enquiry.phone.trim().length >= 7 && enquiry.phone.trim().length <= 30 &&
-    isString(enquiry.email) && enquiry.email.length <= 254 && EMAIL_PATTERN.test(enquiry.email.trim()) &&
-    isString(enquiry.requestId) && REQUEST_ID_PATTERN.test(enquiry.requestId) &&
+    isString(enquiry.businessName) &&
+    enquiry.businessName.trim().length >= 2 &&
+    enquiry.businessName.trim().length <= 120 &&
+    isString(enquiry.teamSize) &&
+    TEAM_SIZES.has(enquiry.teamSize) &&
+    isString(enquiry.challenge) &&
+    enquiry.challenge.trim().length >= 2 &&
+    enquiry.challenge.trim().length <= 1000 &&
+    isString(enquiry.fullName) &&
+    enquiry.fullName.trim().length >= 2 &&
+    enquiry.fullName.trim().length <= 120 &&
+    isString(enquiry.phone) &&
+    enquiry.phone.trim().length >= 7 &&
+    enquiry.phone.trim().length <= 30 &&
+    isString(enquiry.email) &&
+    enquiry.email.length <= 254 &&
+    EMAIL_PATTERN.test(enquiry.email.trim()) &&
+    isString(enquiry.requestId) &&
+    REQUEST_ID_PATTERN.test(enquiry.requestId) &&
     (enquiry.website === undefined || isString(enquiry.website))
   );
 }
@@ -40,7 +52,8 @@ async function sendLeadNotification(enquiry: DemoEnquiry) {
   const port = Number(process.env.SMTP_PORT || "465");
   const user = process.env.SMTP_USER?.trim();
   const password = process.env.SMTP_PASSWORD;
-  const recipient = process.env.LEAD_NOTIFICATION_EMAIL?.trim() || "info@endpointclients.com";
+  const recipient =
+    process.env.LEAD_NOTIFICATION_EMAIL?.trim() || "info@endpointleads.com";
 
   if (!host || !user || !password || !Number.isInteger(port) || port <= 0) {
     console.error("SMTP environment variables are not configured correctly.");
@@ -59,7 +72,8 @@ async function sendLeadNotification(enquiry: DemoEnquiry) {
 
   const email = enquiry.email.trim().toLowerCase();
   await transporter.sendMail({
-    from: process.env.SMTP_FROM?.trim() || `"EndPoint Clients Website" <${user}>`,
+    from:
+      process.env.SMTP_FROM?.trim() || `"EndPoint Clients Website" <${user}>`,
     to: recipient,
     replyTo: email,
     subject: "New demo request — EndPoint Clients",
@@ -88,7 +102,10 @@ export async function POST(request: Request) {
   }
 
   if (!isValidEnquiry(body)) {
-    return Response.json({ error: "Please check the submitted details." }, { status: 400 });
+    return Response.json(
+      { error: "Please check the submitted details." },
+      { status: 400 },
+    );
   }
 
   // Silently accept bot submissions so the honeypot cannot be probed.
@@ -100,8 +117,13 @@ export async function POST(request: Request) {
   const webhookSecret = process.env.GOOGLE_SHEETS_WEBHOOK_SECRET;
 
   if (!webhookUrl || !webhookSecret) {
-    console.error("Google Sheets webhook environment variables are not configured.");
-    return Response.json({ error: "Demo requests are temporarily unavailable." }, { status: 503 });
+    console.error(
+      "Google Sheets webhook environment variables are not configured.",
+    );
+    return Response.json(
+      { error: "Demo requests are temporarily unavailable." },
+      { status: 503 },
+    );
   }
 
   try {
@@ -125,14 +147,30 @@ export async function POST(request: Request) {
     });
 
     if (!webhookResponse.ok) {
-      console.error("Google Sheets webhook returned a non-success status.", webhookResponse.status);
-      return Response.json({ error: "The request could not be saved." }, { status: 502 });
+      console.error(
+        "Google Sheets webhook returned a non-success status.",
+        webhookResponse.status,
+      );
+      return Response.json(
+        { error: "The request could not be saved." },
+        { status: 502 },
+      );
     }
 
-    const result = (await webhookResponse.json()) as { ok?: boolean; duplicate?: boolean; error?: string };
+    const result = (await webhookResponse.json()) as {
+      ok?: boolean;
+      duplicate?: boolean;
+      error?: string;
+    };
     if (!result.ok) {
-      console.error("Google Sheets webhook rejected the request.", result.error);
-      return Response.json({ error: "The request could not be saved." }, { status: 502 });
+      console.error(
+        "Google Sheets webhook rejected the request.",
+        result.error,
+      );
+      return Response.json(
+        { error: "The request could not be saved." },
+        { status: 502 },
+      );
     }
 
     if (result.duplicate) {
@@ -151,6 +189,9 @@ export async function POST(request: Request) {
     return Response.json({ ok: true, emailSent });
   } catch (error) {
     console.error("Google Sheets webhook request failed.", error);
-    return Response.json({ error: "The request could not be saved." }, { status: 502 });
+    return Response.json(
+      { error: "The request could not be saved." },
+      { status: 502 },
+    );
   }
 }

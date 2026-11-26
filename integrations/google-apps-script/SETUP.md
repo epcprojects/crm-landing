@@ -32,10 +32,10 @@ The Next.js demo-enquiry route sends a notification after Google Sheets confirms
 ```text
 SMTP_HOST=mail.example.com
 SMTP_PORT=465
-SMTP_USER=info@endpointclients.com
+SMTP_USER=info@endpointleads.com
 SMTP_PASSWORD=your-mailbox-password-or-app-password
-SMTP_FROM="EndPoint Clients Website <info@endpointclients.com>"
-LEAD_NOTIFICATION_EMAIL=info@endpointclients.com
+SMTP_FROM="EndPoint Clients Website <info@endpointleads.com>"
+LEAD_NOTIFICATION_EMAIL=info@endpointleads.com
 ```
 
 Use port `465` for implicit TLS or `587` for STARTTLS. Never prefix these variables with `NEXT_PUBLIC_`. If SMTP is unavailable, the lead remains saved in Google Sheets and the failure is written to the server logs.
