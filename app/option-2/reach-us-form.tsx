@@ -2,13 +2,12 @@
 
 // Option 2's "reach us" form: every question on one premium card instead of
 // six steps. A glass frame with a soft sky edge, the team's faces up top,
-// fields with icons and a black gradient button. Sending it opens WhatsApp
-// with the answers typed in, the same as the home page's step form.
+// fields with icons and a black gradient button. Submissions are saved through
+// the same server-side Google Sheets webhook as the home page's step form.
 
-import { useState, type FormEvent, type ReactNode } from "react";
+import { useRef, useState, type FormEvent, type ReactNode } from "react";
 import { ArrowRight, Buildings, CheckCircle, EnvelopeSimple, Phone, User, X } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
-import { whatsappLink } from "../site-config";
 
 const teamSizes = ["5–10", "10–25", "25–50", "50+"];
 
@@ -41,26 +40,42 @@ export default function ReachUsForm({
 } = {}) {
   const [a, setA] = useState({ businessName: "", teamSize: "5–10", challenge: "", fullName: "", phone: "", email: "" });
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [website, setWebsite] = useState("");
+  const requestIdRef = useRef("");
   const set = (k: keyof typeof a, v: string) => {
     setA((cur) => ({ ...cur, [k]: v }));
     setSent(false);
+    setSubmitError("");
+    requestIdRef.current = "";
   };
 
-  const submit = (event: FormEvent<HTMLFormElement>) => {
+  const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const message = [
-      "Hi Endpoint Leads, I would like a free demo.",
-      "",
-      `Real estate business: ${a.businessName.trim()}`,
-      `People handling enquiries: ${a.teamSize}`,
-      `Biggest challenge: ${a.challenge.trim()}`,
-      "",
-      `Full name: ${a.fullName.trim()}`,
-      `Phone number: ${a.phone.trim()}`,
-      `Email address: ${a.email.trim()}`,
-    ].join("\n");
-    window.open(whatsappLink(message), "_blank", "noopener,noreferrer");
-    setSent(true);
+    const requestId = requestIdRef.current || crypto.randomUUID();
+    requestIdRef.current = requestId;
+    setSubmitting(true);
+    setSubmitError("");
+
+    try {
+      const response = await fetch("/api/demo-enquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...a,
+          website,
+          requestId,
+        }),
+      });
+
+      if (!response.ok) throw new Error("The request could not be saved.");
+      setSent(true);
+    } catch {
+      setSubmitError("We couldn’t save your request. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const form = (
@@ -69,6 +84,12 @@ export default function ReachUsForm({
           onSubmit={submit}
           className="reach-form flex scroll-mt-28 flex-col gap-5 rounded-[22px] bg-white p-5 shadow-[0_1px_2px_rgba(17,17,19,0.06)] sm:p-7 [@media(min-width:1024px)_and_(min-height:701px)_and_(max-height:820px)]:!gap-4 [@media(min-width:1024px)_and_(max-height:700px)]:!gap-2.5 [@media(min-width:1024px)_and_(max-height:700px)]:!p-5 [@media(min-width:1024px)_and_(min-height:701px)_and_(max-height:820px)]:!p-6"
         >
+          <div className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+            <label>
+              Website
+              <input name="website" type="text" tabIndex={-1} autoComplete="off" value={website} onChange={(event) => setWebsite(event.target.value)} />
+            </label>
+          </div>
           {/* header: who you will talk to */}
           <div className="flex items-start justify-between gap-4">
             <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-3.5">
@@ -130,8 +151,9 @@ export default function ReachUsForm({
           </fieldset>
 
           <label className="flex flex-col gap-1.5 text-[12.5px] font-medium text-[#3d3d44]">
-            What is your biggest challenge with managing your Real-Estate Business? <span className="sr-only">(optional)</span>
+            What is your biggest challenge with managing your Real-Estate Business?
             <textarea
+              required
               rows={3}
               value={a.challenge}
               onChange={(e) => set("challenge", e.target.value)}
@@ -144,11 +166,14 @@ export default function ReachUsForm({
           <div className="mt-1 flex justify-center sm:justify-end [@media(min-width:1024px)_and_(max-height:700px)]:!mt-0">
             <button
               type="submit"
-              className="group inline-flex h-[52px] [@media(min-width:1024px)_and_(max-height:700px)]:!h-12 flex-none items-center gap-4 whitespace-nowrap rounded-full bg-gradient-to-b from-[#3a3a44] to-[#0a0a0d] pl-5 pr-1.5 text-[15px] font-medium text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_14px_28px_-14px_rgba(10,10,13,0.75)] transition-[filter] hover:brightness-125"
+              disabled={submitting}
+              className="group inline-flex h-[52px] [@media(min-width:1024px)_and_(max-height:700px)]:!h-12 flex-none items-center gap-4 whitespace-nowrap rounded-full bg-gradient-to-b from-[#3a3a44] to-[#0a0a0d] pl-5 pr-1.5 text-[15px] font-medium text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_14px_28px_-14px_rgba(10,10,13,0.75)] transition-[filter,opacity] hover:brightness-125 disabled:cursor-wait disabled:opacity-65"
             >
-              {sent ? (
+              {submitting ? (
+                "Saving request…"
+              ) : sent ? (
                 <span className="flex items-center gap-2">
-                  <CheckCircle weight="fill" className="size-4" /> Opened in WhatsApp
+                  <CheckCircle weight="fill" className="size-4" /> Request saved
                 </span>
               ) : (
                 "Book my demo"
@@ -158,6 +183,12 @@ export default function ReachUsForm({
               </span>
             </button>
           </div>
+
+          {submitError && (
+            <p role="alert" className="rounded-xl bg-[#fff1f1] px-4 py-3 text-[13px] font-semibold text-[#9b2c2c]">
+              {submitError}
+            </p>
+          )}
 
         </form>
   );

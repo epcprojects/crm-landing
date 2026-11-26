@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { ArrowLeft, ArrowRight, CheckCircle } from "@phosphor-icons/react/dist/ssr";
+import { whatsappLink } from "../site-config";
 
 const teamSizes = ["2–10", "11–25", "25–50", "50+"];
 const totalSteps = 6;
@@ -40,10 +41,6 @@ export default function DemoEnquiryForm() {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Answers>(initialAnswers);
   const [submitted, setSubmitted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState("");
-  const [website, setWebsite] = useState("");
-  const requestIdRef = useRef("");
   const formRef = useRef<HTMLFormElement>(null);
   const questionRef = useRef<HTMLDivElement>(null);
   const progress = ((step + 1) / totalSteps) * 100;
@@ -58,8 +55,6 @@ export default function DemoEnquiryForm() {
   const update = (field: keyof Answers, value: string) => {
     setAnswers((current) => ({ ...current, [field]: value }));
     setSubmitted(false);
-    setSubmitError("");
-    requestIdRef.current = "";
   };
 
   const next = () => {
@@ -67,7 +62,7 @@ export default function DemoEnquiryForm() {
     setStep((current) => Math.min(current + 1, totalSteps - 1));
   };
 
-  const submit = async (event: FormEvent<HTMLFormElement>) => {
+  const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (step < totalSteps - 1) {
       next();
@@ -75,33 +70,20 @@ export default function DemoEnquiryForm() {
     }
     if (!formRef.current?.reportValidity()) return;
 
-    const requestId = requestIdRef.current || crypto.randomUUID();
-    requestIdRef.current = requestId;
+    const message = [
+      "Hi Endpoint Leads, I would like a free demo.",
+      "",
+      `Real estate business: ${answers.businessName.trim()}`,
+      `People handling enquiries: ${answers.teamSize}`,
+      `Biggest challenge: ${answers.challenge.trim()}`,
+      "",
+      `Full name: ${answers.fullName.trim()}`,
+      `Phone number: ${answers.phone.trim()}`,
+      `Email address: ${answers.email.trim()}`,
+    ].join("\n");
 
-    setSubmitting(true);
-    setSubmitError("");
-
-    try {
-      const response = await fetch("/api/demo-enquiries", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...answers,
-          website,
-          requestId,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("The request could not be saved.");
-      }
-
-      setSubmitted(true);
-    } catch {
-      setSubmitError("We couldn’t save your request. Please try again.");
-    } finally {
-      setSubmitting(false);
-    }
+    window.open(whatsappLink(message), "_blank", "noopener,noreferrer");
+    setSubmitted(true);
   };
 
   return (
@@ -112,12 +94,6 @@ export default function DemoEnquiryForm() {
     >
       <div className="relative rounded-[16px] bg-gradient-to-b from-[#f0e8fc] to-[#f0e8fc]/0 p-4 backdrop-blur sm:p-6">
         <form ref={formRef} onSubmit={submit}>
-          <div className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
-            <label>
-              Website
-              <input name="website" type="text" tabIndex={-1} autoComplete="off" value={website} onChange={(event) => setWebsite(event.target.value)} />
-            </label>
-          </div>
           <div key={step} ref={questionRef} className="rise">
             <h2 className="max-w-3xl text-[clamp(1.35rem,2.7vw,1.75rem)] leading-[1.18] tracking-[-0.025em] text-ink">{stepContent[step].title}</h2>
             <p className="mt-1.5 max-w-2xl text-[13px] leading-relaxed text-body sm:text-[14px]">{stepContent[step].hint}</p>
@@ -178,7 +154,7 @@ export default function DemoEnquiryForm() {
             <div className="min-w-0 flex-1 sm:max-w-[260px]">
               <div className="flex items-center gap-2">
                 {step > 0 && (
-                  <button type="button" disabled={submitting} onClick={() => setStep((current) => Math.max(0, current - 1))} className="inline-flex min-h-8 items-center justify-center gap-1 rounded-full px-2 text-[12px] font-bold text-body transition-colors hover:bg-white/70 hover:text-ink disabled:cursor-not-allowed disabled:opacity-50">
+                  <button type="button" onClick={() => setStep((current) => Math.max(0, current - 1))} className="inline-flex min-h-8 items-center justify-center gap-1 rounded-full px-2 text-[12px] font-bold text-body transition-colors hover:bg-white/70 hover:text-ink">
                     <ArrowLeft aria-hidden="true" weight="bold" className="size-3.5" /> Back
                   </button>
                 )}
@@ -189,8 +165,8 @@ export default function DemoEnquiryForm() {
               </div>
             </div>
 
-            <button type="submit" disabled={submitting} className="inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-brand px-5 text-[13px] font-bold text-white shadow-[0_10px_24px_-14px_rgba(73,57,210,0.8)] transition-colors hover:bg-brand-hover disabled:cursor-wait disabled:opacity-65">
-              {submitting ? "Saving request…" : step === totalSteps - 1 ? "Send my demo request" : "Continue"}
+            <button type="submit" className="inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-brand px-5 text-[13px] font-bold text-white shadow-[0_10px_24px_-14px_rgba(73,57,210,0.8)] transition-colors hover:bg-brand-hover">
+              {step === totalSteps - 1 ? "Send my demo request" : "Continue"}
               <ArrowRight aria-hidden="true" weight="bold" className="size-4" />
             </button>
           </div>
@@ -198,13 +174,7 @@ export default function DemoEnquiryForm() {
           {submitted && (
             <p role="status" className="mt-5 flex items-center gap-2 rounded-xl bg-[#e9f8ef] px-4 py-3 text-[14px] font-semibold text-[#187347]">
               <CheckCircle aria-hidden="true" weight="fill" className="size-5" />
-              Your request is saved. Our team will contact you shortly.
-            </p>
-          )}
-
-          {submitError && (
-            <p role="alert" className="mt-5 rounded-xl bg-[#fff1f1] px-4 py-3 text-[14px] font-semibold text-[#9b2c2c]">
-              {submitError}
+              Your details are ready in WhatsApp. Tap send to complete your request.
             </p>
           )}
         </form>

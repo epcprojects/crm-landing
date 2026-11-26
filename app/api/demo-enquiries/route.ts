@@ -1,4 +1,4 @@
-const TEAM_SIZES = new Set(["2–10", "11–25", "25–50", "50+"]);
+const TEAM_SIZES = new Set(["2–10", "5–10", "10–25", "11–25", "25–50", "50+"]);
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const REQUEST_ID_PATTERN = /^[0-9a-f-]{36}$/i;
 
@@ -73,8 +73,6 @@ export async function POST(request: Request) {
         fullName: body.fullName.trim(),
         phone: body.phone.trim(),
         email: body.email.trim().toLowerCase(),
-        source: "landing-page-demo",
-        status: "New",
       }),
       cache: "no-store",
       redirect: "follow",

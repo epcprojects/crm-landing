@@ -1,5 +1,5 @@
 const SPREADSHEET_ID = "1ZGfHDDIVlZjpJEtzzG95_BHKuPFqBJsny6tPWclWKeY";
-const SHEET_NAME = "Demo Requests";
+const SHEET_NAME = "Leads";
 const HEADERS = [
   "Timestamp",
   "Business name",
@@ -8,9 +8,6 @@ const HEADERS = [
   "Full name",
   "Phone",
   "Email",
-  "Source",
-  "Status",
-  "Request ID",
 ];
 
 function setupDemoRequestsSheet() {
@@ -23,7 +20,7 @@ function setupDemoRequestsSheet() {
 
   const currentHeaders = sheet.getRange(1, 1, 1, HEADERS.length).getDisplayValues()[0];
   if (currentHeaders.some((value) => value) && currentHeaders.join("|") !== HEADERS.join("|")) {
-    throw new Error("The Demo Requests header row already contains different columns.");
+    throw new Error("The Leads header row already contains different columns.");
   }
 
   sheet.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]);
@@ -54,7 +51,8 @@ function doPost(event) {
       throw new Error("Run setupDemoRequestsSheet before accepting submissions.");
     }
 
-    if (isDuplicate_(sheet, payload.requestId)) {
+    const requestCache = CacheService.getScriptCache();
+    if (requestCache.get(payload.requestId)) {
       return jsonResponse_({ ok: true, duplicate: true });
     }
 
@@ -66,10 +64,8 @@ function doPost(event) {
       safeCell_(payload.fullName),
       safeCell_(payload.phone),
       safeCell_(payload.email),
-      safeCell_(payload.source),
-      safeCell_(payload.status),
-      safeCell_(payload.requestId),
     ]);
+    requestCache.put(payload.requestId, "saved", 21600);
 
     return jsonResponse_({ ok: true });
   } catch (error) {
@@ -90,8 +86,6 @@ function validatePayload_(payload) {
     "fullName",
     "phone",
     "email",
-    "source",
-    "status",
   ];
 
   required.forEach((field) => {
@@ -99,19 +93,6 @@ function validatePayload_(payload) {
       throw new Error(`Missing field: ${field}`);
     }
   });
-}
-
-function isDuplicate_(sheet, requestId) {
-  const lastRow = sheet.getLastRow();
-  if (lastRow < 2) return false;
-
-  return Boolean(
-    sheet
-      .getRange(2, 10, lastRow - 1, 1)
-      .createTextFinder(requestId)
-      .matchEntireCell(true)
-      .findNext(),
-  );
 }
 
 function safeCell_(value) {
