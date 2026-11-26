@@ -9,15 +9,18 @@
 import Image from "next/image";
 import type { CSSProperties, ReactNode } from "react";
 import {
+  Buildings,
   CalendarCheck,
   Check,
   Lightning,
   SealPercent,
+  ShieldCheck,
+  Trophy,
   UserCheck,
 } from "@phosphor-icons/react/dist/ssr";
 import { Option2ContactProvider } from "./demo-popup";
 import Faq from "./faq";
-import WhyStack from "./why-stack";
+import FeaturesList from "./features-list";
 import { officeLogos } from "./office-logos";
 import WhyStackCopy from "./why-stack-copy";
 
@@ -30,7 +33,10 @@ import FitScale from "./fit-scale";
 import { AgentBreakdown, NotesFollowUps, QuietLead, StageCounts, WaitingLeads } from "../components/problem-section";
 import Reveal from "../components/reveal";
 import CountUp from "../components/count-up";
-import { AppFrame, ProjectsScreen, UsersScreen } from "../components/dashboard-screens";
+import { AppFrame } from "../components/dashboard-screens";
+import LiveProjectsScreen from "./live-projects-screen";
+import LiveUsersScreen from "./live-users-screen";
+import { PanelToasts, type DemoToast } from "./live-demo";
 import ReachUsForm from "./reach-us-form";
 import WhatsappIcon from "../components/whatsapp-icon";
 import { DemoButton } from "./demo-button";
@@ -151,37 +157,6 @@ function SectionHead({ eyebrow, title, line }: { eyebrow: string; title: ReactNo
   );
 }
 
-/** A small white card that floats over a dashboard panel. */
-function FloatCard({ className, delay = 0, children }: { className: string; delay?: number; children: ReactNode }) {
-  return (
-    <div aria-hidden="true" className={`pointer-events-none absolute z-10 ${className}`}>
-      <div
-        className="pw-float flex origin-center items-center gap-2 rounded-2xl border max-sm:scale-[0.82] sm:gap-2.5 border-black/[0.05] bg-white py-2 pl-2 pr-3.5 shadow-[0_1px_2px_rgba(16,24,40,0.06),0_16px_32px_-14px_rgba(16,24,40,0.35)]"
-        style={{ "--f": `${-delay}s` } as CSSProperties}
-      >
-        {children}
-      </div>
-    </div>
-  );
-}
-
-function FloatIcon({ tone, children }: { tone: string; children: ReactNode }) {
-  return (
-    <span className="grid size-8 flex-none place-items-center rounded-xl" style={{ color: tone, backgroundColor: `color-mix(in srgb, ${tone} 14%, white)` }}>
-      {children}
-    </span>
-  );
-}
-
-function FloatText({ title, line }: { title: string; line: string }) {
-  return (
-    <span className="leading-tight">
-      <span className="block text-[12.5px] font-semibold text-[#101828]">{title}</span>
-      <span className="block text-[11px] text-[#667085]">{line}</span>
-    </span>
-  );
-}
-
 /** The app screen in a soft rounded frame. */
 function Screen({ active, children }: { active: string; children: ReactNode }) {
   return (
@@ -278,6 +253,20 @@ function Split({
   );
 }
 
+// notifications that arrive one by one on the Projects and Users panels
+const projectToasts: DemoToast[] = [
+  { icon: <WhatsappIcon className="size-4" />, tone: "#12b76a", title: "New enquiry", line: "Usman Tariq · just now" },
+  { icon: <CalendarCheck weight="fill" className="size-4" />, tone: "#7a5af8", title: "Site visit booked", line: "Hina Raza · Sat, 4:00 pm" },
+  { icon: <Buildings weight="fill" className="size-4" />, tone: "#0ba5ec", title: "3 new leads", line: "Tower B (Sales) · today" },
+  { icon: <Trophy weight="fill" className="size-4" />, tone: "#f79009", title: "Deal closed, well done!", line: "City Rentals · shop, F-10" },
+];
+const userToasts: DemoToast[] = [
+  { icon: <UserCheck weight="fill" className="size-4" />, tone: "#12b76a", title: "Invite accepted", line: "Maha Khan joined" },
+  { icon: <Lightning weight="fill" className="size-4" />, tone: "#e0703a", title: "Fastest reply today", line: "Ali Raza · 4 min" },
+  { icon: <ShieldCheck weight="fill" className="size-4" />, tone: "#7a5af8", title: "Role updated", line: "Sana Iqbal · now a Viewer" },
+  { icon: <Buildings weight="fill" className="size-4" />, tone: "#0ba5ec", title: "Project assigned", line: "Zoya Ahmed · Tower B" },
+];
+
 /* --------------------------------- page --------------------------------- */
 
 export default function OptionTwoPage() {
@@ -301,7 +290,7 @@ export default function OptionTwoPage() {
               <div className="flex flex-col items-start gap-4 text-left sm:gap-6 [@media(min-width:1024px)_and_(max-height:820px)]:!gap-5 [@media(min-width:1024px)_and_(max-height:700px)]:!gap-4">
                 {/* the same headline, line and buttons as the home page hero */}
                 {/* a short punch line above the headline, in a white pill */}
-                <p className="inline-flex items-center gap-2 rounded-full border border-black/[0.04] bg-white py-1.5 pl-3 pr-3.5 text-[14px] font-medium text-[#111113] shadow-[0_1px_2px_rgba(17,17,19,0.05),0_8px_20px_-12px_rgba(25,55,100,0.3)]">
+                <p className="inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-black/[0.04] bg-white py-1.5 pl-3 pr-3.5 text-[14px] font-medium max-[359px]:gap-1.5 max-[359px]:pl-2.5 max-[359px]:pr-3 max-[359px]:text-[12px] text-[#111113] shadow-[0_1px_2px_rgba(17,17,19,0.05),0_8px_20px_-12px_rgba(25,55,100,0.3)]">
                   {/* a glowing green dot */}
                   <span aria-hidden="true" className="relative flex size-2">
                     <span className="absolute inline-flex size-full animate-ping rounded-full bg-[#22c55e] opacity-70" />
@@ -376,22 +365,7 @@ export default function OptionTwoPage() {
             title="Manage all your projects and see every status update in One click"
             line={<><strong className="font-semibold text-[#111113]">Every lead in one place</strong>, with its project, contact, agent and status on one dashboard. Call or WhatsApp a client straight from their file, and see what is late before they notice.</>}
             panel="radial-gradient(80% 70% at 100% 0%,#ffd9c7 0%,rgba(255,217,199,0) 60%),linear-gradient(180deg,#e3dbfb 0%,#efeafd 55%,#fbe9e2 100%)"
-            floats={
-              <>
-                <FloatCard className="-right-1 top-6 sm:right-3 sm:top-10" delay={0}>
-                  <FloatIcon tone="#12b76a">
-                    <WhatsappIcon className="size-4" />
-                  </FloatIcon>
-                  <FloatText title="New enquiry" line="Usman Tariq · just now" />
-                </FloatCard>
-                <FloatCard className="bottom-6 left-2 sm:bottom-10 sm:left-4" delay={2.5}>
-                  <FloatIcon tone="#7a5af8">
-                    <CalendarCheck weight="fill" className="size-4" />
-                  </FloatIcon>
-                  <FloatText title="Site visit booked" line="Sat, 4:00 pm" />
-                </FloatCard>
-              </>
-            }
+            floats={<PanelToasts items={projectToasts} className="bottom-4 right-4 sm:bottom-6 sm:right-6" />}
             tags={[
               { icon: "/option-2/tag-leads.webp", label: "Leads" },
               { icon: "/option-2/tag-contacts.webp", label: "Contacts" },
@@ -400,7 +374,7 @@ export default function OptionTwoPage() {
             ]}
           >
             <Screen active="Projects">
-              <ProjectsScreen />
+              <LiveProjectsScreen />
             </Screen>
           </Split>
 
@@ -411,22 +385,7 @@ export default function OptionTwoPage() {
             line={<><strong className="font-semibold text-[#111113]">Add your agents</strong>, give each a role and choose which projects they work on. Each person sees only what you give them, and you see everyone.</>}
             panel="linear-gradient(180deg,#f7efe6 0%,#f3f0eb 55%,#e6eedf 100%)"
             flip
-            floats={
-              <>
-                <FloatCard className="left-2 top-6 sm:left-4 sm:top-12" delay={1}>
-                  <FloatIcon tone="#12b76a">
-                    <UserCheck weight="fill" className="size-4" />
-                  </FloatIcon>
-                  <FloatText title="Invite accepted" line="Maha Khan joined" />
-                </FloatCard>
-                <FloatCard className="-right-1 bottom-6 sm:bottom-8 sm:right-3" delay={3.5}>
-                  <FloatIcon tone="#e0703a">
-                    <Lightning weight="fill" className="size-4" />
-                  </FloatIcon>
-                  <FloatText title="Fastest reply today" line="Ali Raza · 4 min" />
-                </FloatCard>
-              </>
-            }
+            floats={<PanelToasts items={userToasts} className="bottom-4 right-4 sm:bottom-6 sm:right-6" />}
             tags={[
               { icon: "/option-2/tag-invites.webp", label: "Invitations" },
               { icon: "/option-2/tag-roles.webp", label: "Roles" },
@@ -435,7 +394,7 @@ export default function OptionTwoPage() {
             ]}
           >
             <Screen active="Users">
-              <UsersScreen />
+              <LiveUsersScreen />
             </Screen>
           </Split>
 
@@ -466,13 +425,19 @@ export default function OptionTwoPage() {
               <div className="grid grid-cols-[minmax(0,1fr)] gap-3 sm:gap-4 lg:grid-cols-2">
                 {[
                   { title: "No view of your agents", line: "You can’t see who is closing and who needs help.", picture: <AgentBreakdown /> },
-                  { title: "No picture of your pipeline", line: "You can’t tell how many leads sit at each stage.", picture: <StageCounts /> },
-                ].map((c) => (
+                  {
+                    title: "No picture of your pipeline",
+                    line: "You can’t tell how many leads sit at each stage.",
+                    picture: <StageCounts />,
+                    // on phones the "754 lost" tag moves below the card instead of covering its rows
+                    fit: "max-sm:[&>div>*:nth-child(2)]:!left-auto max-sm:[&>div>*:nth-child(2)]:!right-0 max-sm:[&>div>*:nth-child(2)]:!top-[206px]",
+                  },
+                ].map((c: { title: string; line: string; picture: ReactNode; fit?: string }) => (
                   <article key={c.title} className="flex min-w-0 flex-col gap-3 rounded-[20px] bg-[#f3f0eb] p-5 sm:gap-4 sm:rounded-[24px] sm:p-8">
                     <h3 className="text-[20px] font-semibold leading-tight tracking-[-0.02em] sm:text-[24px]">{c.title}</h3>
                     <p className="text-[14px] leading-relaxed text-[#5b5b63] sm:text-[15px]">{c.line}</p>
                     <Reveal className="mt-auto w-full pt-2 sm:pt-4">
-                      <div aria-hidden="true">{c.picture}</div>
+                      <div aria-hidden="true" className={c.fit}>{c.picture}</div>
                     </Reveal>
                   </article>
                 ))}
@@ -485,7 +450,7 @@ export default function OptionTwoPage() {
           <Testimonials />
 
           {/* why Endpoint Leads: a sticky card deck like the reference */}
-          <WhyStack />
+          <FeaturesList />
           {/* the duplicate of the card deck above, hidden for now */}
           {SHOW_WHY_COPY && <WhyStackCopy />}
 

@@ -9,8 +9,9 @@
 // zoom, so the text stays crisp while it moves.
 
 import { useLayoutEffect, useRef, useState } from "react";
-import { AppFrame, LeadsScreen } from "../components/dashboard-screens";
+import { AppFrame } from "../components/dashboard-screens";
 import MobileDashboard from "./mobile-dashboard";
+import LiveLeadsScreen from "./live-leads-screen";
 
 const views = [
   { id: "mobile", label: "Mobile app" },
@@ -53,14 +54,16 @@ export default function Devices() {
           height whichever is shown */}
       <div className="grid">
         <div aria-hidden={view !== 0} className={`flex items-center justify-center px-3 pb-6 pt-20 sm:pb-8 sm:pt-24 ${viewClass} ${viewState(view === 0)}`}>
-          <MobileDashboard />
+          {/* the phone, with someone using it */}
+          <MobileDashboard active={view === 0} />
         </div>
         <div aria-hidden={view !== 1} className={`flex items-center px-3 pb-6 pt-20 sm:px-8 sm:pb-8 sm:pt-24 ${viewClass} ${viewState(view === 1)}`}>
           <div className="w-full overflow-hidden rounded-[18px] border border-white/70 bg-white/60 p-1.5 shadow-[0_40px_80px_-40px_rgba(30,40,70,0.45)] backdrop-blur sm:rounded-[24px] sm:p-2.5">
-            <div className="overflow-hidden rounded-[14px] border border-black/[0.05] bg-white sm:rounded-[18px]">
+            <div className="relative overflow-hidden rounded-[14px] border border-black/[0.05] bg-white sm:rounded-[18px]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <AppFrame active="Dashboard" logo={<img src="/option-2/endpoint-mark.svg" alt="" className="size-7" />}>
-                <LeadsScreen />
+                {/* someone working on the dashboard; notifications come in on a timer */}
+                <LiveLeadsScreen active={view === 1} />
               </AppFrame>
             </div>
           </div>

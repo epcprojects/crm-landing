@@ -7,24 +7,22 @@
 //
 // Each field is checked before sending: a missing or wrong answer turns the
 // field red with a short note under it, and the cursor jumps to the first one.
-// Once sent, the form turns into a confirmation in the same card.
+// Once sent, the form clears and the result shows in its own popup: a green
+// tick when the request is in, an orange alert when we already have it.
 
 import { useRef, useState, type FormEvent, type ReactNode } from "react";
 import {
-  ArrowClockwise,
   ArrowRight,
   Buildings,
-  CalendarCheck,
-  CheckCircle,
   EnvelopeSimple,
   Phone,
-  PhoneCall,
   User,
   WarningCircle,
   X,
 } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import { siteConfig } from "../site-config";
+import DemoResultPopup, { type DemoResult } from "./demo-result";
 
 const teamSizes = ["5–10", "10–25", "25–50", "50+"];
 
@@ -96,6 +94,7 @@ export default function ReachUsForm({
   id = "demo-enquiry",
   framed = true,
   onClose,
+  onResult,
 }: {
   /** the form's id; the hero copy keeps "demo-enquiry" */
   id?: string;
@@ -103,9 +102,11 @@ export default function ReachUsForm({
   framed?: boolean;
   /** shows a close button in the header (popup only) */
   onClose?: () => void;
+  /** the popup passes this to show the result itself; otherwise the form opens its own result popup */
+  onResult?: (result: DemoResult) => void;
 } = {}) {
   const [a, setA] = useState<Answers>({ businessName: "", teamSize: "5–10", challenge: "", fullName: "", phone: "", email: "" });
-  const [submissionResult, setSubmissionResult] = useState<"idle" | "saved" | "duplicate">("idle");
+  const [result, setResult] = useState<DemoResult | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [tried, setTried] = useState(false); // after the first send, problems update as you type
@@ -114,11 +115,18 @@ export default function ReachUsForm({
   const requestIdRef = useRef("");
   const formRef = useRef<HTMLFormElement>(null);
 
+  /** Clears the form for another request. */
+  const startAgain = () => {
+    setA({ businessName: "", teamSize: "5–10", challenge: "", fullName: "", phone: "", email: "" });
+    setErrors({});
+    setTried(false);
+    requestIdRef.current = "";
+  };
+
   const set = (k: keyof Answers, v: string) => {
     const next = { ...a, [k]: v };
     setA(next);
     if (tried) setErrors(check(next));
-    setSubmissionResult("idle");
     setSubmitError("");
     requestIdRef.current = "";
   };
@@ -146,8 +154,16 @@ export default function ReachUsForm({
         body: JSON.stringify({ ...a, website, requestId }),
       });
       if (!response.ok) throw new Error("The request could not be saved.");
-      const result = (await response.json()) as { duplicate?: boolean };
-      setSubmissionResult(result.duplicate ? "duplicate" : "saved");
+      const reply = (await response.json()) as { duplicate?: boolean };
+      const done: DemoResult = {
+        kind: reply.duplicate ? "duplicate" : "saved",
+        firstName: a.fullName.trim().split(/\s+/)[0] || "there",
+        phone: a.phone.trim(),
+        email: a.email.trim(),
+      };
+      startAgain();
+      if (onResult) onResult(done);
+      else setResult(done);
     } catch {
       setSubmitError(`We couldn’t send your request just now. Please check your connection and try again, or email us at ${siteConfig.email}.`);
     } finally {
@@ -155,14 +171,6 @@ export default function ReachUsForm({
     }
   };
 
-  /** Clears the form for another request. */
-  const startAgain = () => {
-    setA({ businessName: "", teamSize: "5–10", challenge: "", fullName: "", phone: "", email: "" });
-    setErrors({});
-    setTried(false);
-    setSubmissionResult("idle");
-    requestIdRef.current = "";
-  };
 
   const fieldClass = (k: Checked) => `${inputBase} ${errors[k] ? wrong : fine}`;
   const described = (k: Checked) => (errors[k] ? { "aria-invalid": true, "aria-describedby": `${id}-${k}-error` } : {});
@@ -175,12 +183,14 @@ export default function ReachUsForm({
           <Image src="/option-2/demo-calendar.webp" alt="" width={112} height={112} className="size-11 flex-none select-none drop-shadow-[0_8px_12px_rgba(17,17,19,0.18)] sm:size-[52px]" />
         )}
         <div>
-          <h2 className="text-[24px] font-semibold leading-tight tracking-[-0.025em] text-[#111113]">{title}</h2>
+          <h2 className="text-[22px] font-semibold leading-tight tracking-[-0.025em] text-[#111113] sm:text-[24px]">{title}</h2>
           <p className="mt-1 text-[13.5px] text-[#5b5b63]">{line}</p>
+          {/* on phones the "free" pill sits under the line, so the title keeps the full width */}
+          <span className="mt-2.5 inline-flex whitespace-nowrap rounded-full border border-[#c7ecd6] bg-[#effaf3] px-2.5 py-1 text-[11px] font-semibold text-[#1d7a52] sm:hidden">Free · 20 min</span>
         </div>
       </div>
       <span className="flex flex-none items-center gap-2">
-        <span className="whitespace-nowrap rounded-full border border-[#c7ecd6] bg-[#effaf3] px-2.5 py-1 text-[11px] font-semibold text-[#1d7a52]">Free · 20 min</span>
+        <span className="hidden whitespace-nowrap rounded-full border border-[#c7ecd6] bg-[#effaf3] px-2.5 py-1 text-[11px] font-semibold text-[#1d7a52] sm:inline-flex">Free · 20 min</span>
         {onClose && (
           <button
             type="button"
@@ -192,81 +202,6 @@ export default function ReachUsForm({
           </button>
         )}
       </span>
-    </div>
-  );
-
-  const firstName = a.fullName.trim().split(/\s+/)[0] || "there";
-
-  const isDuplicate = submissionResult === "duplicate";
-
-  // the confirmation that replaces the form once the request is in
-  const success = (
-    <div
-      id={id}
-      role="status"
-      aria-live="polite"
-      className="reach-form flex scroll-mt-28 flex-col items-center gap-5 rounded-[22px] bg-white p-6 text-center shadow-[0_1px_2px_rgba(17,17,19,0.06)] sm:p-8 motion-safe:animate-[pop-in_400ms_cubic-bezier(0.22,1,0.36,1)]"
-    >
-      {onClose && (
-        <button
-          type="button"
-          aria-label="Close"
-          onClick={onClose}
-          className="-mb-3 grid size-9 place-items-center self-end rounded-full border border-black/10 text-[#3d3d44] transition-colors hover:border-[#111113] hover:text-[#111113]"
-        >
-          <X weight="bold" className="size-4" />
-        </button>
-      )}
-      {/* a soft green halo around the tick */}
-      <span className="relative grid size-20 place-items-center">
-        <span className="absolute inset-0 rounded-full bg-[#22c55e]/15 motion-safe:animate-ping [animation-iteration-count:2]" />
-        <span className="relative grid size-20 place-items-center rounded-full bg-gradient-to-b from-[#34d37a] to-[#16a34a] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_16px_32px_-14px_rgba(22,163,74,0.75)]">
-          <CheckCircle weight="fill" className="size-11" />
-        </span>
-      </span>
-      <div className="flex flex-col gap-2">
-        <h2 className="text-[26px] font-semibold leading-tight tracking-[-0.025em] text-[#111113]">
-          {isDuplicate ? `Thanks, ${firstName}. We already have your request!` : `Thanks, ${firstName}. Your demo request is in!`}
-        </h2>
-        <p className="mx-auto max-w-[26rem] text-[14.5px] leading-relaxed text-[#5b5b63]">
-          {isDuplicate
-            ? `We already received these details. Our team will contact you within ${siteConfig.replyTime} in working hours (9–5, Monday to Saturday).`
-            : `We’ve received your details. Someone from our team usually replies within ${siteConfig.replyTime} in working hours (9–5, Monday to Saturday) to set up your free 20-minute demo.`}
-        </p>
-      </div>
-      {/* what happens next */}
-      <ul className="flex w-full max-w-[26rem] flex-col gap-2 text-left">
-        <li className="flex items-center gap-3 rounded-2xl bg-[#f7f8fa] px-4 py-3 text-[13.5px] text-[#3d3d44]">
-          <PhoneCall weight="fill" className="size-5 flex-none text-[#16a34a]" />
-          <span>
-            We’ll call you on <strong className="font-semibold text-[#111113]">{a.phone.trim()}</strong>
-          </span>
-        </li>
-        <li className="flex items-center gap-3 rounded-2xl bg-[#f7f8fa] px-4 py-3 text-[13.5px] text-[#3d3d44]">
-          <CalendarCheck weight="fill" className="size-5 flex-none text-[#16a34a]" />
-          <span>
-            and confirm a time by email at <strong className="break-all font-semibold text-[#111113]">{a.email.trim()}</strong>
-          </span>
-        </li>
-      </ul>
-      <div className="flex flex-wrap items-center justify-center gap-2">
-        {onClose && (
-          <button
-            type="button"
-            onClick={onClose}
-            className="inline-flex h-11 items-center rounded-full bg-[#111113] px-5 text-[14px] font-medium text-white transition-colors hover:bg-[#2a2a2e]"
-          >
-            Done
-          </button>
-        )}
-        <button
-          type="button"
-          onClick={startAgain}
-          className="inline-flex h-11 items-center gap-2 rounded-full border border-black/10 bg-white px-5 text-[14px] font-medium text-[#111113] transition-colors hover:border-[#111113]"
-        >
-          <ArrowClockwise weight="bold" className="size-4" /> Send another request
-        </button>
-      </div>
     </div>
   );
 
@@ -363,12 +298,21 @@ export default function ReachUsForm({
         </form>
   );
 
-  const content = submissionResult !== "idle" ? success : form;
-  if (!framed) return content;
+  // the result of a send, in its own popup
+  const popup = result && <DemoResultPopup result={result} onClose={() => setResult(null)} />;
+
+  if (!framed)
+    return (
+      <>
+        {form}
+        {popup}
+      </>
+    );
   return (
     // a soft sky-to-white edge around a frosted frame
     <div className="rounded-[30px] bg-[linear-gradient(160deg,rgba(255,255,255,0.95)_0%,rgba(190,218,246,0.9)_45%,rgba(255,255,255,0.7)_100%)] p-[1.5px] shadow-[0_40px_80px_-44px_rgba(25,55,100,0.28),0_16px_32px_-28px_rgba(25,55,100,0.18)]">
-      <div className="rounded-[28.5px] bg-white/55 p-2 backdrop-blur-xl">{content}</div>
+      <div className="rounded-[28.5px] bg-white/55 p-2 backdrop-blur-xl">{form}</div>
+      {popup}
     </div>
   );
 }

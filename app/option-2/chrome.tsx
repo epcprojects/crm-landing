@@ -30,7 +30,7 @@ export function Option2Header({ onLanding = false }: { onLanding?: boolean }) {
         className="pointer-events-auto relative mx-auto flex max-w-4xl items-center justify-between gap-3 rounded-full border border-black/[0.06] bg-white/85 py-2 pl-3 pr-2 shadow-[0_12px_30px_-18px_rgba(17,17,19,0.35)] backdrop-blur-xl"
       >
         <a href={onLanding ? "#top" : "/option-2"} aria-label="Endpoint Leads home" className="flex-none">
-          <Image src="/endpoint-leads-dark.svg" alt="Endpoint Leads" width={1656} height={708} className="-my-2 h-14 w-auto" />
+          <Image src="/option-2/endpoint-leads-teal.svg" alt="Endpoint Leads" width={1656} height={708} className="-my-2 h-14 w-auto" />
         </a>
         <span className="hidden items-center gap-1 md:flex">
           {nav.map((item) => (
@@ -56,7 +56,7 @@ export function Option2Footer({ onLanding = false }: { onLanding?: boolean }) {
       <div className="mx-auto flex max-w-5xl flex-col gap-6 rounded-[22px] bg-white/55 p-5 backdrop-blur-md sm:gap-10 sm:rounded-[26px] sm:p-10">
         <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-[1.6fr_1fr_1fr] sm:gap-10">
           <div className="col-span-2 flex flex-col gap-4 sm:col-span-1">
-            <Image src="/endpoint-leads-dark.svg" alt="Endpoint Leads" width={1656} height={708} className="-mb-6 -ml-[19px] h-20 w-auto self-start sm:-mb-7 sm:-ml-[23px] sm:h-24" />
+            <Image src="/option-2/endpoint-leads-teal.svg" alt="Endpoint Leads" width={1656} height={708} className="-mb-6 -ml-[19px] h-20 w-auto self-start sm:-mb-7 sm:-ml-[23px] sm:h-24" />
             <p className="max-w-xs text-[14px] leading-relaxed text-[#3d3d44]">The CRM for real estate offices. Every client and every conversation in one place.</p>
           </div>
           <nav aria-label="Pages" className="flex flex-col gap-2.5 text-[14px]">

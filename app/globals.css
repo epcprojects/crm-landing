@@ -1487,3 +1487,25 @@ button.bg-brand:not([aria-pressed]):not([role="tab"]):not([aria-label="Send"]):h
     animation: none !important;
   }
 }
+
+/* Option 2 live demo: a click ripple and notifications sliding in */
+@keyframes demo-click {
+  from {
+    transform: scale(0.4);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+@keyframes demo-toast {
+  from {
+    transform: translateY(14px) scale(0.96);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}

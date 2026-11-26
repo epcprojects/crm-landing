@@ -141,13 +141,13 @@ export default function Testimonials() {
         {/* numbers with clay icons */}
         <ul className="-mt-3 grid grid-cols-3 gap-2 sm:-mt-8 sm:gap-4">
           {stats.map((st) => (
-            <li key={st.label} className={`${card} flex flex-col gap-1`}>
-              <p className="text-[1.5rem] font-medium leading-none tracking-[-0.03em] sm:text-[clamp(2rem,3.4vw,2.6rem)]">
+            <li key={st.label} className={`${card} flex flex-col gap-1 max-sm:!p-3.5`}>
+              <p className="text-[1.3rem] font-medium leading-none tracking-[-0.03em] min-[360px]:text-[1.5rem] sm:text-[clamp(2rem,3.4vw,2.6rem)]">
                 {st.value}
                 {st.unit && <span className="ml-0.5 text-[0.45em] text-white/70">{st.unit}</span>}
               </p>
-              <p className="text-[12px] leading-snug text-white/55 sm:text-[15px]">{st.label}</p>
-              <Image src={`/option-2/${st.icon}.webp`} alt="" width={64} height={64} className="-ml-1 mt-6 size-14 [mask-image:radial-gradient(circle,#000_55%,transparent_72%)]" />
+              <p className="text-[11.5px] leading-snug text-white/55 min-[360px]:text-[12px] sm:text-[15px]">{st.label}</p>
+              <Image src={`/option-2/${st.icon}.webp`} alt="" width={64} height={64} className="-ml-1 mt-3 size-11 sm:mt-6 sm:size-14 [mask-image:radial-gradient(circle,#000_55%,transparent_72%)]" />
             </li>
           ))}
         </ul>
