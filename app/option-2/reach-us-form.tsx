@@ -39,14 +39,14 @@ export default function ReachUsForm({
   onClose?: () => void;
 } = {}) {
   const [a, setA] = useState({ businessName: "", teamSize: "5–10", challenge: "", fullName: "", phone: "", email: "" });
-  const [sent, setSent] = useState(false);
+  const [submissionResult, setSubmissionResult] = useState<"idle" | "saved" | "duplicate">("idle");
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [website, setWebsite] = useState("");
   const requestIdRef = useRef("");
   const set = (k: keyof typeof a, v: string) => {
     setA((cur) => ({ ...cur, [k]: v }));
-    setSent(false);
+    setSubmissionResult("idle");
     setSubmitError("");
     requestIdRef.current = "";
   };
@@ -70,7 +70,8 @@ export default function ReachUsForm({
       });
 
       if (!response.ok) throw new Error("The request could not be saved.");
-      setSent(true);
+      const result = (await response.json()) as { duplicate?: boolean };
+      setSubmissionResult(result.duplicate ? "duplicate" : "saved");
     } catch {
       setSubmitError("We couldn’t save your request. Please try again.");
     } finally {
@@ -171,9 +172,9 @@ export default function ReachUsForm({
             >
               {submitting ? (
                 "Saving request…"
-              ) : sent ? (
+              ) : submissionResult !== "idle" ? (
                 <span className="flex items-center gap-2">
-                  <CheckCircle weight="fill" className="size-4" /> Request saved
+                  <CheckCircle weight="fill" className="size-4" /> {submissionResult === "duplicate" ? "Already received" : "Request saved"}
                 </span>
               ) : (
                 "Book my demo"
@@ -183,6 +184,14 @@ export default function ReachUsForm({
               </span>
             </button>
           </div>
+
+          {submissionResult !== "idle" && (
+            <p role="status" className="rounded-xl bg-[#effaf3] px-4 py-3 text-[13px] font-semibold text-[#1d7a52]">
+              {submissionResult === "duplicate"
+                ? "We already received your demo request. Our team will contact you shortly."
+                : "Your request is saved. Our team will contact you shortly."}
+            </p>
+          )}
 
           {submitError && (
             <p role="alert" className="rounded-xl bg-[#fff1f1] px-4 py-3 text-[13px] font-semibold text-[#9b2c2c]">

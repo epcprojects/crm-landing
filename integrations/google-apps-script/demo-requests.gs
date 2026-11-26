@@ -56,6 +56,11 @@ function doPost(event) {
       return jsonResponse_({ ok: true, duplicate: true });
     }
 
+    if (isExistingLead_(sheet, payload.email, payload.phone)) {
+      requestCache.put(payload.requestId, "duplicate", 21600);
+      return jsonResponse_({ ok: true, duplicate: true });
+    }
+
     sheet.appendRow([
       new Date(payload.submittedAt),
       safeCell_(payload.businessName),
@@ -93,6 +98,35 @@ function validatePayload_(payload) {
       throw new Error(`Missing field: ${field}`);
     }
   });
+}
+
+function isExistingLead_(sheet, email, phone) {
+  const lastRow = sheet.getLastRow();
+  if (lastRow < 2) return false;
+
+  const submittedEmail = normalizeEmail_(email);
+  const submittedPhone = normalizePhone_(phone);
+  const contacts = sheet.getRange(2, 6, lastRow - 1, 2).getDisplayValues();
+
+  return contacts.some((row) => {
+    const existingPhone = normalizePhone_(row[0]);
+    const existingEmail = normalizeEmail_(row[1]);
+    return existingEmail === submittedEmail && existingPhone === submittedPhone;
+  });
+}
+
+function normalizeEmail_(value) {
+  return String(value).trim().toLowerCase();
+}
+
+function normalizePhone_(value) {
+  let digits = String(value).replace(/\D/g, "");
+
+  if (digits.startsWith("0092")) digits = digits.slice(4);
+  else if (digits.startsWith("92") && digits.length === 12) digits = digits.slice(2);
+  else if (digits.startsWith("0") && digits.length === 11) digits = digits.slice(1);
+
+  return digits;
 }
 
 function safeCell_(value) {
