@@ -18,6 +18,7 @@ import {
 import { Option2ContactProvider } from "./demo-popup";
 import Faq from "./faq";
 import WhyStack from "./why-stack";
+import { officeLogos } from "./office-logos";
 import WhyStackCopy from "./why-stack-copy";
 
 /** The duplicate "Why Endpoint Leads" deck stays hidden until this is true. */
@@ -37,7 +38,6 @@ import Devices from "./devices";
 import Testimonials from "./testimonials";
 
 
-const offices = ["Raza Estates", "Malik Properties", "City Rentals", "Bahria Homes", "Qureshi & Co", "Shah Realty"];
 
 
 const plans: { name: string; price: string; line: string; items: string[]; cta: string; featured?: boolean }[] = [
@@ -193,16 +193,17 @@ function Screen({ active, children }: { active: string; children: ReactNode }) {
   );
 }
 
-/** A moving row of office names, faded at both ends. */
+/** A moving row of office logos, faded at both ends. */
 function Offices({ label }: { label?: string }) {
   return (
     <div className="flex flex-col items-center gap-6 px-4 py-6 sm:py-12">
       {label && <p className="text-[14px] text-[#6b6b72]">{label}</p>}
       <div className="w-full max-w-5xl overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_12%,#000_88%,transparent)]">
-        <div className="ticker-track flex w-max gap-9 sm:gap-14">
-          {[...offices, ...offices, ...offices, ...offices].map((name, i) => (
-            <span key={i} className="whitespace-nowrap text-[18px] font-semibold tracking-[-0.03em] text-[#9a9aa2] sm:text-[22px]">
-              {name}
+        {/* each office has its own logo, all in one soft grey; a touch smaller on phones */}
+        <div className="ticker-track flex w-max items-center gap-10 text-[#8e8e97] max-sm:origin-left max-sm:scale-[0.85] sm:gap-16">
+          {[...officeLogos, ...officeLogos, ...officeLogos, ...officeLogos].map((OfficeLogo, i) => (
+            <span key={i} aria-hidden={i >= officeLogos.length}>
+              <OfficeLogo />
             </span>
           ))}
         </div>
