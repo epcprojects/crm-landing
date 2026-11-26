@@ -1,6 +1,8 @@
 "use client";
 
-// Option 2 "Why Endpoint Leads", built like the reference's sticky card deck.
+// Option 2 "Features", built like the reference's sticky card deck. Each card
+// is one main feature. (The older "Why Endpoint Leads" version of this deck is
+// kept hidden in why-stack-copy.tsx.)
 // The section is tall; inside it a full-screen stage stays pinned while you
 // scroll. A giant faint line of words drifts sideways behind the heading,
 // and the cards stack up: each new card rises from below and fades in, while
@@ -12,56 +14,74 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Star } from "@phosphor-icons/react/dist/ssr";
 
+// Six cards that cover every feature: related ones are grouped on one card.
+// Names, offices and numbers are sample data, like the rest of the site.
 const cards = [
   {
-    tag: "All conversations in one place",
+    tag: "Leads and clients management",
     value: "1",
-    unit: "file per client",
-    quote: "Every WhatsApp, call and note sits on the client’s file. Anyone in the office can pick up where the last agent left off.",
+    unit: "list for every lead, across unlimited projects",
+    quote: "Every enquiry lands on one file with its project, agent, calls and WhatsApp chats. We add as many projects as we launch, and nothing gets lost between them.",
     name: "Imran Siddiqui",
     role: "Owner · Siddiqui Estates, Lahore",
-    image: "/option-2/why-1.webp",
-    bg: "#e6e0f3",
+    image: "/option-2/feat-1.webp",
+    icon: "/option-2/feat-soft-1.webp",
+    bg: "#ebe4fa",
   },
   {
-    tag: "Never miss a follow-up",
+    tag: "Follow-ups and reminders",
     value: "96%",
     unit: "follow-ups done on time",
-    quote: "Each next step has a date and an owner. Late ones turn red, so nothing quietly slips past us any more.",
+    quote: "Every call, site visit and payment gets a reminder with a date and an owner. My phone tells me before a client goes cold, not after.",
     name: "Nadia Farooq",
     role: "Senior agent · Farooq Realty, Karachi",
-    image: "/option-2/why-2.webp",
-    bg: "#dcebe2",
+    image: "/option-2/feat-2.webp",
+    icon: "/option-2/feat-soft-2.webp",
+    bg: "#def1e6",
   },
   {
-    tag: "Complete visibility into your agents",
-    value: "4",
-    unit: "min average first reply",
-    quote: "I can see who replies fast and who is closing, without asking anyone. Our reply times dropped in the first month.",
+    tag: "Agents and role-based control",
+    value: "12",
+    unit: "agents, each with the right access",
+    quote: "I add an agent, give them a role and choose their projects. Each person sees only what they should, and I can see who is closing.",
     name: "Ahmed Javed",
     role: "Sales manager · Skyline Towers, Islamabad",
-    image: "/option-2/why-3.webp",
-    bg: "#d9e7f6",
+    image: "/option-2/feat-3.webp",
+    icon: "/option-2/feat-soft-3.webp",
+    bg: "#dcebf9",
   },
   {
-    tag: "Understand business performance",
+    tag: "Sales pipeline, analytics and KPIs",
     value: "1,248",
-    unit: "enquiries handled this month",
-    quote: "Leads, visits and closed deals per project in one view. Our Monday meeting now takes ten minutes.",
+    unit: "enquiries tracked this month",
+    quote: "Our pipeline, reports and business KPIs sit on one screen for every project. Our Monday meeting now takes ten minutes.",
     name: "Rabia Anwar",
     role: "Office manager · Anwar Properties, Rawalpindi",
-    image: "/option-2/why-4.webp",
-    bg: "#f3e3d6",
+    image: "/option-2/feat-4.webp",
+    icon: "/option-2/feat-soft-4.webp",
+    bg: "#fbe5d8",
   },
   {
-    tag: "Manage it from anywhere",
-    value: "0",
-    unit: "apps to install",
-    quote: "I update clients from the site visit itself. The same file opens on my phone and on the office laptop.",
+    tag: "Mobile app for your team",
+    value: "100%",
+    unit: "of the CRM in your pocket",
+    quote: "I update clients in the app from the site visit itself. The same file is waiting on the office laptop when I am back.",
     name: "Danish Iqbal",
     role: "Agent · City Rentals, Lahore",
-    image: "/option-2/why-5.webp",
-    bg: "#efe6cf",
+    image: "/option-2/feat-5.webp",
+    icon: "/option-2/feat-soft-5.webp",
+    bg: "#f7eccb",
+  },
+  {
+    tag: "Onboarding, security and support",
+    value: "9–5",
+    unit: "support, Monday to Saturday",
+    quote: "We set up your team, move your client list in and stay a call away. Your data is protected and backed up every day.",
+    name: "Sana Malik",
+    role: "Customer success · Endpoint Leads",
+    image: "/option-2/feat-6.webp",
+    icon: "/option-2/feat-soft-6.webp",
+    bg: "#f8e1e8",
   },
 ];
 
@@ -137,12 +157,12 @@ export default function WhyStack() {
             className="pointer-events-none absolute left-0 top-1/2 -translate-y-1/2 whitespace-nowrap text-[clamp(7rem,16vw,13rem)] font-semibold leading-none tracking-[-0.05em] text-[#111113]/[0.05] will-change-transform"
             style={{ transform: `translate(${-pos * 22}vw, -50%)` }}
           >
-            Why offices choose Endpoint Leads
+            Everything your real estate office needs
           </p>
 
           {/* heading */}
           <div className="relative mb-5 flex flex-col items-center gap-3 text-center sm:mb-10 sm:gap-5 [@media(min-width:1024px)_and_(max-height:820px)]:!mb-6 [@media(min-width:1024px)_and_(max-height:820px)]:!gap-3">
-            <span className="rounded-full bg-[#f3f4f6] px-3 py-1.5 text-[13px] font-medium text-[#111113] [@media(max-width:639px)_and_(max-height:740px)]:hidden">Why Endpoint Leads</span>
+            <span className="rounded-full bg-[#f3f4f6] px-3 py-1.5 text-[13px] font-medium text-[#111113] [@media(max-width:639px)_and_(max-height:740px)]:hidden">Features</span>
             <h2 id="why-heading" className="text-[clamp(1.75rem,8vw,2.1rem)] sm:text-[clamp(2.1rem,4.4vw,3.5rem)] [@media(min-width:1024px)_and_(max-height:820px)]:!text-[clamp(2rem,3.4vw,2.75rem)] font-semibold leading-[1.05] tracking-[-0.04em] text-balance">
               Everything your office needs,
               <br className="hidden sm:block" /> without the{" "}
@@ -203,7 +223,7 @@ export default function WhyStack() {
                         <span className="mt-1 rounded-full border border-white/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.7)_0%,rgba(255,255,255,0.35)_100%)] px-3.5 py-1.5 text-[13.5px] font-medium text-[#111113] shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_6px_16px_-10px_rgba(17,17,19,0.35)] backdrop-blur-md backdrop-saturate-150">
                           {c.tag}
                         </span>
-                        <Image src={`/option-2/why-icon-${i + 1}.webp`} alt="" width={160} height={160} className="-mr-1 -mt-1 size-12 flex-none sm:-mt-2 sm:size-16 mix-blend-multiply sm:-mb-6 sm:size-20" />
+                        <Image src={c.icon} alt="" width={160} height={160} className="-mr-1 -mt-1 size-12 flex-none drop-shadow-[0_6px_8px_rgba(17,17,19,0.12)] sm:-mb-6 sm:-mt-2 sm:size-20" />
                       </div>
                       <p className="flex flex-wrap items-baseline gap-x-3">
                         <span className="text-[2.25rem] sm:text-[clamp(2.6rem,5vw,3.75rem)] [@media(min-width:1024px)_and_(max-height:820px)]:!text-[3rem] font-medium leading-none tracking-[-0.04em] text-[#111113]">{c.value}</span>
