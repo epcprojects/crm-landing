@@ -105,7 +105,7 @@ export default function ReachUsForm({
   onClose?: () => void;
 } = {}) {
   const [a, setA] = useState<Answers>({ businessName: "", teamSize: "5–10", challenge: "", fullName: "", phone: "", email: "" });
-  const [sent, setSent] = useState(false);
+  const [submissionResult, setSubmissionResult] = useState<"idle" | "saved" | "duplicate">("idle");
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [tried, setTried] = useState(false); // after the first send, problems update as you type
@@ -118,6 +118,7 @@ export default function ReachUsForm({
     const next = { ...a, [k]: v };
     setA(next);
     if (tried) setErrors(check(next));
+    setSubmissionResult("idle");
     setSubmitError("");
     requestIdRef.current = "";
   };
@@ -145,7 +146,8 @@ export default function ReachUsForm({
         body: JSON.stringify({ ...a, website, requestId }),
       });
       if (!response.ok) throw new Error("The request could not be saved.");
-      setSent(true);
+      const result = (await response.json()) as { duplicate?: boolean };
+      setSubmissionResult(result.duplicate ? "duplicate" : "saved");
     } catch {
       setSubmitError(`We couldn’t send your request just now. Please check your connection and try again, or email us at ${siteConfig.email}.`);
     } finally {
@@ -158,7 +160,7 @@ export default function ReachUsForm({
     setA({ businessName: "", teamSize: "5–10", challenge: "", fullName: "", phone: "", email: "" });
     setErrors({});
     setTried(false);
-    setSent(false);
+    setSubmissionResult("idle");
     requestIdRef.current = "";
   };
 
@@ -195,6 +197,8 @@ export default function ReachUsForm({
 
   const firstName = a.fullName.trim().split(/\s+/)[0] || "there";
 
+  const isDuplicate = submissionResult === "duplicate";
+
   // the confirmation that replaces the form once the request is in
   const success = (
     <div
@@ -221,9 +225,13 @@ export default function ReachUsForm({
         </span>
       </span>
       <div className="flex flex-col gap-2">
-        <h2 className="text-[26px] font-semibold leading-tight tracking-[-0.025em] text-[#111113]">Thanks, {firstName}. Your demo request is in!</h2>
+        <h2 className="text-[26px] font-semibold leading-tight tracking-[-0.025em] text-[#111113]">
+          {isDuplicate ? `Thanks, ${firstName}. We already have your request!` : `Thanks, ${firstName}. Your demo request is in!`}
+        </h2>
         <p className="mx-auto max-w-[26rem] text-[14.5px] leading-relaxed text-[#5b5b63]">
-          We’ve received your details. Someone from our team usually replies within {siteConfig.replyTime} in working hours (9–5, Monday to Saturday) to set up your free 20-minute demo.
+          {isDuplicate
+            ? `We already received these details. Our team will contact you within ${siteConfig.replyTime} in working hours (9–5, Monday to Saturday).`
+            : `We’ve received your details. Someone from our team usually replies within ${siteConfig.replyTime} in working hours (9–5, Monday to Saturday) to set up your free 20-minute demo.`}
         </p>
       </div>
       {/* what happens next */}
@@ -355,7 +363,7 @@ export default function ReachUsForm({
         </form>
   );
 
-  const content = sent ? success : form;
+  const content = submissionResult !== "idle" ? success : form;
   if (!framed) return content;
   return (
     // a soft sky-to-white edge around a frosted frame
