@@ -85,7 +85,12 @@ export function Option2Footer({ onLanding = false }: { onLanding?: boolean }) {
           </nav>
         </div>
         <div className="flex flex-col justify-between gap-3 border-t border-black/[0.08] pt-6 text-[13px] text-[#5b5b63] sm:flex-row">
-          <span>© 2026 Endpoint Leads</span>
+          <span>
+            © 2026 Endpoint Leads · Built by{" "}
+            <a href="https://www.endpointclients.com/" target="_blank" rel="noopener noreferrer" className="font-medium text-[#111113] underline decoration-black/20 underline-offset-4 transition-colors hover:decoration-[#111113]">
+              Endpoint Clients
+            </a>
+          </span>
           <span>Made for real estate offices in Pakistan</span>
         </div>
       </div>

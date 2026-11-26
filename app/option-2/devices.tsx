@@ -5,7 +5,8 @@
 // dashboard screen. Both sit on a soft sky panel.
 //
 // The switch has a black pill that slides between the two options, and the
-// views swap with a soft fade, lift and blur rather than a hard cut.
+// views swap with a soft fade and a small lift rather than a hard cut. No blur or
+// zoom, so the text stays crisp while it moves.
 
 import { useLayoutEffect, useRef, useState } from "react";
 import { AppFrame, LeadsScreen } from "../components/dashboard-screens";
@@ -22,8 +23,8 @@ const ease = "ease-[cubic-bezier(0.22,1,0.36,1)]";
 /** The classes for one view: shown in place, or faded, lowered and blurred. */
 function viewState(on: boolean) {
   return on
-    ? "translate-y-0 scale-100 opacity-100 blur-0"
-    : "pointer-events-none invisible translate-y-4 scale-[0.97] opacity-0 blur-[6px]";
+    ? "translate-y-0 opacity-100"
+    : "pointer-events-none invisible translate-y-2 opacity-0";
 }
 
 export default function Devices() {
@@ -44,7 +45,7 @@ export default function Devices() {
 
   // the hidden view waits for the shown one to start fading before it leaves,
   // and becomes invisible only after its fade, so the swap reads as one move
-  const viewClass = `transition-[opacity,translate,scale,filter,visibility] duration-500 ${ease} motion-reduce:transition-none [grid-area:1/1]`;
+  const viewClass = `transition-[opacity,translate,visibility] duration-[400ms] ${ease} motion-reduce:transition-none [grid-area:1/1]`;
 
   return (
     <div className="relative overflow-hidden rounded-[24px] bg-[linear-gradient(180deg,#cfe2f5_0%,#eef4fa_60%,#f6f1ea_100%)] sm:rounded-[32px]">
