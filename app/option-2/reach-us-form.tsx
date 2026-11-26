@@ -7,6 +7,7 @@
 
 import { useState, type FormEvent, type ReactNode } from "react";
 import { ArrowRight, Buildings, CheckCircle, EnvelopeSimple, Phone, User, X } from "@phosphor-icons/react/dist/ssr";
+import Image from "next/image";
 import { whatsappLink } from "../site-config";
 
 const teamSizes = ["5–10", "10–25", "25–50", "50+"];
@@ -70,7 +71,11 @@ export default function ReachUsForm({
         >
           {/* header: who you will talk to */}
           <div className="flex items-start justify-between gap-4">
-            <div>
+            <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-3.5">
+              {/* the clay calendar, in the popup only; above the title on phones */}
+              {!framed && (
+                <Image src="/option-2/demo-calendar.webp" alt="" width={112} height={112} className="size-11 flex-none select-none drop-shadow-[0_8px_12px_rgba(17,17,19,0.18)] sm:size-[52px]" />
+              )}
               <div>
                 <h2 className="text-[24px] font-semibold leading-tight tracking-[-0.025em] text-[#111113]">Book your free demo</h2>
                 <p className="mt-1 text-[13.5px] text-[#5b5b63]">A real person from our team will set it up with you.</p>
@@ -111,7 +116,7 @@ export default function ReachUsForm({
           </div>
 
           <fieldset className="flex flex-col gap-1.5">
-            <legend className="mb-1.5 text-[12.5px] font-medium text-[#3d3d44]">People handling client enquiries</legend>
+            <legend className="mb-1.5 text-[12.5px] font-medium text-[#3d3d44]">How many people handle client enquiries in your business?</legend>
             <div className="grid grid-cols-4 gap-1 rounded-2xl border border-black/[0.06] bg-[#f7f8fa] p-1">
               {teamSizes.map((size) => (
                 <label key={size} className="relative">
@@ -125,7 +130,7 @@ export default function ReachUsForm({
           </fieldset>
 
           <label className="flex flex-col gap-1.5 text-[12.5px] font-medium text-[#3d3d44]">
-            Biggest challenge <span className="sr-only">(optional)</span>
+            What is your biggest challenge with managing your Real-Estate Business? <span className="sr-only">(optional)</span>
             <textarea
               rows={3}
               value={a.challenge}
