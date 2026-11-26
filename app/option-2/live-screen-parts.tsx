@@ -6,7 +6,8 @@ import type { ReactNode, Ref } from "react";
 import { CaretDown, Check, MagnifyingGlass, X } from "@phosphor-icons/react/dist/ssr";
 
 export const banner = "rounded-2xl bg-[linear-gradient(110deg,#ede9fe_0%,#e3dbff_45%,#d3c6ff_100%)] p-3 sm:p-4";
-export const tableCard = "flex min-w-0 flex-1 flex-col overflow-hidden rounded-xl border border-[#eaecf0] bg-white";
+// on phones both lists take the same height, so the Projects and Users cards match
+export const tableCard = "flex min-w-0 flex-1 flex-col overflow-hidden rounded-xl border border-[#eaecf0] bg-white max-sm:min-h-[308px]";
 export const ghostBtn = "inline-flex h-7 items-center gap-1.5 rounded-lg border bg-white px-2.5 text-[11px] font-medium text-[#344054] transition-colors";
 export const primaryBtn = "inline-flex h-7 flex-none items-center gap-1 whitespace-nowrap rounded-full bg-brand px-3 text-[11px] font-medium text-white";
 export const th = "text-[9px] font-semibold uppercase tracking-[0.06em] text-[#667085]";
@@ -23,16 +24,26 @@ export const initialsOf = (name: string) =>
   name.replace(/[()]/g, "").split(" ").slice(0, 2).map((w) => w[0]).join("").toUpperCase();
 
 /** A count on a banner: coloured edge, label and number. */
-export function BannerStat({ label, count, color, lit = false }: { label: string; count: number; color: string; lit?: boolean }) {
+export function BannerStat({ label, short, count, color, lit = false }: { label: string; /** a shorter label for phones */ short?: string; count: number; color: string; lit?: boolean }) {
   return (
     <span
-      className={`relative inline-flex items-center gap-2 rounded-lg border bg-white/90 py-1.5 pl-3 pr-2.5 text-[11px] text-[#344054] transition-[box-shadow,border-color] duration-300 ${
+      // on phones: label over number, so three fit on one line
+      className={`relative inline-flex min-w-0 flex-col items-start rounded-lg border bg-white/90 py-1.5 pl-2.5 pr-2 text-[10px] leading-tight text-[#344054] transition-[box-shadow,border-color] duration-300 sm:flex-row sm:items-center sm:gap-2 sm:pl-3 sm:pr-2.5 sm:text-[11px] sm:leading-normal ${
         lit ? "border-[#7a5af8] shadow-[0_0_0_3px_rgba(122,90,248,0.18)]" : "border-white/60"
       }`}
     >
       <span className="absolute left-0 top-1/2 h-5 w-[3px] -translate-y-1/2 rounded-r-sm" style={{ backgroundColor: color }} />
-      {label}
-      <strong key={count} className="text-[12px] font-bold text-[#101828] animate-[demo-toast_300ms_ease-out]">
+      <span className="w-full truncate sm:w-auto">
+        {short ? (
+          <>
+            <span className="sm:hidden">{short}</span>
+            <span className="hidden sm:inline">{label}</span>
+          </>
+        ) : (
+          label
+        )}
+      </span>
+      <strong key={count} className="text-[13px] font-bold text-[#101828] animate-[demo-toast_300ms_ease-out] sm:text-[12px]">
         {count}
       </strong>
     </span>
@@ -111,7 +122,8 @@ export function DemoSelect<T extends string>({
       </span>
       <span
         className={`absolute top-full z-20 mt-1.5 flex w-40 flex-col rounded-xl border border-[#eaecf0] bg-white p-1 shadow-[0_16px_32px_-12px_rgba(16,24,40,0.3)] transition-[opacity,scale] duration-200 ${
-          align === "right" ? "right-0 origin-top-right" : "left-0 origin-top-left"
+          // on phones the button sits on the left edge, so the menu always opens to the right
+          align === "right" ? "left-0 origin-top-left sm:left-auto sm:right-0 sm:origin-top-right" : "left-0 origin-top-left"
         } ${open ? "scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0"}`}
       >
         {options.map((o) => (

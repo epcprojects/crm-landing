@@ -94,7 +94,7 @@ export default function LiveProjectsScreen() {
         await hand.go(chipRef.current);
         await hand.click();
         if (stop) return;
-        setLit("visit");
+        setLit("contacted");
         await wait(2000);
         await hand.click();
         setLit(null);
@@ -124,10 +124,10 @@ export default function LiveProjectsScreen() {
           <Buildings weight="fill" className="size-4.5" />
         </span>
         <p className="mr-auto text-[18px] text-[#101828]">Projects</p>
-        <span className="flex flex-wrap gap-1.5">
-          <BannerStat label="Total Projects" count={5} color="#f04438" />
-          <BannerStat label="Active Projects" count={5} color="#f79009" />
-          <BannerStat label="Total Leads" count={1454} color="#12b76a" />
+        <span className="grid w-full grid-cols-3 gap-1.5 sm:flex sm:w-auto sm:flex-wrap">
+          <BannerStat label="Total Projects" short="Projects" count={5} color="#f04438" />
+          <BannerStat label="Active Projects" short="Active" count={5} color="#f79009" />
+          <BannerStat label="Total Leads" short="Leads" count={1454} color="#12b76a" />
         </span>
       </div>
 
@@ -163,7 +163,7 @@ export default function LiveProjectsScreen() {
             <div
               key={p.name}
               aria-hidden={!shown}
-              className={`${cols} border-b border-[#f2f4f7] px-3 py-2 text-[11px] last:border-0 ${shown ? "animate-[demo-toast_300ms_ease-out]" : "invisible"}`}
+              className={`${cols} border-b border-[#f2f4f7] px-3 py-2 text-[11px] last:border-0 ${shown ? "animate-[demo-toast_300ms_ease-out]" : "invisible"} ${i >= 2 ? "max-sm:hidden" : ""}`}
             >
               <span className="flex min-w-0 items-center gap-2">
                 <span className="grid size-8 flex-none place-items-center rounded-full text-[9px] font-semibold text-white" style={{ backgroundColor: projectTone[p.name] }}>
@@ -178,12 +178,12 @@ export default function LiveProjectsScreen() {
                 <span className="hidden sm:inline">Total Leads</span>
                 <span className="rounded-full bg-[#d1fadf] px-1.5 py-0.5 font-semibold text-[#067647]">{p.total}</span>
               </span>
-              {/* on phones only the first four stages show, so rows stay short */}
-              <span className="col-span-2 flex flex-wrap gap-1 max-sm:[&>*:nth-child(n+5)]:hidden lg:col-span-1">
+              {/* on phones only the first two stages show, so rows stay short */}
+              <span className="col-span-2 flex flex-wrap gap-1 max-sm:[&>*:nth-child(n+3)]:hidden lg:col-span-1">
                 {p.breakdown.map(([status, count]) => (
                   <span
                     key={status}
-                    ref={status === "visit" && shown && i === 0 ? chipRef : undefined}
+                    ref={status === "contacted" && shown && i === 0 ? chipRef : undefined}
                     className={`inline-flex items-center gap-1.5 rounded-md border px-1.5 py-0.5 text-[10px] text-[#344054] transition-[opacity,border-color,background-color] duration-300 ${
                       lit === status ? "border-[#7a5af8] bg-[#f4f3ff]" : "border-[#eaecf0] bg-white"
                     } ${lit && lit !== status ? "opacity-35" : ""}`}

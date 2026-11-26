@@ -160,8 +160,11 @@ export default function MobileDashboard({ active = true }: { active?: boolean })
   const shown = leads.filter((l) => (!query || l.contact.toLowerCase().includes(query.toLowerCase())) && (!stage || l.status === stage));
 
   return (
-    // phone frame
-    <div className="relative mx-auto w-[300px] max-w-[calc(100%-6px)]">
+    // phone frame: drawn at full size, and on phones scaled down evenly (width
+    // and height together) inside a box of the scaled size, so it keeps a real
+    // phone's proportions
+    <div className="mx-auto h-[541px] w-[260px] sm:h-auto sm:w-auto">
+    <div className="relative mx-auto w-[300px] origin-top-left max-sm:scale-[0.8667] sm:max-w-[calc(100%-6px)]">
       <span aria-hidden="true" className="absolute -left-[3px] top-[110px] h-7 w-[3px] rounded-l-sm bg-[#2b2b31]" />
       <span aria-hidden="true" className="absolute -left-[3px] top-[160px] h-12 w-[3px] rounded-l-sm bg-[#2b2b31]" />
       <span aria-hidden="true" className="absolute -right-[3px] top-[180px] h-16 w-[3px] rounded-r-sm bg-[#2b2b31]" />
@@ -349,6 +352,7 @@ export default function MobileDashboard({ active = true }: { active?: boolean })
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

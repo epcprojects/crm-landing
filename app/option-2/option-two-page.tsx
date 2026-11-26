@@ -161,7 +161,8 @@ function SectionHead({ eyebrow, title, line }: { eyebrow: string; title: ReactNo
 function Screen({ active, children }: { active: string; children: ReactNode }) {
   return (
     <div className="overflow-hidden rounded-[22px] border border-white/70 bg-white/60 p-2 shadow-[0_40px_80px_-40px_rgba(30,40,70,0.45)] backdrop-blur sm:rounded-[28px] sm:p-3">
-      <div className="overflow-hidden rounded-[16px] border border-black/[0.05] bg-white sm:rounded-[20px]">
+      {/* on phones the frame takes its content's height, with no minimum, so no empty space is left at the bottom */}
+      <div className="overflow-hidden rounded-[16px] border border-black/[0.05] bg-white max-sm:[&>div]:min-h-0 sm:rounded-[20px]">
         <AppFrame active={active} logo={<img src="/option-2/endpoint-mark.svg" alt="" className="size-7" />}>{children}</AppFrame>
       </div>
     </div>
@@ -457,8 +458,9 @@ export default function OptionTwoPage() {
           {/* plans */}
           <section id="plans" className="scroll-mt-28 px-4 py-8 sm:px-10 sm:py-24">
             <div className="mx-auto flex max-w-6xl flex-col gap-6 sm:gap-12">
-              {/* heading styled like the FAQ: grey pill, green underline on one word */}
-              <div className="flex flex-col items-center gap-3 text-center sm:gap-5">
+              {/* heading styled like the FAQ: grey pill, green underline on one word;
+                  left-aligned on phones, in line with the cards, centred from tablets up */}
+              <div className="flex flex-col items-start gap-3 text-left sm:items-center sm:gap-5 sm:text-center">
                 <span className="rounded-full bg-[#f3f4f6] px-3 py-1.5 text-[12.5px] font-medium text-[#111113] sm:text-[13px]">Plans</span>
                 <h2 className="text-[1.75rem] sm:text-[clamp(2.1rem,4.4vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.04em] text-balance">
                   Simple plans

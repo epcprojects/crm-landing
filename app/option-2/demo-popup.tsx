@@ -33,7 +33,7 @@ export default function DemoPopup({ onClose }: { onClose: () => void }) {
 
   return (
     <div
-      className="fixed inset-0 z-[60] flex items-end justify-center overflow-y-auto bg-[#0f1a2e]/35 p-3 backdrop-blur-sm sm:items-center sm:p-6"
+      className="fixed inset-0 z-[60] flex items-end justify-center overflow-y-auto bg-[#0f1a2e]/35 p-2 backdrop-blur-sm sm:items-center sm:p-6"
       onMouseDown={(e) => e.target === e.currentTarget && onClose()}
     >
       {result ? (
@@ -45,7 +45,7 @@ export default function DemoPopup({ onClose }: { onClose: () => void }) {
         </div>
       ) : (
         <div key="form" role="dialog" aria-modal="true" aria-label="Book your free demo" className="sheet-in my-auto w-full max-w-[640px]">
-          <div className="rounded-[28px] bg-white p-1.5 shadow-[0_40px_80px_-30px_rgba(15,26,46,0.55)] [&_form]:!pb-5">
+          <div className="rounded-[28px] bg-white p-1.5 shadow-[0_40px_80px_-30px_rgba(15,26,46,0.55)] [&_form]:!pb-5 max-sm:[&_form]:!px-4">
             <ReachUsForm id="demo-popup" framed={false} onClose={onClose} onResult={setResult} />
           </div>
         </div>

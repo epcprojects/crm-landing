@@ -40,7 +40,8 @@ export default function Faq() {
     <section id="faq" aria-labelledby="faq-heading" className="scroll-mt-28 px-4 py-8 sm:px-10 sm:py-24">
       <div className="mx-auto flex max-w-5xl flex-col gap-6 sm:gap-16">
         {/* heading */}
-        <div className="flex flex-col items-center gap-3 text-center sm:gap-5">
+        {/* left-aligned on phones, in line with the card below; centred from tablets up */}
+        <div className="flex flex-col items-start gap-3 text-left sm:items-center sm:gap-5 sm:text-center">
           <span className="rounded-full bg-[#f3f4f6] px-3 py-1.5 text-[12.5px] font-medium text-[#111113] sm:text-[13px]">FAQ</span>
           <h2 id="faq-heading" className="text-[1.75rem] sm:text-[clamp(2.1rem,4.4vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.04em] text-balance">
             Everything you need to know

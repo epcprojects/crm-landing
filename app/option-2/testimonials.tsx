@@ -139,15 +139,19 @@ export default function Testimonials() {
         </div>
 
         {/* numbers with clay icons */}
-        <ul className="-mt-3 grid grid-cols-3 gap-2 sm:-mt-8 sm:gap-4">
+        {/* on phones one under another, number on the left and icon on the
+            right; from tablets up three side by side, icon below */}
+        <ul className="-mt-3 grid grid-cols-1 gap-2 sm:-mt-8 sm:grid-cols-3 sm:gap-4">
           {stats.map((st) => (
-            <li key={st.label} className={`${card} flex flex-col gap-1 max-sm:!p-3.5`}>
-              <p className="text-[1.3rem] font-medium leading-none tracking-[-0.03em] min-[360px]:text-[1.5rem] sm:text-[clamp(2rem,3.4vw,2.6rem)]">
-                {st.value}
-                {st.unit && <span className="ml-0.5 text-[0.45em] text-white/70">{st.unit}</span>}
-              </p>
-              <p className="text-[11.5px] leading-snug text-white/55 min-[360px]:text-[12px] sm:text-[15px]">{st.label}</p>
-              <Image src={`/option-2/${st.icon}.webp`} alt="" width={64} height={64} className="-ml-1 mt-3 size-11 sm:mt-6 sm:size-14 [mask-image:radial-gradient(circle,#000_55%,transparent_72%)]" />
+            <li key={st.label} className={`${card} flex items-center justify-between gap-4 max-sm:!px-5 max-sm:!py-4 sm:flex-col sm:items-start sm:justify-start sm:gap-1`}>
+              <div className="flex flex-col gap-1">
+                <p className="text-[1.75rem] font-medium leading-none tracking-[-0.03em] sm:text-[clamp(2rem,3.4vw,2.6rem)]">
+                  {st.value}
+                  {st.unit && <span className="ml-0.5 text-[0.45em] text-white/70">{st.unit}</span>}
+                </p>
+                <p className="text-[13.5px] leading-snug text-white/55 sm:text-[15px]">{st.label}</p>
+              </div>
+              <Image src={`/option-2/${st.icon}.webp`} alt="" width={64} height={64} className="size-12 flex-none [mask-image:radial-gradient(circle,#000_55%,transparent_72%)] sm:-ml-1 sm:mt-6 sm:size-14" />
             </li>
           ))}
         </ul>

@@ -158,10 +158,10 @@ export default function LiveUsersScreen() {
           <UsersThree weight="fill" className="size-4.5" />
         </span>
         <p className="mr-auto text-[18px] text-[#101828]">Users</p>
-        <span className="flex flex-wrap gap-1.5">
-          <BannerStat label="Total Users" count={12} color="#f04438" />
-          <BannerStat label="Active Users" count={11} color="#f79009" />
-          <BannerStat label="Pending Invites" count={pending} color="#12b76a" lit={pending > 1} />
+        <span className="grid w-full grid-cols-3 gap-1.5 sm:flex sm:w-auto sm:flex-wrap">
+          <BannerStat label="Total Users" short="Users" count={12} color="#f04438" />
+          <BannerStat label="Active Users" short="Active" count={11} color="#f79009" />
+          <BannerStat label="Pending Invites" short="Pending" count={pending} color="#12b76a" lit={pending > 1} />
           <span className="hidden sm:inline-flex">
             <BannerStat label="External Users" count={0} color="#7a5af8" />
           </span>
@@ -202,13 +202,13 @@ export default function LiveUsersScreen() {
           <span className="hidden lg:block">Assigned Projects</span>
           <span className="text-right">Invitation Status</span>
         </div>
-        {ordered.map((u) => {
+        {ordered.map((u, i) => {
           const shown = rows.includes(u);
           return (
             <div
               key={u.email}
               aria-hidden={!shown}
-              className={`${cols} border-b border-[#f2f4f7] px-3 py-2 text-[11px] last:border-0 ${shown ? "animate-[demo-toast_300ms_ease-out]" : "invisible"}`}
+              className={`${cols} border-b border-[#f2f4f7] px-3 py-2 text-[11px] last:border-0 ${shown ? "animate-[demo-toast_300ms_ease-out]" : "invisible"} ${i >= 4 ? "max-sm:hidden" : ""}`}
             >
               <span className="flex min-w-0 items-center gap-2">
                 <Initials text={initialsOf(u.name)} tone={u.tone} size="size-7" />

@@ -230,7 +230,7 @@ export default function LiveLeadsScreen({ active }: { active: boolean }) {
               key={status}
               status={status}
               count={count}
-              className={`${i > 5 ? "hidden sm:flex" : ""} transition-[opacity,box-shadow] duration-300 ${stage && stage !== status ? "opacity-45" : ""} ${stage === status ? "ring-2 ring-[#7a5af8]/50" : ""}`}
+              className={`${i > 3 ? "max-sm:hidden" : ""} ${i > 5 ? "hidden sm:flex" : ""} transition-[opacity,box-shadow] duration-300 ${stage && stage !== status ? "opacity-45" : ""} ${stage === status ? "ring-2 ring-[#7a5af8]/50" : ""}`}
             />
           ))}
         </div>
@@ -310,11 +310,11 @@ export default function LiveLeadsScreen({ active }: { active: boolean }) {
         </div>
         {/* every lead keeps its row: the ones hidden by the search or filter
             stay below as blank space, so the card never changes height */}
-        {[...rows, ...leads.filter((l) => !rows.includes(l))].map((l) => (
+        {[...rows, ...leads.filter((l) => !rows.includes(l))].map((l, i) => (
           <div
             key={l.ref}
             aria-hidden={!rows.includes(l)}
-            className={`${cols} border-b border-[#f2f4f7] px-3 py-2 text-[11px] text-[#344054] last:border-0 ${rows.includes(l) ? "animate-[demo-toast_300ms_ease-out]" : "invisible"}`}
+            className={`${cols} border-b border-[#f2f4f7] px-3 py-2 text-[11px] text-[#344054] last:border-0 ${rows.includes(l) ? "animate-[demo-toast_300ms_ease-out]" : "invisible"} ${i >= 4 ? "max-sm:hidden" : ""}`}
           >
             <span className="hidden text-[#475467] sm:block">{l.ref}</span>
             <span className="min-w-0 truncate font-medium text-[#101828]">{l.title}</span>
