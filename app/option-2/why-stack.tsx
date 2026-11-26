@@ -76,21 +76,36 @@ export default function WhyStack() {
   const [reduce, setReduce] = useState(false);
 
   useEffect(() => {
-    setReduce(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- read once on mount
+    setReduce(reduced);
     let raf = 0;
-    const update = () => {
-      raf = 0;
+    let shown = 0; // the position drawn on screen
+    let target = 0; // the position the scroll asks for
+    const read = () => {
       const el = wrap.current;
       if (!el) return;
       const r = el.getBoundingClientRect();
       const run = r.height - window.innerHeight;
       const t = run > 0 ? clamp(-r.top / run, 0, 1) : 0;
-      setP(t * (cards.length - 1));
+      target = t * (cards.length - 1);
+    };
+    // ease the drawn position toward the scroll position every frame, so a
+    // fast trackpad swipe still shows the cards sliding instead of jumping
+    const tick = () => {
+      raf = 0;
+      const gap = target - shown;
+      shown = Math.abs(gap) < 0.002 || reduced ? target : shown + gap * 0.14;
+      setP(shown);
+      if (shown !== target) raf = requestAnimationFrame(tick);
     };
     const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(update);
+      read();
+      if (!raf) raf = requestAnimationFrame(tick);
     };
-    update();
+    read();
+    shown = target;
+    setP(shown);
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     return () => {
@@ -106,8 +121,9 @@ export default function WhyStack() {
   return (
     <section id="benefits" aria-labelledby="why-heading" className="scroll-mt-20">
       {/* tall track: one screen per card */}
-      <div ref={wrap} className="relative" style={{ height: `${cards.length * 70 + 40}vh` }}>
-        <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden px-5 pb-10 pt-24 sm:px-10">
+      {/* tall track: a full screen of scrolling per card, so each card gets time on screen */}
+      <div ref={wrap} className="relative" style={{ height: `${cards.length * 100 + 40}vh` }}>
+        <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden px-5 pb-10 pt-24 sm:px-10 [@media(min-width:1024px)_and_(max-height:820px)]:!pb-8 [@media(min-width:1024px)_and_(max-height:820px)]:!pt-20">
           {/* giant faint words drifting sideways */}
           <p
             aria-hidden="true"
@@ -118,9 +134,9 @@ export default function WhyStack() {
           </p>
 
           {/* heading */}
-          <div className="relative mb-8 flex flex-col items-center gap-5 text-center sm:mb-10">
+          <div className="relative mb-8 flex flex-col items-center gap-5 text-center sm:mb-10 [@media(min-width:1024px)_and_(max-height:820px)]:!mb-6 [@media(min-width:1024px)_and_(max-height:820px)]:!gap-3">
             <span className="rounded-full bg-[#f3f4f6] px-3 py-1.5 text-[13px] font-medium text-[#111113]">Why Endpoint Leads</span>
-            <h2 id="why-heading" className="text-[clamp(2.1rem,4.4vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.04em] text-balance">
+            <h2 id="why-heading" className="text-[clamp(2.1rem,4.4vw,3.5rem)] [@media(min-width:1024px)_and_(max-height:820px)]:!text-[clamp(2rem,3.4vw,2.75rem)] font-semibold leading-[1.05] tracking-[-0.04em] text-balance">
               Everything your office needs,
               <br className="hidden sm:block" /> without the{" "}
               <span className="relative inline-block">
@@ -171,10 +187,10 @@ export default function WhyStack() {
                     className="grid gap-4 rounded-[28px] p-3 shadow-[0_30px_60px_-40px_rgba(17,17,19,0.45)] sm:grid-cols-[300px_minmax(0,1fr)] sm:gap-8 sm:p-4"
                     style={{ backgroundColor: c.bg }}
                   >
-                    <div className="relative h-[220px] overflow-hidden rounded-[20px] sm:h-[370px]">
+                    <div className="relative h-[220px] overflow-hidden rounded-[20px] sm:h-[370px] [@media(min-width:1024px)_and_(max-height:820px)]:!h-[290px]">
                       <Image src={c.image} alt="" fill sizes="(min-width: 640px) 300px, 100vw" className="object-cover object-top" />
                     </div>
-                    <div className="flex flex-col gap-5 px-2 pb-2 sm:px-0 sm:py-4 sm:pr-7">
+                    <div className="flex flex-col gap-5 px-2 pb-2 sm:px-0 sm:py-4 sm:pr-7 [@media(min-width:1024px)_and_(max-height:820px)]:!gap-3 [@media(min-width:1024px)_and_(max-height:820px)]:!py-2">
                       {/* the benefit as a pill, with its big clay icon on the right */}
                       <div className="flex items-start justify-between gap-4">
                         <span className="mt-1 rounded-full border border-white/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.7)_0%,rgba(255,255,255,0.35)_100%)] px-3.5 py-1.5 text-[13.5px] font-medium text-[#111113] shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_6px_16px_-10px_rgba(17,17,19,0.35)] backdrop-blur-md backdrop-saturate-150">
@@ -183,7 +199,7 @@ export default function WhyStack() {
                         <Image src={`/option-2/why-icon-${i + 1}.webp`} alt="" width={160} height={160} className="-mr-1 -mt-2 size-16 flex-none mix-blend-multiply sm:-mb-6 sm:size-20" />
                       </div>
                       <p className="flex flex-wrap items-baseline gap-x-3">
-                        <span className="text-[clamp(2.6rem,5vw,3.75rem)] font-medium leading-none tracking-[-0.04em] text-[#111113]">{c.value}</span>
+                        <span className="text-[clamp(2.6rem,5vw,3.75rem)] [@media(min-width:1024px)_and_(max-height:820px)]:!text-[3rem] font-medium leading-none tracking-[-0.04em] text-[#111113]">{c.value}</span>
                         <span className="text-[17px] font-medium tracking-[-0.01em] text-[#5b5b63]">{c.unit}</span>
                       </p>
                       <blockquote className="text-[16px] leading-relaxed text-[#2a2a30] sm:text-[19px]">&ldquo;{c.quote}&rdquo;</blockquote>

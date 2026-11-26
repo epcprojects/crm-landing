@@ -28,7 +28,7 @@ function Field({ label, icon, children }: { label: string; icon: ReactNode; chil
 }
 
 export default function ReachUsForm() {
-  const [a, setA] = useState({ businessName: "", teamSize: "", challenge: "", fullName: "", phone: "", email: "" });
+  const [a, setA] = useState({ businessName: "", teamSize: "2–10", challenge: "", fullName: "", phone: "", email: "" });
   const [sent, setSent] = useState(false);
   const set = (k: keyof typeof a, v: string) => {
     setA((cur) => ({ ...cur, [k]: v }));
@@ -59,7 +59,7 @@ export default function ReachUsForm() {
         <form
           id="demo-enquiry"
           onSubmit={submit}
-          className="reach-form flex scroll-mt-28 flex-col gap-5 rounded-[22px] bg-white p-5 shadow-[0_1px_2px_rgba(17,17,19,0.06)] sm:p-7"
+          className="reach-form flex scroll-mt-28 flex-col gap-5 rounded-[22px] bg-white p-5 shadow-[0_1px_2px_rgba(17,17,19,0.06)] sm:p-7 [@media(min-width:1024px)_and_(max-height:820px)]:!gap-4 [@media(min-width:1024px)_and_(max-height:820px)]:!p-6"
         >
           {/* header: who you will talk to */}
           <div className="flex items-start justify-between gap-4">
@@ -112,7 +112,7 @@ export default function ReachUsForm() {
               value={a.challenge}
               onChange={(e) => set("challenge", e.target.value)}
               placeholder="Follow-ups get missed, agents reply late…"
-              className="w-full resize-none rounded-2xl border border-black/[0.06] bg-[#f7f8fa] px-4 py-3 text-[14px] text-[#111113] transition-[border-color,background-color] placeholder:text-[#111113]/35 hover:border-black/[0.1] focus:border-[#111113] focus:bg-white focus:outline-none focus-visible:outline-none"
+              className="w-full resize-none rounded-2xl [@media(min-width:1024px)_and_(max-height:820px)]:!h-[64px] border border-black/[0.06] bg-[#f7f8fa] px-4 py-3 text-[14px] text-[#111113] transition-[border-color,background-color] placeholder:text-[#111113]/35 hover:border-black/[0.1] focus:border-[#111113] focus:bg-white focus:outline-none focus-visible:outline-none"
             />
           </label>
 

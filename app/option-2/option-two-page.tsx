@@ -28,7 +28,7 @@ import Reveal from "../components/reveal";
 import { AppFrame, ProjectsScreen, UsersScreen } from "../components/dashboard-screens";
 import ReachUsForm from "./reach-us-form";
 import WhatsappIcon from "../components/whatsapp-icon";
-import { siteConfig, whatsappLink } from "../site-config";
+import { siteConfig } from "../site-config";
 import { DemoButton } from "./demo-button";
 import Devices from "./devices";
 import Testimonials from "./testimonials";
@@ -276,8 +276,6 @@ function Split({
 /* --------------------------------- page --------------------------------- */
 
 export default function OptionTwoPage() {
-  const waLink = whatsappLink("Hi Endpoint Leads, I saw your website.");
-
   return (
     <ContactProvider>
       <div className="bg-white text-[#111113]">
@@ -286,7 +284,7 @@ export default function OptionTwoPage() {
 
         <main id="top">
           {/* hero */}
-          <section className="relative overflow-hidden bg-white px-5 pb-10 pt-36 sm:px-10 sm:pt-44">
+          <section className="relative overflow-hidden bg-white px-5 pb-10 pt-36 sm:px-10 sm:pt-44 [@media(min-width:1024px)_and_(max-height:820px)]:!pt-28">
             {/* a sharp sky photo with clouds (AI-made, public/option-2/sky.webp),
                 fading into white at the bottom */}
             <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 bottom-24 sm:bottom-32">
@@ -560,21 +558,11 @@ export default function OptionTwoPage() {
                     </span>
                   </h2>
                 </div>
-                <div className="grid gap-4 sm:grid-cols-2">
+                {/* the email card, centred */}
+                <div className="mx-auto grid w-full max-w-xl">
                   <div className="flex flex-col gap-4 rounded-[24px] bg-white/85 p-7 shadow-[0_1px_2px_rgba(16,24,40,0.05),0_24px_48px_-24px_rgba(25,55,100,0.35)] backdrop-blur">
-                    <div className="flex items-start justify-between">
-                      <Image src="/option-2/chat-w.webp" alt="" width={96} height={96} className="-ml-2 -mt-2 size-16 mix-blend-multiply" />
-                      <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#6b6b72]">Chat with us</span>
-                    </div>
-                    <h3 className="text-[22px] font-semibold tracking-[-0.02em]">WhatsApp</h3>
-                    <p className="text-[15px] leading-relaxed text-[#5b5b63]">Ask anything about Endpoint Leads, pricing or setup, and we will answer on WhatsApp.</p>
-                    <a href={waLink} target="_blank" rel="noopener noreferrer" className="inline-flex h-10 items-center gap-1.5 self-start rounded-full bg-[#f3f0eb] px-4 text-[14px] font-medium hover:bg-[#ebe6df]">
-                      Message us <ArrowUpRight className="size-3.5" />
-                    </a>
-                  </div>
-                  <div className="flex flex-col gap-4 rounded-[24px] bg-white/85 p-7 shadow-[0_1px_2px_rgba(16,24,40,0.05),0_24px_48px_-24px_rgba(25,55,100,0.35)] backdrop-blur">
-                    <div className="flex items-start justify-between gap-3">
-                      <Image src="/option-2/email-w.webp" alt="" width={96} height={96} className="-ml-2 -mt-2 size-16 mix-blend-multiply" />
+                    <div className="-mt-2 flex items-center justify-between gap-3">
+                      <Image src="/option-2/email-w.webp" alt="" width={96} height={96} className="-ml-2 size-16 mix-blend-multiply" />
                       <span className="truncate text-[11px] font-semibold uppercase tracking-[0.12em] text-[#6b6b72]">Write to us</span>
                     </div>
                     <h3 className="text-[22px] font-semibold tracking-[-0.02em]">Email</h3>
