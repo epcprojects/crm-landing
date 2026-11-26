@@ -311,7 +311,6 @@ export default function OptionTwoPage() {
                   Complete transparency and control over your real estate business, so you can
                   scale it in less time.
                 </p>
-                <DemoButton>Get a free demo</DemoButton>
                 {/* two key numbers with clay icons; the numbers count up from zero as
                     they come into view. Two frosted cards: on phones each card is
                     centred with the icon on top; from 640px the icon sits left. */}
@@ -319,16 +318,17 @@ export default function OptionTwoPage() {
                   {[
                     { value: 14, label: "Islamabad’s biggest projects launched", icon: "/option-2/kpi-tower.webp" },
                     { value: 15, label: "High ticket clients saved every quarter", icon: "/option-2/kpi-shield.webp" },
-                  ].map((k) => (
+                  ].map((k, i) => (
                     <div
                       key={k.label}
-                      className="flex flex-col items-center gap-1.5 rounded-[18px] border border-white/80 bg-white/70 px-3 py-3.5 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_10px_24px_-16px_rgba(25,55,100,0.45)] backdrop-blur-md sm:flex-row sm:gap-3.5 sm:rounded-[20px] sm:py-3 sm:pl-3.5 sm:pr-4 sm:text-left [@media(min-width:1024px)_and_(max-height:700px)]:!py-2"
+                      style={{ "--d": `${-i * 2.5}s` } as CSSProperties}
+                      className="kpi-wave flex flex-col items-center gap-1.5 rounded-[18px] border border-white/80 bg-white/70 px-3 py-4 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_10px_24px_-16px_rgba(25,55,100,0.45)] backdrop-blur-md sm:flex-row sm:gap-4 sm:rounded-[22px] sm:py-4 sm:pl-4 sm:pr-5 sm:text-left [@media(min-width:1024px)_and_(max-height:700px)]:!py-2.5"
                     >
                       {/* the clay icon on its own, no tile behind it */}
-                      <Image src={k.icon} alt="" width={80} height={80} className="size-11 flex-none drop-shadow-[0_4px_6px_rgba(17,17,19,0.12)] sm:size-14 [@media(min-width:1024px)_and_(max-height:700px)]:!size-11" />
-                      <div className="flex min-w-0 flex-col items-center gap-1 sm:items-start">
-                        <dt className="order-2 max-w-[9.5rem] text-[12px] leading-snug text-[#5b5b63] sm:max-w-none sm:text-[13.5px] [@media(min-width:1024px)_and_(max-height:700px)]:!text-[12.5px]">{k.label}</dt>
-                        <dd className="order-1 text-[24px] font-semibold leading-none tracking-[-0.03em] tabular-nums text-[#111113] sm:text-[30px] [@media(min-width:1024px)_and_(max-height:700px)]:!text-[26px]">
+                      <Image src={k.icon} alt="" width={80} height={80} className="kpi-sway size-12 flex-none drop-shadow-[0_4px_6px_rgba(17,17,19,0.12)] sm:size-16 [@media(min-width:1024px)_and_(max-height:700px)]:!size-12" />
+                      <div className="flex min-w-0 flex-col items-center gap-1.5 sm:items-start">
+                        <dt className="order-2 max-w-[10rem] text-[13px] font-medium leading-snug text-[#4a4a52] sm:max-w-none sm:text-[15px] [@media(min-width:1024px)_and_(max-height:700px)]:!text-[13.5px]">{k.label}</dt>
+                        <dd className="order-1 text-[32px] font-semibold leading-none tracking-[-0.035em] tabular-nums text-[#111113] sm:text-[42px] [@media(min-width:1024px)_and_(max-height:700px)]:!text-[32px]">
                           <CountUp to={k.value} />
                         </dd>
                       </div>
