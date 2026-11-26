@@ -1448,3 +1448,42 @@ button.bg-brand:not([aria-pressed]):not([role="tab"]):not([aria-label="Send"]):h
     opacity: 1;
   }
 }
+
+/* Option 2 hero KPI cards: a slow, small wave that never stops, and the clay
+   icon swaying gently on top of it */
+.kpi-wave {
+  animation: kpi-wave 5s ease-in-out infinite;
+  animation-delay: var(--d, 0s);
+}
+@keyframes kpi-wave {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-3px) rotate(-0.5deg);
+  }
+  75% {
+    transform: translateY(2px) rotate(0.5deg);
+  }
+}
+.kpi-sway {
+  transform-origin: 50% 90%;
+  animation: kpi-sway 3.6s ease-in-out infinite;
+  animation-delay: var(--d, 0s);
+}
+@keyframes kpi-sway {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(4deg) translateY(-2px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kpi-wave,
+  .kpi-sway {
+    animation: none !important;
+  }
+}

@@ -18,12 +18,18 @@ import {
 import { Option2ContactProvider } from "./demo-popup";
 import Faq from "./faq";
 import WhyStack from "./why-stack";
+import { officeLogos } from "./office-logos";
+import WhyStackCopy from "./why-stack-copy";
+
+/** The duplicate "Why Endpoint Leads" deck stays hidden until this is true. */
+const SHOW_WHY_COPY = false;
 import { Option2Footer, Option2Header } from "./chrome";
 import BackToTop from "../components/back-to-top";
 import FloatingDock from "./floating-dock";
 import FitScale from "./fit-scale";
 import { AgentBreakdown, NotesFollowUps, QuietLead, StageCounts, WaitingLeads } from "../components/problem-section";
 import Reveal from "../components/reveal";
+import CountUp from "../components/count-up";
 import { AppFrame, ProjectsScreen, UsersScreen } from "../components/dashboard-screens";
 import ReachUsForm from "./reach-us-form";
 import WhatsappIcon from "../components/whatsapp-icon";
@@ -32,7 +38,6 @@ import Devices from "./devices";
 import Testimonials from "./testimonials";
 
 
-const offices = ["Raza Estates", "Malik Properties", "City Rentals", "Bahria Homes", "Qureshi & Co", "Shah Realty"];
 
 
 const plans: { name: string; price: string; line: string; items: string[]; cta: string; featured?: boolean }[] = [
@@ -188,16 +193,17 @@ function Screen({ active, children }: { active: string; children: ReactNode }) {
   );
 }
 
-/** A moving row of office names, faded at both ends. */
+/** A moving row of office logos, faded at both ends. */
 function Offices({ label }: { label?: string }) {
   return (
     <div className="flex flex-col items-center gap-6 px-4 py-6 sm:py-12">
       {label && <p className="text-[14px] text-[#6b6b72]">{label}</p>}
       <div className="w-full max-w-5xl overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_12%,#000_88%,transparent)]">
-        <div className="ticker-track flex w-max gap-9 sm:gap-14">
-          {[...offices, ...offices, ...offices, ...offices].map((name, i) => (
-            <span key={i} className="whitespace-nowrap text-[18px] font-semibold tracking-[-0.03em] text-[#9a9aa2] sm:text-[22px]">
-              {name}
+        {/* each office has its own logo, all in one soft grey; a touch smaller on phones */}
+        <div className="ticker-track flex w-max items-center gap-10 text-[#8e8e97] max-sm:origin-left max-sm:scale-[0.85] sm:gap-16">
+          {[...officeLogos, ...officeLogos, ...officeLogos, ...officeLogos].map((OfficeLogo, i) => (
+            <span key={i} aria-hidden={i >= officeLogos.length}>
+              <OfficeLogo />
             </span>
           ))}
         </div>
@@ -292,7 +298,7 @@ export default function OptionTwoPage() {
             </div>
             {/* words on the left, the demo form on the right */}
             <div className="relative mx-auto grid max-w-6xl items-center gap-8 sm:gap-10 sm:pb-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:pb-16">
-              <div className="flex flex-col items-start gap-4 text-left sm:gap-6">
+              <div className="flex flex-col items-start gap-4 text-left sm:gap-6 [@media(min-width:1024px)_and_(max-height:820px)]:!gap-5 [@media(min-width:1024px)_and_(max-height:700px)]:!gap-4">
                 {/* the same headline, line and buttons as the home page hero */}
                 {/* a short punch line above the headline, in a white pill */}
                 <p className="inline-flex items-center gap-2 rounded-full border border-black/[0.04] bg-white py-1.5 pl-3 pr-3.5 text-[14px] font-medium text-[#111113] shadow-[0_1px_2px_rgba(17,17,19,0.05),0_8px_20px_-12px_rgba(25,55,100,0.3)]">
@@ -310,9 +316,30 @@ export default function OptionTwoPage() {
                   Complete transparency and control over your real estate business, so you can
                   scale it in less time.
                 </p>
-                <div className="flex flex-wrap items-center gap-2">
-                  <DemoButton>Get a free demo</DemoButton>
-                </div>
+                {/* two key numbers with clay icons; the numbers count up from zero as
+                    they come into view. Two frosted cards: on phones each card is
+                    centred with the icon on top; from 640px the icon sits left. */}
+                <dl className="mt-1 grid w-full grid-cols-2 gap-2.5 sm:mt-2 sm:gap-3 [@media(min-width:1024px)_and_(max-height:820px)]:!mt-0">
+                  {[
+                    { value: 14, label: "Islamabad’s biggest projects launched", icon: "/option-2/kpi-tower.webp" },
+                    { value: 15, label: "High ticket clients saved every quarter", icon: "/option-2/kpi-shield.webp" },
+                  ].map((k, i) => (
+                    <div
+                      key={k.label}
+                      style={{ "--d": `${-i * 2.5}s` } as CSSProperties}
+                      className="kpi-wave flex flex-col items-center gap-1.5 rounded-[18px] border border-white/80 bg-white/70 px-3 py-4 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_10px_24px_-16px_rgba(25,55,100,0.45)] backdrop-blur-md sm:flex-row sm:gap-4 sm:rounded-[22px] sm:py-4 sm:pl-4 sm:pr-5 sm:text-left [@media(min-width:1024px)_and_(max-height:700px)]:!py-2.5"
+                    >
+                      {/* the clay icon on its own, no tile behind it */}
+                      <Image src={k.icon} alt="" width={80} height={80} className="kpi-sway size-12 flex-none drop-shadow-[0_4px_6px_rgba(17,17,19,0.12)] sm:size-16 [@media(min-width:1024px)_and_(max-height:700px)]:!size-12" />
+                      <div className="flex min-w-0 flex-col items-center gap-1.5 sm:items-start">
+                        <dt className="order-2 max-w-[10rem] text-[13px] font-medium leading-snug text-[#4a4a52] sm:max-w-none sm:text-[15px] [@media(min-width:1024px)_and_(max-height:700px)]:!text-[13.5px]">{k.label}</dt>
+                        <dd className="order-1 text-[32px] font-semibold leading-none tracking-[-0.035em] tabular-nums text-[#111113] sm:text-[42px] [@media(min-width:1024px)_and_(max-height:700px)]:!text-[32px]">
+                          <CountUp to={k.value} />
+                        </dd>
+                      </div>
+                    </div>
+                  ))}
+                </dl>
               </div>
               <div className="relative w-full pt-5">
                 {/* the year-end offer, floating on the top edge of the form */}
@@ -459,6 +486,8 @@ export default function OptionTwoPage() {
 
           {/* why Endpoint Leads: a sticky card deck like the reference */}
           <WhyStack />
+          {/* the duplicate of the card deck above, hidden for now */}
+          {SHOW_WHY_COPY && <WhyStackCopy />}
 
           {/* plans */}
           <section id="plans" className="scroll-mt-28 px-4 py-8 sm:px-10 sm:py-24">
