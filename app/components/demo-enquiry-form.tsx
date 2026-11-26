@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { ArrowLeft, ArrowRight, CheckCircle } from "@phosphor-icons/react/dist/ssr";
-import { whatsappLink } from "../site-config";
 
 const teamSizes = ["2–10", "11–25", "25–50", "50+"];
 const totalSteps = 6;
@@ -44,7 +43,6 @@ export default function DemoEnquiryForm() {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [website, setWebsite] = useState("");
-  const [submittedWhatsAppUrl, setSubmittedWhatsAppUrl] = useState("");
   const requestIdRef = useRef("");
   const formRef = useRef<HTMLFormElement>(null);
   const questionRef = useRef<HTMLDivElement>(null);
@@ -61,7 +59,6 @@ export default function DemoEnquiryForm() {
     setAnswers((current) => ({ ...current, [field]: value }));
     setSubmitted(false);
     setSubmitError("");
-    setSubmittedWhatsAppUrl("");
     requestIdRef.current = "";
   };
 
@@ -78,19 +75,6 @@ export default function DemoEnquiryForm() {
     }
     if (!formRef.current?.reportValidity()) return;
 
-    const message = [
-      "Hi Endpoint Leads, I would like a free demo.",
-      "",
-      `Real estate business: ${answers.businessName.trim()}`,
-      `People handling enquiries: ${answers.teamSize}`,
-      `Biggest challenge: ${answers.challenge.trim()}`,
-      "",
-      `Full name: ${answers.fullName.trim()}`,
-      `Phone number: ${answers.phone.trim()}`,
-      `Email address: ${answers.email.trim()}`,
-    ].join("\n");
-
-    const whatsAppUrl = whatsappLink(message);
     const requestId = requestIdRef.current || crypto.randomUUID();
     requestIdRef.current = requestId;
 
@@ -112,11 +96,9 @@ export default function DemoEnquiryForm() {
         throw new Error("The request could not be saved.");
       }
 
-      setSubmittedWhatsAppUrl(whatsAppUrl);
       setSubmitted(true);
-      window.open(whatsAppUrl, "_blank", "noopener,noreferrer");
     } catch {
-      setSubmitError("We couldn’t save your request. Please try again, or contact us on WhatsApp.");
+      setSubmitError("We couldn’t save your request. Please try again.");
     } finally {
       setSubmitting(false);
     }
@@ -216,10 +198,7 @@ export default function DemoEnquiryForm() {
           {submitted && (
             <p role="status" className="mt-5 flex items-center gap-2 rounded-xl bg-[#e9f8ef] px-4 py-3 text-[14px] font-semibold text-[#187347]">
               <CheckCircle aria-hidden="true" weight="fill" className="size-5" />
-              <span>
-                Your request is saved. WhatsApp should open next. If it doesn’t, {" "}
-                <a className="underline underline-offset-2" href={submittedWhatsAppUrl} target="_blank" rel="noreferrer">continue to WhatsApp</a>.
-              </span>
+              Your request is saved. Our team will contact you shortly.
             </p>
           )}
 
