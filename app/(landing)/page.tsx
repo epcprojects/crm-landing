@@ -27,14 +27,17 @@ export const metadata: Metadata = {
     title: "Real Estate CRM for Leads, Agents & Follow-Ups | Endpoint Leads",
     description:
       "Manage leads, agents, client conversations, projects and follow-ups from one web-based real estate CRM.",
-    images: [{ url: "/opengraph-image.jpg", width: 1200, height: 630, alt: "Endpoint Leads real estate CRM" }],
+    images: [
+      { url: "/og/og-wide.jpg", width: 1200, height: 630, type: "image/jpeg", alt: "Endpoint Leads real estate CRM on a laptop and phone" },
+      { url: "/og/og-square.jpg", width: 1080, height: 1080, type: "image/jpeg", alt: "Endpoint Leads real estate CRM on a laptop and phone" },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Real Estate CRM for Leads, Agents & Follow-Ups | Endpoint Leads",
     description:
       "Manage leads, agents, client conversations, projects and follow-ups from one web-based real estate CRM.",
-    images: ["/twitter-image.jpg"],
+    images: [{ url: "/og/og-wide.jpg", alt: "Endpoint Leads real estate CRM on a laptop and phone" }],
   },
 };
 

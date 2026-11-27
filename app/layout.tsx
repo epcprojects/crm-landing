@@ -34,8 +34,9 @@ export const metadata: Metadata = {
   creator: "Endpoint Clients",
   publisher: "Endpoint Clients",
   category: "Business software",
-  // link previews on WhatsApp, Facebook, LinkedIn, X and Slack; the picture comes from
-  // app/opengraph-image.jpg and app/twitter-image.jpg (1200 × 630)
+  // link previews on WhatsApp, Facebook, LinkedIn, X and Slack. The wide image comes first,
+  // so apps that show a big preview use it (text left, laptop and phone right); the square
+  // one (text on top, devices below) is there for apps that prefer a square picture.
   openGraph: {
     type: "website",
     siteName: "Endpoint Leads",
@@ -44,14 +45,34 @@ export const metadata: Metadata = {
       "Manage your complete real estate business from one place: leads, agents, projects and follow-ups in one CRM.",
     locale: "en_US",
     url: "/",
-    images: [{ url: "/opengraph-image.jpg", width: 1200, height: 630, alt: "Endpoint Leads real estate CRM" }],
+    images: [
+      {
+        url: "/og/og-wide.jpg",
+        width: 1200,
+        height: 630,
+        type: "image/jpeg",
+        alt: "Endpoint Leads real estate CRM: the web dashboard on a laptop and the mobile app on a phone, with the headline: Manage your complete real estate business from one place.",
+      },
+      {
+        url: "/og/og-square.jpg",
+        width: 1080,
+        height: 1080,
+        type: "image/jpeg",
+        alt: "Endpoint Leads real estate CRM: the headline Manage your complete real estate business from one place, above the web dashboard on a laptop and the mobile app on a phone.",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Endpoint Leads | Real estate CRM for your whole office",
     description:
       "Manage your complete real estate business from one place: leads, agents, projects and follow-ups in one CRM.",
-    images: ["/twitter-image.jpg"],
+    images: [
+      {
+        url: "/og/og-wide.jpg",
+        alt: "Endpoint Leads real estate CRM: the web dashboard on a laptop and the mobile app on a phone, with the headline: Manage your complete real estate business from one place.",
+      },
+    ],
   },
   // favicon.ico (16, 32, 48) comes from app/favicon.ico; the manifest from app/manifest.ts
   icons: {

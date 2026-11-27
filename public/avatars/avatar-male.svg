@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <clipPath id="m-circle"><circle cx="256" cy="256" r="256"/></clipPath>
+  </defs>
+  <g clip-path="url(#m-circle)">
+    <!-- soft blue circle with a lighter crescent on the right -->
+    <rect width="512" height="512" fill="#bed7f8"/>
+    <circle cx="232" cy="256" r="250" fill="#cde1fb"/>
+    <!-- neck -->
+    <path d="M214 262h84v80c0 18-19 30-42 30s-42-12-42-30z" fill="#f9cdbd"/>
+    <!-- ears -->
+    <circle cx="170" cy="206" r="18" fill="#f9cdbd"/>
+    <circle cx="342" cy="206" r="18" fill="#f9cdbd"/>
+    <!-- face, with a soft shadow on the right -->
+    <rect x="172" y="112" width="168" height="188" rx="76" fill="#fddccd"/>
+    <path d="M256 300c46 0 84-36 84-82v-28h-28v28c0 46-30 80-56 82z" fill="#fbcab8"/>
+    <!-- hair -->
+    <path d="M168 196v-50c0-58 42-84 92-84 30 0 46 8 56 18 24 2 38 22 38 54v62l-20-14v-42c-38 12-104 12-146-2v42z" fill="#335a7a"/>
+    <path d="M290 64c26 0 64 14 64 70v62l-20-14v-42c-10 3-22 5-34 6z" fill="#2a4b67"/>
+    <!-- suit -->
+    <path d="M52 520c0-108 54-168 204-180 150 12 204 72 204 180z" fill="#4a7fa8"/>
+    <path d="M256 340c150 12 204 72 204 180H256z" fill="#3f6f95"/>
+    <!-- shirt -->
+    <path d="M206 336l50 78 50-78c-16-4-32-6-50-6s-34 2-50 6z" fill="#eef5fd"/>
+    <!-- lapels -->
+    <path d="M206 336l-30 14 50 118 30-54z" fill="#335a7a"/>
+    <path d="M306 336l30 14-50 118-30-54z" fill="#2a4b67"/>
+    <!-- tie -->
+    <path d="M242 380h28l-4 18h-20z" fill="#d9555f"/>
+    <path d="M246 398h20l12 66-22 34-22-34z" fill="#e5737a"/>
+  </g>
+</svg>

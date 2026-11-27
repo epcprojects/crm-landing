@@ -1,12 +1,11 @@
 "use client";
 
-// Option 2 "Features": every feature as one row in a plain scrolling list.
-// Each row has a soft clay icon on the left, its title, a short description
-// and tags, and its photo on the right (under the tags on phones). Every row
-// is always open; hovering only lifts the icon and zooms the photo.
+// The "Features" section: every feature on a simple white card with a gray
+// border, two per row from laptops up and one per row on phones and tablets.
+// Each has a soft clay icon, its title, a short description and white tags.
 //
-// Photos are AI-made (public/option-2/feat-*.webp) and every name in them is
-// sample data, like the rest of the site.
+// The photo fields below (public/option-2/feat-*.webp) are kept with each
+// feature but not shown at the moment.
 
 import Image from "next/image";
 
@@ -35,8 +34,8 @@ const features: Feature[] = [
     tint: "#8b6fe0",
   },
   {
-    title: "Follow-ups and reminders for every activity",
-    line: "Calls, site visits and payments each get a reminder with a date and an owner. Late ones turn red before a client goes cold.",
+    title: "Reminders for every follow-up",
+    line: "Calls, visits and payments each get a reminder with an owner. Late ones turn red before a client goes cold.",
     tags: ["Calls", "Site visits", "Payments"],
     icon: "/option-2/feat-soft-2.webp",
     photo: "/option-2/feat-2.webp",
@@ -56,7 +55,7 @@ const features: Feature[] = [
   },
   {
     title: "Unlimited project creation",
-    line: "Add every society, tower and phase you sell. Each project keeps its own leads, units and agents, with no limit on how many.",
+    line: "Add every society, tower and phase you sell. Each keeps its own leads, units and agents, with no limit.",
     tags: ["Societies", "Towers and phases", "No limits"],
     icon: "/option-2/feat-soft-8.webp",
     photo: "/option-2/feat-8.webp",
@@ -96,7 +95,7 @@ const features: Feature[] = [
   },
   {
     title: "Business KPI tracking",
-    line: "Track reply times, conversion and monthly targets on one screen, and spot a slow week before it becomes a slow month.",
+    line: "See reply times, conversion and monthly targets on one screen, and catch a slow week early.",
     tags: ["Reply time", "Conversion", "Targets"],
     icon: "/option-2/feat-soft-10.webp",
     photo: "/option-2/feat-10.webp",
@@ -152,10 +151,10 @@ export default function FeaturesList() {
   return (
     <section id="benefits" aria-labelledby="features-heading" className="scroll-mt-28 px-4 py-8 sm:px-10 sm:py-24">
       <div className="mx-auto flex max-w-6xl flex-col gap-10 sm:gap-20">
-        {/* the pill and heading on the left, the description on the right,
-            its last line level with the heading’s last line */}
-        <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-end lg:gap-10">
-          <div className="flex flex-col items-start gap-3 sm:gap-4">
+        {/* the pill, heading and description stacked: centred from tablets up,
+            left-aligned on phones */}
+        <div className="flex flex-col items-start gap-4 sm:items-center sm:text-center">
+          <div className="flex flex-col items-start gap-3 sm:items-center sm:gap-4">
             <span className="rounded-full bg-[#f3f4f6] px-3 py-1.5 text-[12.5px] font-medium text-[#111113] sm:text-[13px]">Features</span>
             <h2 id="features-heading" className="text-[1.75rem] font-semibold leading-[1.05] tracking-[-0.04em] text-balance sm:text-[clamp(2.1rem,4.4vw,3.25rem)] sm:text-wrap">
               {/* two lines from tablets up: the first line never breaks */}
@@ -175,17 +174,18 @@ export default function FeaturesList() {
               </span>
             </h2>
           </div>
-          <p className="max-w-[34rem] text-[15px] leading-relaxed text-[#5b5b63] sm:text-[17px] lg:max-w-[22rem] lg:pb-1">
+          <p className="max-w-[34rem] text-[15px] leading-relaxed text-[#5b5b63] sm:text-[17px] sm:text-balance">
             One CRM for your leads, agents, projects and numbers, with real people to help your team get started.
           </p>
         </div>
 
-        {/* the list: every row stays open */}
-        <ul className="border-t border-black/[0.08]">
+        {/* the cards, all the same height: two per row from laptops up, one per row on phones and tablets */}
+        <ul className="grid auto-rows-fr gap-3 sm:gap-4 lg:grid-cols-2 lg:gap-5">
           {features.map((f) => (
-            <li key={f.title} className="group relative flex items-center border-b border-black/[0.08] py-6 sm:gap-5 sm:py-8 lg:min-h-[324px]">
-              <div className="flex min-w-0 flex-1 items-start gap-4 sm:gap-5 lg:pr-[380px]">
-                {/* the clay icon, lined up with the top of the text block */}
+            // a light gray card with a soft border; every card is the same height
+            <li key={f.title} className="group flex rounded-[20px] border border-[#eceef2] bg-[#f6f7f9] p-5 transition-colors duration-300 hover:border-[#d9dce3] sm:rounded-[24px] sm:p-7">
+              <div className="flex min-w-0 flex-1 items-start gap-4 sm:gap-5">
+                {/* the clay icon on its soft tinted tile, lined up with the top of the text */}
                 <span
                   className={`grid size-12 flex-none place-items-center rounded-2xl transition-transform duration-300 ${ease} group-hover:scale-105 sm:size-14`}
                   style={{ backgroundColor: `color-mix(in srgb, ${f.tint} 14%, white)` }}
@@ -193,29 +193,18 @@ export default function FeaturesList() {
                   <Image src={f.icon} alt="" width={96} height={96} className="size-9 drop-shadow-[0_4px_6px_rgba(17,17,19,0.12)] sm:size-11" />
                 </span>
                 {/* the title, description and tags in one block */}
-                <div className="flex min-w-0 flex-1 flex-col">
+                <div className="flex min-w-0 flex-1 flex-col self-stretch">
                   <h3 className="text-[17px] font-semibold leading-snug tracking-[-0.02em] text-[#111113] sm:text-[22px]">{f.title}</h3>
-                  <p className="pt-1 text-[14px] leading-relaxed text-[#5b5b63] sm:max-w-[34rem] sm:text-[15.5px]">{f.line}</p>
-                  <ul className="flex flex-wrap gap-1.5 pt-2.5 sm:gap-2">
+                  <p className="pt-1 text-[14px] leading-relaxed text-[#5b5b63] sm:text-[15.5px] xl:line-clamp-2">{f.line}</p>
+                  <ul className="mt-auto flex flex-wrap gap-1.5 pt-3.5 sm:gap-2">
                     {f.tags.map((t) => (
-                      <li key={t} className="rounded-full bg-[#f3f4f6] px-3 py-1 text-[12px] font-medium text-[#3d3d44] sm:text-[13px]">
+                      <li key={t} className="rounded-full bg-white px-3 py-1 text-[12px] font-medium text-[#3d3d44] shadow-[0_0_0_1px_rgba(16,24,40,0.06)] sm:text-[13px]">
                         {t}
                       </li>
                     ))}
                   </ul>
-                  {/* on phones and tablets the photo sits under the tags */}
-                  <span className="relative mt-4 block aspect-[4/3] w-full max-w-[420px] overflow-hidden rounded-2xl lg:hidden">
-                    <Image src={f.photo} alt={f.alt} fill sizes="(min-width: 640px) 420px, 90vw" style={{ objectPosition: f.focus }} className="object-cover" />
-                  </span>
                 </div>
               </div>
-
-              {/* on computers the photo sits on the right edge and fills the
-                  row's height, leaving a small gap above and below */}
-              <span className="pointer-events-none absolute inset-y-8 right-0 hidden w-[340px] overflow-hidden rounded-2xl shadow-[0_24px_60px_-24px_rgba(17,17,19,0.45)] lg:block">
-                <Image src={f.photo} alt={f.alt} fill sizes="340px" style={{ objectPosition: f.focus }} className={`object-cover transition-transform duration-500 ${ease} group-hover:scale-[1.04]`} />
-              </span>
-
             </li>
           ))}
         </ul>
