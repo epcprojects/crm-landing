@@ -1,11 +1,11 @@
 // Option 2 testimonials: a dark section with a pill, a headline with a hand-
 // drawn loop round one word, a short line and button on the right, then a
-// three-column grid of review cards: one big quote, one quote with a photo,
-// and a stack of smaller cards. The quotes are the same sample reviews used
+// grid of review cards lined up with the three numbers below: one big quote (two columns) and
+// a column of smaller cards drifting upward. The quotes are the same sample reviews used
 // elsewhere on the site.
 
 import Image from "next/image";
-import { Play, Star } from "@phosphor-icons/react/dist/ssr";
+import { Star } from "@phosphor-icons/react/dist/ssr";
 import { DemoButton } from "./demo-button";
 
 function Stars() {
@@ -21,7 +21,7 @@ function Stars() {
 function Person({ src, name, office }: { src: string; name: string; office: string }) {
   return (
     <span className="flex items-center gap-3">
-      <Image src={src} alt="" width={48} height={48} className="size-12 rounded-full object-cover" />
+      <Image src={src} alt="" width={48} height={48} unoptimized={src.endsWith(".svg")} className="size-12 rounded-full object-cover" />
       <span>
         <span className="block text-[16px] font-medium text-white">{name}</span>
         <span className="block text-[14px] text-white/50">{office}</span>
@@ -32,12 +32,21 @@ function Person({ src, name, office }: { src: string; name: string; office: stri
 
 const card = "rounded-[20px] bg-[#1e2633] p-5 sm:rounded-[24px] sm:p-7";
 
-// reviews in the scrolling column (the same sample quotes as the home page)
+const MALE = "/avatars/avatar-male.svg";
+const FEMALE = "/avatars/avatar-female.svg";
+
+// reviews in the scrolling column, men and women mixed in a loose order
+// (sample quotes and names, like the rest of the site)
 const scrolling = [
-  { quote: "I stopped keeping next steps in my head. The system tells each agent who to call today.", name: "Ayesha Malik", avatar: "/avatars/ayesha-malik.jpg", office: "Malik Properties, Rawalpindi" },
-  { quote: "One file per client, with every WhatsApp conversation in it. Handing over a client is no longer a problem.", name: "Maryam Shah", avatar: "/avatars/maryam-shah.jpg", office: "Shah Realty, Lahore" },
-  { quote: "We moved our clients in and were running in days. The team picked it up without any training.", name: "Sana Tariq", avatar: "/avatars/sana-tariq.jpg", office: "Bahria Homes, Islamabad" },
-  { quote: "Interested buyers used to go quiet before we noticed. Now late follow-ups stand out immediately.", name: "Usman Qureshi", avatar: "/avatars/usman-qureshi.jpg", office: "Qureshi & Co, Karachi" },
+  { quote: "Interested buyers used to go quiet before we noticed. Now late follow-ups stand out immediately.", name: "Usman Qureshi", avatar: MALE, office: "Qureshi & Co, Karachi" },
+  { quote: "I stopped keeping next steps in my head. The system tells each agent who to call today.", name: "Ayesha Malik", avatar: FEMALE, office: "Malik Properties, Rawalpindi" },
+  { quote: "Site visits used to clash between agents. Now the whole team works from the same calendar.", name: "Faisal Iqbal", avatar: MALE, office: "Iqbal Estates, Faisalabad" },
+  { quote: "Our agents update leads from the site itself. The office sees it before they are back.", name: "Hamza Sheikh", avatar: MALE, office: "Sheikh Builders, Multan" },
+  { quote: "One file per client, with every WhatsApp conversation in it. Handing over a client is no longer a problem.", name: "Maryam Shah", avatar: FEMALE, office: "Shah Realty, Lahore" },
+  { quote: "We finally know which projects bring buyers and which only bring questions.", name: "Kamran Akhtar", avatar: MALE, office: "Akhtar Developers, Islamabad" },
+  { quote: "We moved our clients in and were running in days. The team picked it up without any training.", name: "Sana Tariq", avatar: FEMALE, office: "Bahria Homes, Islamabad" },
+  { quote: "Agents see only their own clients, and I see the whole office. That alone was worth it.", name: "Nadia Hussain", avatar: FEMALE, office: "Hussain Properties, Karachi" },
+  { quote: "Quotations go out the same day now. Nothing waits in someone's inbox any more.", name: "Imran Butt", avatar: MALE, office: "Butt & Sons Realty, Gujranwala" },
 ];
 
 // numbers from the home page, each with a clay icon
@@ -92,39 +101,21 @@ export default function Testimonials() {
 
         {/* review grid */}
         <div className="grid gap-3 sm:gap-4 lg:grid-cols-3">
-          {/* one big quote */}
-          <figure className={`${card} flex flex-col justify-between gap-6 sm:min-h-[420px] sm:gap-10`}>
+          {/* one big quote, as wide as the first two number cards below */}
+          <figure className={`${card} flex flex-col justify-between gap-6 sm:min-h-[420px] sm:gap-10 lg:col-span-2`}>
             <div className="flex flex-col gap-6">
               <Stars />
-              <blockquote className="text-[1.3rem] sm:text-[clamp(1.5rem,2.4vw,1.9rem)] font-medium leading-[1.25] tracking-[-0.02em]">
+              <blockquote className="text-[1.5rem] sm:text-[clamp(1.9rem,3.2vw,2.6rem)] font-medium leading-[1.2] tracking-[-0.025em]">
                 &ldquo;For the first time I can see who is closing and who is slow to reply, without asking anyone.&rdquo;
               </blockquote>
             </div>
-            <Person src="/avatars/bilal-ahmed.jpg" name="Bilal Ahmed" office="City Rentals, Lahore" />
-          </figure>
-
-          {/* a quote with a video still, like a recorded review */}
-          <figure className={`${card} flex flex-col gap-5`}>
-            <Stars />
-            <blockquote className="text-[15px] leading-relaxed text-white/90 sm:text-[16px]">
-              &ldquo;Clients used to wait hours for an answer. Now every enquiry has an owner and gets a reply the same hour.&rdquo;
-            </blockquote>
-            <div className="relative min-h-[280px] flex-1 overflow-hidden rounded-[16px] sm:min-h-[340px] sm:rounded-[18px]">
-              <Image src="/option-2/review-video-camera.webp" alt="Fatima Raza from Raza Estates talking to the camera" fill sizes="(min-width: 1024px) 360px, 100vw" className="object-cover" />
-              <span aria-hidden="true" className="absolute left-1/2 top-1/2 grid size-[72px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-white/70 bg-white/80 text-[#111113] shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)] backdrop-blur-md">
-                <Play weight="fill" className="ml-1 size-7" />
-              </span>
-              <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent px-4 pb-3.5 pt-10">
-                <span className="block text-[15px] font-medium text-white">Fatima Raza</span>
-                <span className="block text-[13px] text-white/70">Raza Estates, Islamabad</span>
-              </figcaption>
-            </div>
+            <Person src={MALE} name="Bilal Ahmed" office="City Rentals, Lahore" />
           </figure>
 
           {/* quote cards drifting upward in a loop; the list is doubled so
               the loop has no seam, and the copy is hidden from screen readers */}
           <div className="ticker-y-box relative h-[440px] overflow-hidden sm:h-[520px] lg:h-auto">
-            <div className="ticker-y flex flex-col gap-3 sm:gap-4 lg:absolute lg:inset-x-0 lg:top-0">
+            <div className="ticker-y flex flex-col gap-3 sm:gap-4 lg:absolute lg:inset-x-0 lg:top-0" style={{ animationDuration: `${scrolling.length * 7.5}s` }}>
               {[...scrolling, ...scrolling].map((r, i) => (
                 <figure key={i} aria-hidden={i >= scrolling.length} className={`${card} flex flex-col gap-6`}>
                   <div className="flex flex-col gap-4">

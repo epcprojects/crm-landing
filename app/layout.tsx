@@ -28,11 +28,11 @@ export const metadata: Metadata = {
   description:
     "Manage your real estate clients and agents from one workspace. See who spoke to each client, what was discussed, and what needs attention next.",
   applicationName: "Endpoint Leads",
-  // the site's public address, so share images get full links; set NEXT_PUBLIC_SITE_URL
-  // (e.g. https://endpointleads.com) – on Vercel the production address is used when it is unset
-  ...(process.env.NEXT_PUBLIC_SITE_URL ? { metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL) } : {}),
-  // link previews on WhatsApp, Facebook, LinkedIn, X and Slack; the picture comes from
-  // app/opengraph-image.jpg and app/twitter-image.jpg (1200 × 630)
+  // the site's public address, so share images get full links (NEXT_PUBLIC_SITE_URL can override it)
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.endpointleads.com"),
+  // link previews on WhatsApp, Facebook, LinkedIn, X and Slack. The wide image comes first,
+  // so apps that show a big preview use it (text left, laptop and phone right); the square
+  // one (text on top, devices below) is there for apps that prefer a square picture.
   openGraph: {
     type: "website",
     siteName: "Endpoint Leads",
@@ -40,12 +40,34 @@ export const metadata: Metadata = {
     description:
       "Manage your complete real estate business from one place: leads, agents, projects and follow-ups in one CRM.",
     locale: "en_US",
+    images: [
+      {
+        url: "/og/og-wide.jpg",
+        width: 1200,
+        height: 630,
+        type: "image/jpeg",
+        alt: "Endpoint Leads real estate CRM: the web dashboard on a laptop and the mobile app on a phone, with the headline: Manage your complete real estate business from one place.",
+      },
+      {
+        url: "/og/og-square.jpg",
+        width: 1080,
+        height: 1080,
+        type: "image/jpeg",
+        alt: "Endpoint Leads real estate CRM: the headline Manage your complete real estate business from one place, above the web dashboard on a laptop and the mobile app on a phone.",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Endpoint Leads | Real estate CRM for your whole office",
     description:
       "Manage your complete real estate business from one place: leads, agents, projects and follow-ups in one CRM.",
+    images: [
+      {
+        url: "/og/og-wide.jpg",
+        alt: "Endpoint Leads real estate CRM: the web dashboard on a laptop and the mobile app on a phone, with the headline: Manage your complete real estate business from one place.",
+      },
+    ],
   },
   // favicon.ico (16, 32, 48) comes from app/favicon.ico; the manifest from app/manifest.ts
   icons: {

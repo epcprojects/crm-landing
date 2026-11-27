@@ -447,13 +447,13 @@ export default function OptionTwoPage() {
             </div>
           </section>
 
+          {/* features: every feature on a card, two per row */}
+          <FeaturesList />
+          {/* the old "why Endpoint Leads" card deck, hidden for now */}
+          {SHOW_WHY_COPY && <WhyStackCopy />}
+
           {/* reviews, laid out like the reference: dark, three columns */}
           <Testimonials />
-
-          {/* why Endpoint Leads: a sticky card deck like the reference */}
-          <FeaturesList />
-          {/* the duplicate of the card deck above, hidden for now */}
-          {SHOW_WHY_COPY && <WhyStackCopy />}
 
           {/* plans */}
           <section id="plans" className="scroll-mt-28 px-4 py-8 sm:px-10 sm:py-24">
