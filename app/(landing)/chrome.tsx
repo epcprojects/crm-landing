@@ -129,7 +129,7 @@ export function Option2Footer({ onLanding = false }: { onLanding?: boolean }) {
           <span>
             © 2026 Endpoint Leads <span aria-hidden="true" className="mx-2 inline-block size-1 rounded-full bg-[#5b5b63] align-middle" /> A product of{" "}
             <a
-              href="https://www.endpointleads.com/"
+              href="https://www.endpointclients.com/"
               target="_blank"
               rel="noopener noreferrer"
               className="group font-semibold text-[#111113] transition-colors hover:text-[#0891b3]"
