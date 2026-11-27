@@ -185,12 +185,11 @@ export default function FeaturesList() {
             // a light gray card with a soft border; every card is the same height
             <li key={f.title} className="group flex rounded-[20px] border border-[#eceef2] bg-[#f6f7f9] p-5 transition-colors duration-300 hover:border-[#d9dce3] sm:rounded-[24px] sm:p-7">
               <div className="flex min-w-0 flex-1 items-start gap-4 sm:gap-5">
-                {/* the clay icon on its soft tinted tile, lined up with the top of the text */}
+                {/* the clay icon on a white tile with a light gray border, lined up with the top of the text */}
                 <span
-                  className={`grid size-12 flex-none place-items-center rounded-2xl transition-transform duration-300 ${ease} group-hover:scale-105 sm:size-14`}
-                  style={{ backgroundColor: `color-mix(in srgb, ${f.tint} 14%, white)` }}
+                  className={`grid size-12 flex-none place-items-center rounded-2xl border border-[#e6e8ec] bg-white transition-transform duration-300 ${ease} group-hover:scale-105 sm:size-14`}
                 >
-                  <Image src={f.icon} alt="" width={96} height={96} className="size-9 drop-shadow-[0_4px_6px_rgba(17,17,19,0.12)] sm:size-11" />
+                  <Image src={f.icon} alt="" width={96} height={96} className="size-7 drop-shadow-[0_4px_6px_rgba(17,17,19,0.12)] sm:size-9" />
                 </span>
                 {/* the title, description and tags in one block */}
                 <div className="flex min-w-0 flex-1 flex-col self-stretch">
