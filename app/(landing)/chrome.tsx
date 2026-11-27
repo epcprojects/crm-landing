@@ -127,14 +127,14 @@ export function Option2Footer({ onLanding = false }: { onLanding?: boolean }) {
         {/* centred on phones; from tablets up, one line at each end */}
         <div className="flex flex-col justify-between gap-2 border-t border-black/[0.08] pt-4 text-center text-[12.5px] text-[#5b5b63] sm:flex-row sm:gap-3 sm:pt-6 sm:text-left sm:text-[13px]">
           <span>
-            © 2026 Endpoint Leads · Built by{" "}
+            © 2026 Endpoint Leads <span aria-hidden="true" className="mx-2 inline-block size-1 rounded-full bg-[#5b5b63] align-middle" /> A product of{" "}
             <a
               href="https://www.endpointleads.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-medium text-[#111113] underline decoration-black/20 underline-offset-4 transition-colors hover:decoration-[#111113]"
+              className="group font-semibold text-[#111113] transition-colors hover:text-[#0891b3]"
             >
-              Endpoint Clients
+              <span className="underline decoration-black/25 underline-offset-4 transition-colors group-hover:decoration-current">Endpoint Clients</span>
             </a>
           </span>
           <span>Made for real estate offices in Pakistan</span>

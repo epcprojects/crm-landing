@@ -44,8 +44,9 @@ a[href],
   cursor: pointer;
 }
 
+/* selected text takes the logo's teal */
 ::selection {
-  background: var(--brand);
+  background: #0891b3;
   color: #fff;
 }
 

@@ -2,8 +2,8 @@
 
 // A floating offer ticket at the bottom centre of Option 2: the year-end
 // "Save 25%" offer, a live countdown to 31 December 2026 and a button that
-// opens the demo popup. It slides up once the hero has scrolled away, slides
-// back down at the hero, and steps aside while the footer is on screen.
+// opens the demo popup. It slides up once half of the hero has scrolled away,
+// slides back down above that point, and steps aside while the footer is on screen.
 
 import { useEffect, useState } from "react";
 import { ArrowRight, SealPercent } from "@phosphor-icons/react/dist/ssr";
@@ -74,15 +74,25 @@ export default function FloatingDock() {
   useEffect(() => {
     const hero = document.querySelector("main section");
     const footer = document.querySelector("footer");
+    // shown once half of the hero has scrolled up out of view, hidden again
+    // as soon as the reader scrolls back above that halfway line
+    const onScroll = () => {
+      if (!hero) return;
+      const r = hero.getBoundingClientRect();
+      setPastHero(r.bottom < r.height / 2);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
     const io = new IntersectionObserver((entries) => {
-      for (const e of entries) {
-        if (e.target === hero) setPastHero(!e.isIntersecting);
-        if (e.target === footer) setAtFooter(e.isIntersecting);
-      }
+      for (const e of entries) if (e.target === footer) setAtFooter(e.isIntersecting);
     });
-    if (hero) io.observe(hero);
     if (footer) io.observe(footer);
-    return () => io.disconnect();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      io.disconnect();
+    };
   }, []);
 
   // once the offer has ended there is nothing to show

@@ -1,8 +1,8 @@
 "use client";
 
 // The "Features" section: every feature on a simple white card with a gray
-// border, two per row from laptops up and one per row on phones and tablets.
-// Each has a soft clay icon, its title, a short description and white tags.
+// border, three per row from laptops up, two on tablets and one on phones.
+// Each has a soft clay icon on top, then its title, a short description and white tags.
 //
 // The photo fields below (public/option-2/feat-*.webp) are kept with each
 // feature but not shown at the moment.
@@ -24,7 +24,7 @@ type Feature = {
 
 const features: Feature[] = [
   {
-    title: "Complete leads and clients management",
+    title: "Leads and clients management",
     line: "Every enquiry lands on one file with its project, agent, calls and WhatsApp chats, so nothing gets lost between agents.",
     tags: ["One file per client", "Calls and WhatsApp", "Full history"],
     icon: "/option-2/feat-soft-1.webp",
@@ -179,22 +179,22 @@ export default function FeaturesList() {
           </p>
         </div>
 
-        {/* the cards, all the same height: two per row from laptops up, one per row on phones and tablets */}
-        <ul className="grid auto-rows-fr gap-3 sm:gap-4 lg:grid-cols-2 lg:gap-5">
+        {/* the cards, all the same height: three per row from laptops up, two on tablets, one on phones */}
+        <ul className="grid auto-rows-fr gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 lg:gap-5">
           {features.map((f) => (
             // a light gray card with a soft border; every card is the same height
-            <li key={f.title} className="group flex rounded-[20px] border border-[#eceef2] bg-[#f6f7f9] p-5 transition-colors duration-300 hover:border-[#d9dce3] sm:rounded-[24px] sm:p-7">
-              <div className="flex min-w-0 flex-1 items-start gap-4 sm:gap-5">
-                {/* the clay icon on a white tile with a light gray border, lined up with the top of the text */}
+            <li key={f.title} className="group flex rounded-[20px] border border-[#eceef2] bg-[#f6f7f9] p-5 transition-colors duration-300 hover:border-[#d9dce3] sm:rounded-[24px] sm:p-6">
+              <div className="flex min-w-0 flex-1 flex-col">
+                {/* the clay icon on a white tile with a light gray border, above the title */}
                 <span
                   className={`grid size-12 flex-none place-items-center rounded-2xl border border-[#e6e8ec] bg-white transition-transform duration-300 ${ease} group-hover:scale-105 sm:size-14`}
                 >
                   <Image src={f.icon} alt="" width={96} height={96} className="size-7 drop-shadow-[0_4px_6px_rgba(17,17,19,0.12)] sm:size-9" />
                 </span>
                 {/* the title, description and tags in one block */}
-                <div className="flex min-w-0 flex-1 flex-col self-stretch">
-                  <h3 className="text-[17px] font-semibold leading-snug tracking-[-0.02em] text-[#111113] sm:text-[22px]">{f.title}</h3>
-                  <p className="pt-1 text-[14px] leading-relaxed text-[#5b5b63] sm:text-[15.5px] xl:line-clamp-2">{f.line}</p>
+                <div className="flex min-w-0 flex-1 flex-col pt-4 sm:pt-5">
+                  <h3 className="text-[17px] font-semibold leading-snug tracking-[-0.02em] text-[#111113] sm:text-[19px]">{f.title}</h3>
+                  <p className="pt-1.5 text-[14px] leading-relaxed text-[#5b5b63] sm:text-[15px]">{f.line}</p>
                   <ul className="mt-auto flex flex-wrap gap-1.5 pt-3.5 sm:gap-2">
                     {f.tags.map((t) => (
                       <li key={t} className="rounded-full bg-white px-3 py-1 text-[12px] font-medium text-[#3d3d44] shadow-[0_0_0_1px_rgba(16,24,40,0.06)] sm:text-[13px]">
